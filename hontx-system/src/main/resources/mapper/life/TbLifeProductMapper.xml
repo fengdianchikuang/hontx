@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.life.mapper.TbLifeProductMapper">
+
+    <resultMap type="TbLifeProduct" id="TbLifeProductResult">
+        <result property="id"    column="id"    />
+        <result property="productname"    column="productName"    />
+        <result property="productno"    column="productNo"    />
+        <result property="producttype"    column="productType"    />
+        <result property="insrnccpy"    column="insrncCpy"    />
+        <result property="url"    column="url"    />
+        <result property="status"    column="status"    />
+        <result property="createtime"    column="createTime"    />
+        <result property="updatetime"    column="updateTime"    />
+    </resultMap>
+
+    <sql id="selectTbLifeProductVo">
+        select id, productName, productType, insrncCpy, url, status, createTime, updateTime from tb_life_product
+    </sql>
+    <select id="queryList" resultMap="TbLifeProductResult">
+        select id, productName,productNo, productType, insrncCpy, url, status, createTime, updateTime from tb_life_product
+    </select>
+    <select id="selectTbLifeProductList" parameterType="TbLifeProduct" resultMap="TbLifeProductResult">
+        <include refid="selectTbLifeProductVo"/>
+        <where>
+            <if test="productname != null  and productname != ''"> and productName like concat('%', #{productname}, '%')</if>
+            <if test="producttype != null  and producttype != ''"> and productType = #{producttype}</if>
+            <if test="insrnccpy != null  and insrnccpy != ''"> and insrncCpy like concat('%', #{insrnccpy}, '%'}</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
+        </where>
+    </select>
+
+    <select id="selectTbLifeProductById" parameterType="Long" resultMap="TbLifeProductResult">
+        <include refid="selectTbLifeProductVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertTbLifeProduct" parameterType="TbLifeProduct" useGeneratedKeys="true" keyProperty="id">
+        insert into tb_life_product
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="productname != null">productName,</if>
+            <if test="productno != null">productNo,</if>
+            <if test="producttype != null">productType,</if>
+            <if test="insrnccpy != null">insrncCpy,</if>
+            <if test="url != null">url,</if>
+            <if test="status != null">status,</if>
+            <if test="createtime != null">createTime,</if>
+            <if test="updatetime != null">updateTime,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="productname != null">#{productname},</if>
+            <if test="productno != null">#{productno},</if>
+            <if test="producttype != null">#{producttype},</if>
+            <if test="insrnccpy != null">#{insrnccpy},</if>
+            <if test="url != null">#{url},</if>
+            <if test="status != null">#{status},</if>
+            <if test="createtime != null">#{createtime},</if>
+            <if test="updatetime != null">#{updatetime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTbLifeProduct" parameterType="TbLifeProduct">
+        update tb_life_product
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="productname != null">productName = #{productname},</if>
+            <if test="productno != null">productNo = #{productno},</if>
+            <if test="producttype != null">productType = #{producttype},</if>
+            <if test="insrnccpy != null">insrncCpy = #{insrnccpy},</if>
+            <if test="url != null">url = #{url},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="createtime != null">createTime = #{createtime},</if>
+            <if test="updatetime != null">updateTime = #{updatetime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTbLifeProductById" parameterType="Long">
+        delete from tb_life_product where id = #{id}
+    </delete>
+
+    <delete id="deleteTbLifeProductByIds" parameterType="String">
+        delete from tb_life_product where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.platform.mapper.PlatformMapper">
+
+    <resultMap type="Platform" id="PlatformResult">
+        <result property="id"    column="id"    />
+        <result property="frameNo"    column="frame_no"    />
+        <result property="ownerId"    column="owner_id"    />
+        <result property="ncd"    column="ncd"    />
+        <result property="trafficTransgressRate"    column="traffic_transgress_rate"    />
+        <result property="channelRate"    column="channel_rate"    />
+        <result property="underwritingRate"    column="underwriting_rate"    />
+        <result property="priceRate"    column="price_rate"    />
+        <result property="insureYears"    column="insure_years"    />
+        <result property="tciScore"    column="tci_score"    />
+        <result property="vciScore"    column="vci_score"    />
+        <result property="tciExpectPayoutRatio"    column="tci_expect_payout_ratio"    />
+        <result property="vciExpectPayoutRatio"    column="vci_expect_payout_ratio"    />
+        <result property="ncdLevel"    column="ncd_level"    />
+        <result property="claimTimes"    column="claim_times"    />
+        <result property="totalScore"    column="total_score"    />
+    </resultMap>
+
+    <sql id="selectPlatformVo">
+        select id, frame_no, owner_id, ncd, traffic_transgress_rate, channel_rate, underwriting_rate, price_rate, insure_years, tci_score, vci_score, tci_expect_payout_ratio, vci_expect_payout_ratio, ncd_level, claim_times, total_score from tb_platform
+    </sql>
+<!--    根据车架查找平台信息-->
+    <select id="findByFrameNo" resultMap="PlatformResult">
+        <include refid="selectPlatformVo"/>
+        where frame_no = #{frameNo}
+    </select>
+    <select id="selectPlatformList" parameterType="Platform" resultMap="PlatformResult">
+        <include refid="selectPlatformVo"/>
+        <where>
+            <if test="frameNo != null  and frameNo != ''"> and frame_no = #{frameNo}</if>
+            <if test="ownerId != null "> and owner_id = #{ownerId}</if>
+            <if test="ncd != null  and ncd != ''"> and ncd = #{ncd}</if>
+            <if test="trafficTransgressRate != null  and trafficTransgressRate != ''"> and traffic_transgress_rate = #{trafficTransgressRate}</if>
+            <if test="channelRate != null  and channelRate != ''"> and channel_rate = #{channelRate}</if>
+            <if test="underwritingRate != null  and underwritingRate != ''"> and underwriting_rate = #{underwritingRate}</if>
+            <if test="priceRate != null  and priceRate != ''"> and price_rate = #{priceRate}</if>
+            <if test="insureYears != null "> and insure_years = #{insureYears}</if>
+            <if test="tciScore != null  and tciScore != ''"> and tci_score = #{tciScore}</if>
+            <if test="vciScore != null  and vciScore != ''"> and vci_score = #{vciScore}</if>
+            <if test="tciExpectPayoutRatio != null  and tciExpectPayoutRatio != ''"> and tci_expect_payout_ratio = #{tciExpectPayoutRatio}</if>
+            <if test="vciExpectPayoutRatio != null  and vciExpectPayoutRatio != ''"> and vci_expect_payout_ratio = #{vciExpectPayoutRatio}</if>
+            <if test="ncdLevel != null "> and ncd_level = #{ncdLevel}</if>
+            <if test="claimTimes != null "> and claim_times = #{claimTimes}</if>
+            <if test="totalScore != null  and totalScore != ''"> and total_score = #{totalScore}</if>
+        </where>
+    </select>
+
+    <select id="selectPlatformById" parameterType="Long" resultMap="PlatformResult">
+        <include refid="selectPlatformVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertPlatform" parameterType="Platform" useGeneratedKeys="true" keyProperty="id">
+        insert into tb_platform
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="frameNo != null">frame_no,</if>
+            <if test="ownerId != null">owner_id,</if>
+            <if test="ncd != null">ncd,</if>
+            <if test="trafficTransgressRate != null">traffic_transgress_rate,</if>
+            <if test="channelRate != null">channel_rate,</if>
+            <if test="underwritingRate != null">underwriting_rate,</if>
+            <if test="priceRate != null">price_rate,</if>
+            <if test="insureYears != null">insure_years,</if>
+            <if test="tciScore != null">tci_score,</if>
+            <if test="vciScore != null">vci_score,</if>
+            <if test="tciExpectPayoutRatio != null">tci_expect_payout_ratio,</if>
+            <if test="vciExpectPayoutRatio != null">vci_expect_payout_ratio,</if>
+            <if test="ncdLevel != null">ncd_level,</if>
+            <if test="claimTimes != null">claim_times,</if>
+            <if test="totalScore != null">total_score,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="frameNo != null">#{frameNo},</if>
+            <if test="ownerId != null">#{ownerId},</if>
+            <if test="ncd != null">#{ncd},</if>
+            <if test="trafficTransgressRate != null">#{trafficTransgressRate},</if>
+            <if test="channelRate != null">#{channelRate},</if>
+            <if test="underwritingRate != null">#{underwritingRate},</if>
+            <if test="priceRate != null">#{priceRate},</if>
+            <if test="insureYears != null">#{insureYears},</if>
+            <if test="tciScore != null">#{tciScore},</if>
+            <if test="vciScore != null">#{vciScore},</if>
+            <if test="tciExpectPayoutRatio != null">#{tciExpectPayoutRatio},</if>
+            <if test="vciExpectPayoutRatio != null">#{vciExpectPayoutRatio},</if>
+            <if test="ncdLevel != null">#{ncdLevel},</if>
+            <if test="claimTimes != null">#{claimTimes},</if>
+            <if test="totalScore != null">#{totalScore},</if>
+         </trim>
+    </insert>
+
+    <update id="updatePlatform" parameterType="Platform">
+        update tb_platform
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="frameNo != null">frame_no = #{frameNo},</if>
+            <if test="ownerId != null">owner_id = #{ownerId},</if>
+            <if test="ncd != null">ncd = #{ncd},</if>
+            <if test="trafficTransgressRate != null">traffic_transgress_rate = #{trafficTransgressRate},</if>
+            <if test="channelRate != null">channel_rate = #{channelRate},</if>
+            <if test="underwritingRate != null">underwriting_rate = #{underwritingRate},</if>
+            <if test="priceRate != null">price_rate = #{priceRate},</if>
+            <if test="insureYears != null">insure_years = #{insureYears},</if>
+            <if test="tciScore != null">tci_score = #{tciScore},</if>
+            <if test="vciScore != null">vci_score = #{vciScore},</if>
+            <if test="tciExpectPayoutRatio != null">tci_expect_payout_ratio = #{tciExpectPayoutRatio},</if>
+            <if test="vciExpectPayoutRatio != null">vci_expect_payout_ratio = #{vciExpectPayoutRatio},</if>
+            <if test="ncdLevel != null">ncd_level = #{ncdLevel},</if>
+            <if test="claimTimes != null">claim_times = #{claimTimes},</if>
+            <if test="totalScore != null">total_score = #{totalScore},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deletePlatformById" parameterType="Long">
+        delete from tb_platform where id = #{id}
+    </delete>
+
+    <delete id="deletePlatformByIds" parameterType="String">
+        delete from tb_platform where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

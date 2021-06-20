@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.region.mapper.TbRegionMapper">
+    
+    <resultMap type="TbRegion" id="TbRegionResult">
+        <result property="code"    column="code"    />
+        <result property="parentcode"    column="parentCode"    />
+        <result property="type"    column="type"    />
+        <result property="name"    column="name"    />
+        <result property="fullname"    column="fullName"    />
+    </resultMap>
+
+    <sql id="selectTbRegionVo">
+        select code, parentCode, type, name, fullName from tb_region
+    </sql>
+
+    <select id="selectTbRegionList" parameterType="TbRegion" resultMap="TbRegionResult">
+        <include refid="selectTbRegionVo"/>
+        <where>  
+            <if test="parentcode != null "> and parentCode = #{parentcode}</if>
+            <if test="type != null "> and type = #{type}</if>
+        </where>
+    </select>
+    
+    <select id="selectTbRegionById" parameterType="Long" resultMap="TbRegionResult">
+        <include refid="selectTbRegionVo"/>
+        where code = #{code}
+    </select>
+        
+    <insert id="insertTbRegion" parameterType="TbRegion">
+        insert into tb_region
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="code != null">code,</if>
+            <if test="parentcode != null">parentCode,</if>
+            <if test="type != null">type,</if>
+            <if test="name != null and name != ''">name,</if>
+            <if test="fullname != null and fullname != ''">fullName,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="code != null">#{code},</if>
+            <if test="parentcode != null">#{parentcode},</if>
+            <if test="type != null">#{type},</if>
+            <if test="name != null and name != ''">#{name},</if>
+            <if test="fullname != null and fullname != ''">#{fullname},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTbRegion" parameterType="TbRegion">
+        update tb_region
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="parentcode != null">parentCode = #{parentcode},</if>
+            <if test="type != null">type = #{type},</if>
+            <if test="name != null and name != ''">name = #{name},</if>
+            <if test="fullname != null and fullname != ''">fullName = #{fullname},</if>
+        </trim>
+        where code = #{code}
+    </update>
+
+    <delete id="deleteTbRegionById" parameterType="Long">
+        delete from tb_region where code = #{code}
+    </delete>
+
+    <delete id="deleteTbRegionByIds" parameterType="String">
+        delete from tb_region where code in 
+        <foreach item="code" collection="array" open="(" separator="," close=")">
+            #{code}
+        </foreach>
+    </delete>
+</mapper>

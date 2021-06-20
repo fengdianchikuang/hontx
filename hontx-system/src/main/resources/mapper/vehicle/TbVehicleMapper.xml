@@ -1,0 +1,971 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.vehicle.mapper.TbVehicleMapper">
+
+    <resultMap type="TbVehicleFile" id="TbVehicleFileResult">
+        <result property="vId"    column="v_id"    />
+        <result property="vehicleNo"    column="vehicle_no"    />
+        <result property="rackNo"    column="rack_no"    />
+        <result property="type"    column="type"    />
+        <result property="fileName"    column="file_name"    />
+        <result property="path"    column="path"    />
+        <result property="vCreateTime"    column="v_create_time"    />
+        <result property="vUpdateTime"    column="v_update_time"    />
+        <result property="fileCode"    column="file_code"    />
+        <result property="status"    column="status"    />
+        <result property="vQueryId"    column="v_query_id"    />
+    </resultMap>
+
+    <resultMap type="TbVehicle" id="TbVehicleResult">
+        <result property="vId"    column="v_id"    />
+        <result property="flg"    column="flg"    />
+        <result property="ownerId"    column="owner_id"    />
+        <result property="vehicleNo"    column="vehicle_no"    />
+        <result property="channelId"    column="channel_id"    />
+        <result property="insrncEndDate"    column="insrnc_end_date"    />
+        <result property="engineNo"    column="engine_no"    />
+        <result property="rackNo"    column="rack_no"    />
+        <result property="etBrand"    column="et_brand"    />
+        <result property="brandCode"    column="brand_code"    />
+        <result property="purchasePrice"    column="purchase_price"    />
+        <result property="actualPrice"    column="actual_price"    />
+        <result property="vehicleCategory"    column="vehicle_category"    />
+        <result property="vehicleType"    column="vehicle_type"    />
+        <result property="vehicleValue"    column="vehicle_value"    />
+        <result property="displacement"    column="displacement"    />
+        <result property="belongType"    column="belong_type"    />
+        <result property="useType"    column="use_type"    />
+        <result property="plateType"    column="plate_type"    />
+        <result property="plateColor"    column="plate_color"    />
+        <result property="energyType"    column="energy_type"    />
+        <result property="attachNature"    column="attach_nature"    />
+        <result property="extMsr"    column="ext_msr"    />
+        <result property="setNum"    column="set_num"    />
+        <result property="tonnage"    column="tonnage"    />
+        <result property="changeOwnerFlag"    column="change_owner_flag"    />
+        <result property="transferDate"    column="transfer_date"    />
+        <result property="owner"    column="owner"    />
+        <result property="ownerCertType"    column="owner_cert_type"    />
+        <result property="ownerCertNo"    column="owner_cert_no"    />
+        <result property="ownerTel"    column="owner_tel"    />
+        <result property="agentId"    column="agent_id"    />
+        <result property="queryId"    column="query_id"    />
+        <result property="remark"    column="remark"    />
+        <result property="vCreateTime"    column="v_create_time"    />
+        <result property="vUpdateTime"    column="v_update_time"    />
+        <result property="registerDate"    column="register_date"    />
+        <result property="insrncBgnTmSy"    column="insrnc_bgn_tm_sy"    />
+        <result property="insrncEndTmSy"    column="insrnc_end_tm_sy"    />
+        <result property="insrncBgnTmJq"    column="insrnc_bgn_tm_jq"    />
+        <result property="insrncEndTmJq"    column="insrnc_end_tm_jq"    />
+        <result property="applicantName"    column="applicant_name"    />
+        <result property="applicantCertType"    column="applicant_cert_type"    />
+        <result property="applicantCertNo"    column="applicant_cert_no"    />
+        <result property="applicantTel"    column="applicant_tel"    />
+        <result property="applicantSex"    column="applicant_sex"    />
+        <result property="applicantAge"    column="applicant_age"    />
+        <result property="insuredName"    column="insured_name"    />
+        <result property="insuredCertType"    column="insured_cert_type"    />
+        <result property="insuredCertNo"    column="insured_cert_no"    />
+        <result property="insuredTel"    column="insured_tel"    />
+        <result property="insuredSex"    column="insured_sex"    />
+        <result property="insuredAge"    column="insured_age"    />
+        <result property="openid"    column="openid"    />
+        <result property="kbId"    column="kb_id"    />
+        <result property="gId"    column="g_id"    />
+        <result property="company"    column="company"    />
+        <result property="address"    column="address"    />
+        <result property="color"    column="color"    />
+        <result property="carName"    column="car_name"    />
+        <result property="kbInsrncCpyName"    column="kb_insrnc_cpy_name"    />
+    </resultMap>
+
+    <resultMap id="TbVehicleFileDetailResult" type="com.ruoyi.vehicle.domain.vo.VehicleVo">
+        <result property="vId"    column="v_id"    />
+        <result property="flg"    column="flg"    />
+        <result property="ownerId"    column="owner_id"    />
+        <result property="vehicleNo"    column="vehicle_no"    />
+        <result property="channelId"    column="channel_id"    />
+        <result property="insrncEndDate"    column="insrnc_end_date"    />
+        <result property="engineNo"    column="engine_no"    />
+        <result property="rackNo"    column="rack_no"    />
+        <result property="etBrand"    column="et_brand"    />
+        <result property="brandCode"    column="brand_code"    />
+        <result property="purchasePrice"    column="purchase_price"    />
+        <result property="actualPrice"    column="actual_price"    />
+        <result property="vehicleCategory"    column="vehicle_category"    />
+        <result property="vehicleType"    column="vehicle_type"    />
+        <result property="vehicleValue"    column="vehicle_value"    />
+        <result property="displacement"    column="displacement"    />
+        <result property="belongType"    column="belong_type"    />
+        <result property="useType"    column="use_type"    />
+        <result property="plateType"    column="plate_type"    />
+        <result property="plateColor"    column="plate_color"    />
+        <result property="energyType"    column="energy_type"    />
+        <result property="attachNature"    column="attach_nature"    />
+        <result property="extMsr"    column="ext_msr"    />
+        <result property="setNum"    column="set_num"    />
+        <result property="tonnage"    column="tonnage"    />
+        <result property="changeOwnerFlag"    column="change_owner_flag"    />
+        <result property="transferDate"    column="transfer_date"    />
+        <result property="remark"    column="remark"    />
+        <result property="vCreateTime"    column="v_create_time"    />
+        <result property="vUpdateTime"    column="v_update_time"    />
+        <result property="registerDate"    column="register_date"    />
+      <collection property="files" javaType="list" ofType="com.ruoyi.vehicle.domain.TbVehicleFile">
+          <result property="vId"    column="file_id"    />
+          <result property="vehicleNo"    column="f_vehicle_no"    />
+          <result property="rackNo"    column="f_rack_no"    />
+          <result property="type"    column="type"    />
+          <result property="fileName"    column="file_name"    />
+          <result property="path"    column="path"    />
+          <result property="vCreateTime"    column="f_create_time"    />
+          <result property="vUpdateTime"    column="f_create_time"    />
+          <result property="fileCode"    column="file_code"    />
+          <result property="status"    column="status"    />
+          <result property="vQueryId"    column="v_query_id"    />
+      </collection>
+    </resultMap>
+
+
+
+    <resultMap id="vehicleInfoResult" type="VehicleInfoVo">
+        <result column="v_id" property="Id"/>
+        <result column="flg" property="flg"/>
+        <result column="vehicle_no" property="licenseNo"/>
+        <result column="et_brand" property="brandName"/>
+        <result column="rack_no" property="frameNo"/>
+        <result column="brand_code" property="modelCode"/>
+        <result column="purchase_price" property="purchasePrice"/>
+        <result column="set_num" property="seatCount"/>
+        <result column="engine_no" property="engineNo"/>
+        <result column="register_date" property="enrollDate"/>
+        <result column="vehicle_type" property="vehicleType"/>
+        <result column="vehicle_category" property="vehicleCategory"/>
+        <result column="use_type" property="useNature"/>
+        <result column="attach_nature" property="attachNature"/>
+        <result column="actual_price" property="actualPrice"/>
+        <result column="plate_type" property="plateType"/>
+        <result column="plate_color" property="plateColor"/>
+        <result column="energy_type" property="energyType"/>
+        <result column="channel_id" property="channelId"/>
+        <result column="insrnc_end_date" property="insrncEndDate"/>
+        <result column="vehicle_value" property="vehicleValue"/>
+        <result column="belong_type" property="belongType"/>
+        <result column="ext_msr" property="extMsr"/>
+        <result column="displacement" property="displacement"/>
+        <result column="vehicle_value" property="curbWeight"/>
+        <result column="tonnage" property="tonnage"/>
+        <result column="change_owner_flag" property="changeOwnerFlag"/>
+        <result column="transfer_date" property="transferDate"/>
+        <result column="owner" property="ownerName"/>
+        <result column="insrnc_end_tm_sy" property="insrncEndSy"/>
+        <result column="insrnc_end_tm_jq" property="insrncEndJq"/>
+        <result column="v_create_time" property="createTime"/>
+        <result column="v_update_time" property="updateTime"/>
+    </resultMap>
+<!--    车辆详情信息(包含证件照)-->
+    <resultMap id="vehicleDetailsResult" type="VehicleDetails">
+        <result column="v_id" property="Id"/>
+        <result column="flg" property="flg"/>
+        <result column="vehicle_no" property="licenseNo"/>
+        <result column="et_brand" property="brandName"/>
+        <result column="rack_no" property="frameNo"/>
+        <result column="brand_code" property="modelCode"/>
+        <result column="purchase_price" property="purchasePrice"/>
+        <result column="set_num" property="seatCount"/>
+        <result column="engine_no" property="engineNo"/>
+        <result column="register_date" property="enrollDate"/>
+        <result column="vehicle_type" property="vehicleType"/>
+        <result column="vehicle_category" property="vehicleCategory"/>
+        <result column="use_type" property="useNature"/>
+        <result column="attach_nature" property="attachNature"/>
+        <result column="actual_price" property="actualPrice"/>
+        <result column="plate_type" property="plateType"/>
+        <result column="plate_color" property="plateColor"/>
+        <result column="energy_type" property="energyType"/>
+        <result column="channel_id" property="channelId"/>
+        <result column="insrnc_end_date" property="insrncEndDate"/>
+        <result column="vehicle_value" property="vehicleValue"/>
+        <result column="belong_type" property="belongType"/>
+        <result column="ext_msr" property="extMsr"/>
+        <result column="displacement" property="displacement"/>
+        <result column="vehicle_value" property="curbWeight"/>
+        <result column="tonnage" property="tonnage"/>
+        <result column="change_owner_flag" property="changeOwnerFlag"/>
+        <result column="transfer_date" property="transferDate"/>
+        <result column="owner" property="ownerName"/>
+        <result column="v_create_time" property="createTime"/>
+        <result column="v_update_time" property="updateTime"/>
+        <collection property="files" javaType="list" ofType="com.ruoyi.vehicle.domain.TbVehicleFile">
+            <result property="vId"    column="file_id"    />
+            <result property="vehicleNo"    column="f_vehicle_no"    />
+            <result property="rackNo"    column="f_rack_no"    />
+            <result property="type"    column="type"    />
+            <result property="fileName"    column="file_name"    />
+            <result property="path"    column="path"    />
+            <result property="vCreateTime"    column="f_create_time"    />
+            <result property="vUpdateTime"    column="f_create_time"    />
+            <result property="fileCode"    column="file_code"    />
+            <result property="status"    column="status"    />
+            <result property="vQueryId"    column="v_query_id"    />
+        </collection>
+    </resultMap>
+
+
+    <sql id="selectTbVehicleVo">
+        select v_id, flg, owner_id, vehicle_no, channel_id, insrnc_end_date, engine_no, rack_no, et_brand, brand_code, purchase_price, actual_price, vehicle_category, vehicle_type, vehicle_value, displacement, belong_type, use_type, plate_type, plate_color, energy_type, attach_nature, ext_msr, set_num, tonnage, change_owner_flag, transfer_date, owner, owner_cert_type, owner_cert_no, owner_tel, agent_id, query_id, remark, v_create_time, v_update_time, register_date, insrnc_bgn_tm_sy, insrnc_end_tm_sy, insrnc_bgn_tm_jq, insrnc_end_tm_jq, applicant_name, applicant_cert_type, applicant_cert_no, applicant_tel, applicant_sex, applicant_age, insured_name, insured_cert_type, insured_cert_no, insured_tel, insured_sex, insured_age, openid, kb_id, g_id, company, address, color, car_name, kb_insrnc_cpy_name from tb_vehicle
+    </sql>
+
+
+
+    <sql id="selectTbVehicleFileVo">
+        select v_id, vehicle_no, rack_no, type, file_name, path, v_create_time, v_update_time, file_code, status, v_query_id from tb_vehicle_file
+    </sql>
+<!--    根据车牌和车架查找 悦保车辆信息-->
+    <select id="findVehicleByLicenseNoAndFrameNo" resultMap="TbVehicleResult">
+        select *
+        from tb_vehicle
+        <where>
+            <if test="licenseNo != null and licenseNo != ''">
+                and vehicle_no = #{licenseNo}
+            </if>
+            <if test="frameNo != null and frameNo != ''">
+                and rack_no = #{frameNo}
+            </if>
+
+        </where>
+    </select>
+
+    <delete id="deleteVehicleFileById" parameterType="Long">
+        delete from tb_vehicle_file
+        where v_id = #{id}
+    </delete>
+
+<!--    根据车牌 or 车架 查找车辆详情(含车辆文件)-->
+    <select id="findVehicleAndFilesByFrameNoAndLicenseNo" resultMap="vehicleDetailsResult">
+
+        select
+        a.v_id,
+        a.flg,
+        a.owner_id,
+        a.vehicle_no,
+        a.engine_no,
+        a.rack_no,
+        a.et_brand,
+        a.brand_code,
+        a.purchase_price,
+        a.actual_price,
+        a.vehicle_category,
+        a.vehicle_type,
+        a.vehicle_value,
+        a.displacement,
+        a.belong_type,
+        a.use_type,
+        a.plate_type,
+        a.plate_color,
+        a.energy_type,
+        a.attach_nature,
+        a.ext_msr,
+        a.set_num,
+        a.tonnage,
+        a.change_owner_flag,
+        a.transfer_date,
+        a.remark,
+        a.v_create_time,
+        a.v_update_time,
+        a.register_date,
+        b.v_id as file_id,
+        b.vehicle_no as f_vehicle_no,
+        b.rack_no as f_rack_no,
+        b.type,
+        b.file_name,
+        b.path,
+        b.v_create_time as f_create_time,
+        b.v_update_time as f_create_time,
+        b.file_code,
+        b.status
+        from tb_vehicle a left join tb_vehicle_file b on a.rack_no = b.rack_no
+        <where>
+            <if test="licenseNo != null and licenseNo != ''">
+                and a.vehicle_no = #{licenseNo}
+            </if>
+            <if test="frameNo != null and frameNo !=''">
+                and a.rack_no = #{frameNo}
+            </if>
+        </where>
+    </select>
+
+    <!--    根多个车架 查找车辆-->
+    <select id="findVehicleByFrameNos"  resultMap="vehicleInfoResult">
+        select * from tb_vehicle
+        <where>
+            rack_no  in
+            <foreach  item="item" index="index" collection="frameNos"
+                      open="(" separator="," close=" )">
+                #{item}
+            </foreach>
+        </where>
+    </select>
+<!--    根据车架查找车辆证件照-->
+    <select id="findVehicleFileByFrameNo" parameterType="String" resultType="TbVehicleFile">
+        <include refid="selectTbVehicleFileVo"/>
+        <where>
+            <if test="rackNo != null and rackNo != ''">
+                and rack_no = #{rackNo}
+            </if>
+        </where>
+    </select>
+    <!--    修改车辆根据Id(悦保字段)-->
+    <update id="updateById" parameterType="VehicleReq">
+        update tb_vehicle
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="flg != null" >flg = #{flg},</if>
+            <if test="licenseNo != null" >vehicle_no = #{licenseNo},</if>
+            <if test="brandName != null" >et_brand = #{brandName},</if>
+            <if test="frameNo != null" >rack_no = #{frameNo},</if>
+            <if test="modelCode != null" >brand_code = #{modelCode},</if>
+            <if test="purchasePrice != null" >purchase_price = #{purchasePrice,</if>
+            <if test="seatCount != null" >set_num = #{seatCount},</if>
+            <if test="engineNo != null" >engine_no = #{engineNo,</if>
+            <if test="enrollDate != null" >register_date = #{enrollDate},</if>
+            <if test="vehicleType != null" >vehicle_type = #{vehicleType,</if>
+            <if test="vehicleCateg != null" >vehicle_category = #{vehicleCateg},</if>
+            <if test="useNature != null" >use_type = #{useNature},</if>
+            <if test="attachNature != null" >attach_nature = #{attachNature},</if>
+            <if test="actualPrice != null" >actual_price = #{actualPrice},</if>
+            <if test="plateType != null" >plate_type = #{plateType},</if>
+            <if test="plateColor != null" >plate_color = #{plateColor},</if>
+            <if test="energyType != null" >energy_type = #{energyType},</if>
+            <if test="channelId != null" >channel_id = #{channelId},</if>
+            <if test="insrncEndDate != null" >insrnc_end_date = #{insrncEndDate},</if>
+            <if test="vehicleValue != null" >vehicle_value = #{vehicleValue,</if>
+            <if test="belongType != null" >belong_type = #{belongType},</if>
+            <if test="extMsr != null" >ext_msr = #{extMsr,</if>
+            <if test="displacement != null" >displacement = #{displacement},</if>
+            <if test="curbWeight != null" >vehicle_value = #{curbWeight},</if>
+            <if test="tonnage != null" >tonnage = #{tonnage},</if>
+            <if test="changeOwner != null" >change_owner_flag = #{changeOwner},</if>
+            <if test="transferDate != null" >transfer_date = #{transferDate},</if>
+            <if test="ownerName != null" >owner = #{ownerName},</if>
+            <if test="createTime != null" >v_create_time = #{createTime},</if>
+            <if test="updateTime != null" >v_update_time = #{updateTime,</if>
+        </trim>
+        <where>
+            <if test="v_id != null">
+                and v_id = #{id}
+            </if>
+        </where>
+    </update>
+<!--    插入车辆-->
+    <insert id="insert" parameterType="VehicleReq" useGeneratedKeys="true" keyProperty="vId">
+        insert into tb_vehicle
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="flg != null" >flg,</if>
+            <if test="licenseNo != null" >vehicle_no,</if>
+            <if test="brandName != null" >et_brand,</if>
+            <if test="frameNo != null" >rack_no,</if>
+            <if test="modelCode != null" >brand_code,</if>
+            <if test="purchasePrice != null" >purchase_price,</if>
+            <if test="seatCount != null" >set_num,</if>
+            <if test="engineNo != null" >engine_no,</if>
+            <if test="enrollDate != null" >register_date,</if>
+            <if test="vehicleType != null" >vehicle_type,</if>
+            <if test="vehicleCateg != null" >vehicle_category,</if>
+            <if test="useNature != null" >use_type,</if>
+            <if test="attachNature != null" >attach_nature,</if>
+            <if test="actualPrice != null" >actual_price,</if>
+            <if test="plateType != null" >plate_type,</if>
+            <if test="plateColor != null" >plate_color,</if>
+            <if test="energyType != null" >energy_type,</if>
+            <if test="channelId != null" >channel_id,</if>
+            <if test="insrncEndDate != null" >insrnc_end_date,</if>
+            <if test="vehicleValue != null" >vehicle_value,</if>
+            <if test="belongType != null" >belong_type,</if>
+            <if test="extMsr != null" >ext_msr,</if>
+            <if test="displacement != null" >displacement,</if>
+            <if test="curbWeight != null" >vehicle_value,</if>
+            <if test="tonnage != null" >tonnage,</if>
+            <if test="changeOwner != null" >change_owner_flag,</if>
+            <if test="transferDate != null" >transfer_date,</if>
+            <if test="ownerName != null" >owner,</if>
+            <if test="createTime != null" >v_create_time,</if>
+            <if test="updateTime != null" >v_update_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="flg != null">#{flg},</if>
+            <if test="licenseNo != null">#{licenseNo},</if>
+            <if test="brandName != null">#{brandName},</if>
+            <if test="frameNo != null">#{frameNo},</if>
+            <if test="modelCode != null">#{modelCode},</if>
+            <if test="purchasePrice != null">#{purchasePrice"},</if>
+            <if test="seatCount != null">#{seatCount},</if>
+            <if test="engineNo != null">#{engineNo},</if>
+            <if test="enrollDate != null">#{enrollDate},</if>
+            <if test="vehicleType != null">#{vehicleType},</if>
+            <if test="vehicleCateg != null">#{vehicleCateg},</if>
+            <if test="useNature != null">#{useNature},</if>
+            <if test="attachNature != null">#{attachNature},</if>
+            <if test="actualPrice != null">#{actualPrice},</if>
+            <if test="plateType != null">#{plateType},</if>
+            <if test="plateColor != null">#{plateColor},</if>
+            <if test="energyType != null">#{energyType},</if>
+            <if test="channelId != null">#{channelId},</if>
+            <if test="insrncEndDate != null">#{insrncEndDate},</if>
+            <if test="vehicleValue != null">#{vehicleValue},</if>
+            <if test="belongType != null">#{belongType},</if>
+            <if test="extMsr != null">#{extMsr},</if>
+            <if test="displacement != null">#{displacement},</if>
+            <if test="curbWeight != null">#{curbWeight},</if>
+            <if test="tonnage != null">#{tonnage},</if>
+            <if test="changeOwner != null">#{changeOwner},</if>
+            <if test="transferDate != null">#{transferDate},</if>
+            <if test="ownerName != null">#{ownerName},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+        </trim>
+    </insert>
+<!--    根据车牌or车架查找-->
+    <select id="findByFrameNoAndLicenseNo" parameterType="String">
+        <include refid="selectTbVehicleVo"/>
+        <where>
+            <if test="frameNo != null and frameNo != ''">
+                and rack_no = #{frameNo}
+            </if>
+            <if test="licenseNo != null and licenseNo != ''">
+                and vehicle_no #{licenseNo}
+            </if>
+        </where>
+
+    </select>
+<!--    新增车辆(悦保字段)-->
+    <insert id="insertVehicleInfo" parameterType="VehicleInfoVo" useGeneratedKeys="true" keyProperty="vId">
+        insert into tb_vehicle
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="flg != null" >flg,</if>
+            <if test="licenseNo != null" >vehicle_no,</if>
+            <if test="brandName != null" >et_brand,</if>
+            <if test="frameNo != null" >rack_no,</if>
+            <if test="modelCode != null" >brand_code,</if>
+            <if test="purchasePrice != null" >purchase_price,</if>
+            <if test="seatCount != null" >set_num,</if>
+            <if test="engineNo != null" >engine_no,</if>
+            <if test="enrollDate != null" >register_date,</if>
+            <if test="vehicleType != null" >vehicle_type,</if>
+            <if test="vehicleCateg != null" >vehicle_category,</if>
+            <if test="useNature != null" >use_type,</if>
+            <if test="attachNature != null" >attach_nature,</if>
+            <if test="actualPrice != null" >actual_price,</if>
+            <if test="plateType != null" >plate_type,</if>
+            <if test="plateColor != null" >plate_color,</if>
+            <if test="energyType != null" >energy_type,</if>
+            <if test="channelId != null" >channel_id,</if>
+            <if test="insrncEndDate != null" >insrnc_end_date,</if>
+            <if test="vehicleValue != null" >vehicle_value,</if>
+            <if test="belongType != null" >belong_type,</if>
+            <if test="extMsr != null" >ext_msr,</if>
+            <if test="displacement != null" >displacement,</if>
+            <if test="curbWeight != null" >vehicle_value,</if>
+            <if test="tonnage != null" >tonnage,</if>
+            <if test="changeOwner != null" >change_owner_flag,</if>
+            <if test="transferDate != null" >transfer_date,</if>
+            <if test="ownerName != null" >owner,</if>
+            <if test="createTime != null" >v_create_time,</if>
+            <if test="updateTime != null" >v_update_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="flg != null">#{flg},</if>
+            <if test="licenseNo != null">#{licenseNo},</if>
+            <if test="brandName != null">#{brandName},</if>
+            <if test="frameNo != null">#{frameNo},</if>
+            <if test="modelCode != null">#{modelCode},</if>
+            <if test="purchasePrice != null">#{purchasePrice"},</if>
+            <if test="seatCount != null">#{seatCount},</if>
+            <if test="engineNo != null">#{engineNo},</if>
+            <if test="enrollDate != null">#{enrollDate},</if>
+            <if test="vehicleType != null">#{vehicleType},</if>
+            <if test="vehicleCateg != null">#{vehicleCateg},</if>
+            <if test="useNature != null">#{useNature},</if>
+            <if test="attachNature != null">#{attachNature},</if>
+            <if test="actualPrice != null">#{actualPrice},</if>
+            <if test="plateType != null">#{plateType},</if>
+            <if test="plateColor != null">#{plateColor},</if>
+            <if test="energyType != null">#{energyType},</if>
+            <if test="channelId != null">#{channelId},</if>
+            <if test="insrncEndDate != null">#{insrncEndDate},</if>
+            <if test="vehicleValue != null">#{vehicleValue},</if>
+            <if test="belongType != null">#{belongType},</if>
+            <if test="extMsr != null">#{extMsr},</if>
+            <if test="displacement != null">#{displacement},</if>
+            <if test="curbWeight != null">#{curbWeight},</if>
+            <if test="tonnage != null">#{tonnage},</if>
+            <if test="changeOwner != null">#{changeOwner},</if>
+            <if test="transferDate != null">#{transferDate},</if>
+            <if test="ownerName != null">#{ownerName},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+        </trim>
+    </insert>
+<!--    修改车辆根据车牌or车架(悦保字段)-->
+    <update id="updateByFrameNoOrLicenseNo" parameterType="VehicleInfoVo">
+        update tb_vehicle
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="flg != null" >flg = #{flg},</if>
+            <if test="licenseNo != null" >vehicle_no = #{licenseNo},</if>
+            <if test="brandName != null" >et_brand = #{brandName},</if>
+            <if test="frameNo != null" >rack_no = #{frameNo},</if>
+            <if test="modelCode != null" >brand_code = #{modelCode},</if>
+            <if test="purchasePrice != null" >purchase_price = #{purchasePrice,</if>
+            <if test="seatCount != null" >set_num = #{seatCount},</if>
+            <if test="engineNo != null" >engine_no = #{engineNo,</if>
+            <if test="enrollDate != null" >register_date = #{enrollDate},</if>
+            <if test="vehicleType != null" >vehicle_type = #{vehicleType,</if>
+            <if test="vehicleCateg != null" >vehicle_category = #{vehicleCateg},</if>
+            <if test="useNature != null" >use_type = #{useNature},</if>
+            <if test="attachNature != null" >attach_nature = #{attachNature},</if>
+            <if test="actualPrice != null" >actual_price = #{actualPrice},</if>
+            <if test="plateType != null" >plate_type = #{plateType},</if>
+            <if test="plateColor != null" >plate_color = #{plateColor},</if>
+            <if test="energyType != null" >energy_type = #{energyType},</if>
+            <if test="channelId != null" >channel_id = #{channelId},</if>
+            <if test="insrncEndDate != null" >insrnc_end_date = #{insrncEndDate},</if>
+            <if test="vehicleValue != null" >vehicle_value = #{vehicleValue,</if>
+            <if test="belongType != null" >belong_type = #{belongType},</if>
+            <if test="extMsr != null" >ext_msr = #{extMsr,</if>
+            <if test="displacement != null" >displacement = #{displacement},</if>
+            <if test="curbWeight != null" >vehicle_value = #{curbWeight},</if>
+            <if test="tonnage != null" >tonnage = #{tonnage},</if>
+            <if test="changeOwner != null" >change_owner_flag = #{changeOwner},</if>
+            <if test="transferDate != null" >transfer_date = #{transferDate},</if>
+            <if test="ownerName != null" >owner = #{ownerName},</if>
+            <if test="createTime != null" >v_create_time = #{createTime},</if>
+            <if test="updateTime != null" >v_update_time = #{updateTime,</if>
+        </trim>
+        <where>
+            <if test="licenseNo != null and licenseNo !=''">
+                and vehicle_no = #{licenseNo}
+            </if>
+            <if test="frameNo != null and frameNo !=''">
+                and rack_no = #{frameNo}
+            </if>
+        </where>
+    </update>
+<!--    根据车牌或车架查询车辆(悦保字段)-->
+    <select id="selectOneByFrameNoOrLicenseNo" parameterType="VehicleInfoVo" resultMap="vehicleInfoResult">
+        select
+          a.v_id,
+          a.flg,
+          a.vehicle_no,
+          a.et_brand,
+          a.rack_no,
+          a.brand_code,
+          a.purchase_price,
+          a.set_num,
+          a.engine_no,
+          a.register_date,
+          a.vehicle_type,
+          a.vehicle_category,
+          a.use_type,
+          a.attach_nature,
+          a.actual_price,
+          a.plate_type,
+          a.plate_color,
+          a.energy_type,
+          a.channel_id,
+          a.insrnc_end_date,
+          a.vehicle_value,
+          a.belong_type,
+          a.ext_msr,
+          a.displacement,
+          a.vehicle_value,
+          a.tonnage,
+          a.change_owner_flag,
+          a.transfer_date,
+          a.owner,
+          a.v_create_time,
+          a.v_update_time
+          from tb_vehicle a
+          <where>
+              <if test="licenseNo != null and licenseNo != ''">
+                  and a.vehicle_no = #{licenseNo}
+              </if>
+              <if test="frameNo != null and frameNo !=''">
+                  and a.rack_no = #{frameNo}
+              </if>
+          </where>
+    </select>
+
+    <select id="queryListByTodayNum" resultType="Integer">
+        select count(v_id)
+        from tb_vehicle v
+        <where>
+            <if test="maxToday != null and maxToday != '' and minToday != null and minToday != ''">
+                v.v_create_time between #{maxToday} and #{minToday}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectTbVehicleList" parameterType="TbVehicle" resultMap="TbVehicleResult">
+        <include refid="selectTbVehicleVo"/>
+        <where>
+            <if test="vehicleNo != null  and vehicleNo != ''"> and vehicle_no = #{vehicleNo}</if>
+            <if test="changeOwnerFlag != null  and changeOwnerFlag != ''"> and change_owner_flag = #{changeOwnerFlag}</if>
+        </where>
+        order by v_create_time desc
+    </select>
+<!--    查看详情-->
+    <select id="selectTbVehicleById" parameterType="Long" resultMap="TbVehicleFileDetailResult">
+
+        select
+        a.v_id,
+        a.flg,
+        a.owner_id,
+        a.vehicle_no,
+        a.engine_no,
+        a.rack_no,
+        a.et_brand,
+        a.brand_code,
+        a.purchase_price,
+        a.actual_price,
+        a.vehicle_category,
+        a.vehicle_type,
+        a.vehicle_value,
+        a.displacement,
+        a.belong_type,
+        a.use_type,
+        a.plate_type,
+        a.plate_color,
+        a.energy_type,
+        a.attach_nature,
+        a.ext_msr,
+        a.set_num,
+        a.tonnage,
+        a.change_owner_flag,
+        a.transfer_date,
+        a.remark,
+        a.v_create_time,
+        a.v_update_time,
+        a.register_date,
+        b.v_id as file_id,
+        b.vehicle_no as f_vehicle_no,
+        b.rack_no as f_rack_no,
+        b.type,
+        b.file_name,
+        b.path,
+        b.v_create_time as f_create_time,
+        b.v_update_time as f_create_time,
+        b.file_code,
+        b.status
+        from tb_vehicle a left join tb_vehicle_file b on a.rack_no = b.rack_no
+        where a.v_id = #{vId}
+    </select>
+
+    <insert id="insertVehicleFile" parameterType="TbVehicleFile" useGeneratedKeys="true" keyProperty="vId">
+        insert into tb_vehicle_file
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="vehicleNo != null">vehicle_no,</if>
+            <if test="rackNo != null and rackNo != ''">rack_no,</if>
+            <if test="type != null">type,</if>
+            <if test="fileName != null">file_name,</if>
+            <if test="path != null">path,</if>
+            <if test="vCreateTime != null">v_create_time,</if>
+            <if test="vUpdateTime != null">v_update_time,</if>
+            <if test="fileCode != null">file_code,</if>
+            <if test="status != null">status,</if>
+            <if test="vQueryId != null">v_query_id,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="vehicleNo != null">#{vehicleNo},</if>
+            <if test="rackNo != null and rackNo != ''">#{rackNo},</if>
+            <if test="type != null">#{type},</if>
+            <if test="fileName != null">#{fileName},</if>
+            <if test="path != null">#{path},</if>
+            <if test="vCreateTime != null">#{vCreateTime},</if>
+            <if test="vUpdateTime != null">#{vUpdateTime},</if>
+            <if test="fileCode != null">#{fileCode},</if>
+            <if test="status != null">#{status},</if>
+            <if test="vQueryId != null">#{vQueryId},</if>
+        </trim>
+    </insert>
+
+    <insert id="insertTbVehicle" parameterType="TbVehicle" useGeneratedKeys="true" keyProperty="vId">
+        insert into tb_vehicle
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="flg != null">flg,</if>
+            <if test="ownerId != null">owner_id,</if>
+            <if test="vehicleNo != null">vehicle_no,</if>
+            <if test="channelId != null">channel_id,</if>
+            <if test="insrncEndDate != null">insrnc_end_date,</if>
+            <if test="engineNo != null">engine_no,</if>
+            <if test="rackNo != null">rack_no,</if>
+            <if test="etBrand != null">et_brand,</if>
+            <if test="brandCode != null">brand_code,</if>
+            <if test="purchasePrice != null">purchase_price,</if>
+            <if test="actualPrice != null">actual_price,</if>
+            <if test="vehicleCategory != null">vehicle_category,</if>
+            <if test="vehicleType != null">vehicle_type,</if>
+            <if test="vehicleValue != null">vehicle_value,</if>
+            <if test="displacement != null">displacement,</if>
+            <if test="belongType != null">belong_type,</if>
+            <if test="useType != null">use_type,</if>
+            <if test="plateType != null">plate_type,</if>
+            <if test="plateColor != null">plate_color,</if>
+            <if test="energyType != null">energy_type,</if>
+            <if test="attachNature != null">attach_nature,</if>
+            <if test="extMsr != null">ext_msr,</if>
+            <if test="setNum != null">set_num,</if>
+            <if test="tonnage != null">tonnage,</if>
+            <if test="changeOwnerFlag != null">change_owner_flag,</if>
+            <if test="transferDate != null">transfer_date,</if>
+            <if test="owner != null">owner,</if>
+            <if test="ownerCertType != null">owner_cert_type,</if>
+            <if test="ownerCertNo != null">owner_cert_no,</if>
+            <if test="ownerTel != null">owner_tel,</if>
+            <if test="agentId != null">agent_id,</if>
+            <if test="queryId != null">query_id,</if>
+            <if test="remark != null">remark,</if>
+            <if test="vCreateTime != null">v_create_time,</if>
+            <if test="vUpdateTime != null">v_update_time,</if>
+            <if test="registerDate != null">register_date,</if>
+            <if test="insrncBgnTmSy != null">insrnc_bgn_tm_sy,</if>
+            <if test="insrncEndTmSy != null">insrnc_end_tm_sy,</if>
+            <if test="insrncBgnTmJq != null">insrnc_bgn_tm_jq,</if>
+            <if test="insrncEndTmJq != null">insrnc_end_tm_jq,</if>
+            <if test="applicantName != null">applicant_name,</if>
+            <if test="applicantCertType != null">applicant_cert_type,</if>
+            <if test="applicantCertNo != null">applicant_cert_no,</if>
+            <if test="applicantTel != null">applicant_tel,</if>
+            <if test="applicantSex != null">applicant_sex,</if>
+            <if test="applicantAge != null">applicant_age,</if>
+            <if test="insuredName != null">insured_name,</if>
+            <if test="insuredCertType != null">insured_cert_type,</if>
+            <if test="insuredCertNo != null">insured_cert_no,</if>
+            <if test="insuredTel != null">insured_tel,</if>
+            <if test="insuredSex != null">insured_sex,</if>
+            <if test="insuredAge != null">insured_age,</if>
+            <if test="openid != null">openid,</if>
+            <if test="kbId != null">kb_id,</if>
+            <if test="gId != null">g_id,</if>
+            <if test="company != null">company,</if>
+            <if test="address != null">address,</if>
+            <if test="color != null">color,</if>
+            <if test="carName != null">car_name,</if>
+            <if test="kbInsrncCpyName != null">kb_insrnc_cpy_name,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="flg != null">#{flg},</if>
+            <if test="ownerId != null">#{ownerId},</if>
+            <if test="vehicleNo != null">#{vehicleNo},</if>
+            <if test="channelId != null">#{channelId},</if>
+            <if test="insrncEndDate != null">#{insrncEndDate},</if>
+            <if test="engineNo != null">#{engineNo},</if>
+            <if test="rackNo != null">#{rackNo},</if>
+            <if test="etBrand != null">#{etBrand},</if>
+            <if test="brandCode != null">#{brandCode},</if>
+            <if test="purchasePrice != null">#{purchasePrice},</if>
+            <if test="actualPrice != null">#{actualPrice},</if>
+            <if test="vehicleCategory != null">#{vehicleCategory},</if>
+            <if test="vehicleType != null">#{vehicleType},</if>
+            <if test="vehicleValue != null">#{vehicleValue},</if>
+            <if test="displacement != null">#{displacement},</if>
+            <if test="belongType != null">#{belongType},</if>
+            <if test="useType != null">#{useType},</if>
+            <if test="plateType != null">#{plateType},</if>
+            <if test="plateColor != null">#{plateColor},</if>
+            <if test="energyType != null">#{energyType},</if>
+            <if test="attachNature != null">#{attachNature},</if>
+            <if test="extMsr != null">#{extMsr},</if>
+            <if test="setNum != null">#{setNum},</if>
+            <if test="tonnage != null">#{tonnage},</if>
+            <if test="changeOwnerFlag != null">#{changeOwnerFlag},</if>
+            <if test="transferDate != null">#{transferDate},</if>
+            <if test="owner != null">#{owner},</if>
+            <if test="ownerCertType != null">#{ownerCertType},</if>
+            <if test="ownerCertNo != null">#{ownerCertNo},</if>
+            <if test="ownerTel != null">#{ownerTel},</if>
+            <if test="agentId != null">#{agentId},</if>
+            <if test="queryId != null">#{queryId},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="vCreateTime != null">#{vCreateTime},</if>
+            <if test="vUpdateTime != null">#{vUpdateTime},</if>
+            <if test="registerDate != null">#{registerDate},</if>
+            <if test="insrncBgnTmSy != null">#{insrncBgnTmSy},</if>
+            <if test="insrncEndTmSy != null">#{insrncEndTmSy},</if>
+            <if test="insrncBgnTmJq != null">#{insrncBgnTmJq},</if>
+            <if test="insrncEndTmJq != null">#{insrncEndTmJq},</if>
+            <if test="applicantName != null">#{applicantName},</if>
+            <if test="applicantCertType != null">#{applicantCertType},</if>
+            <if test="applicantCertNo != null">#{applicantCertNo},</if>
+            <if test="applicantTel != null">#{applicantTel},</if>
+            <if test="applicantSex != null">#{applicantSex},</if>
+            <if test="applicantAge != null">#{applicantAge},</if>
+            <if test="insuredName != null">#{insuredName},</if>
+            <if test="insuredCertType != null">#{insuredCertType},</if>
+            <if test="insuredCertNo != null">#{insuredCertNo},</if>
+            <if test="insuredTel != null">#{insuredTel},</if>
+            <if test="insuredSex != null">#{insuredSex},</if>
+            <if test="insuredAge != null">#{insuredAge},</if>
+            <if test="openid != null">#{openid},</if>
+            <if test="kbId != null">#{kbId},</if>
+            <if test="gId != null">#{gId},</if>
+            <if test="company != null">#{company},</if>
+            <if test="address != null">#{address},</if>
+            <if test="color != null">#{color},</if>
+            <if test="carName != null">#{carName},</if>
+            <if test="kbInsrncCpyName != null">#{kbInsrncCpyName},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTbVehicle" parameterType="TbVehicle">
+        update tb_vehicle
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="flg != null">flg = #{flg},</if>
+            <if test="ownerId != null">owner_id = #{ownerId},</if>
+            <if test="vehicleNo != null">vehicle_no = #{vehicleNo},</if>
+            <if test="channelId != null">channel_id = #{channelId},</if>
+            <if test="insrncEndDate != null">insrnc_end_date = #{insrncEndDate},</if>
+            <if test="engineNo != null">engine_no = #{engineNo},</if>
+            <if test="rackNo != null">rack_no = #{rackNo},</if>
+            <if test="etBrand != null">et_brand = #{etBrand},</if>
+            <if test="brandCode != null">brand_code = #{brandCode},</if>
+            <if test="purchasePrice != null">purchase_price = #{purchasePrice},</if>
+            <if test="actualPrice != null">actual_price = #{actualPrice},</if>
+            <if test="vehicleCategory != null">vehicle_category = #{vehicleCategory},</if>
+            <if test="vehicleType != null">vehicle_type = #{vehicleType},</if>
+            <if test="vehicleValue != null">vehicle_value = #{vehicleValue},</if>
+            <if test="displacement != null">displacement = #{displacement},</if>
+            <if test="belongType != null">belong_type = #{belongType},</if>
+            <if test="useType != null">use_type = #{useType},</if>
+            <if test="plateType != null">plate_type = #{plateType},</if>
+            <if test="plateColor != null">plate_color = #{plateColor},</if>
+            <if test="energyType != null">energy_type = #{energyType},</if>
+            <if test="attachNature != null">attach_nature = #{attachNature},</if>
+            <if test="extMsr != null">ext_msr = #{extMsr},</if>
+            <if test="setNum != null">set_num = #{setNum},</if>
+            <if test="tonnage != null">tonnage = #{tonnage},</if>
+            <if test="changeOwnerFlag != null">change_owner_flag = #{changeOwnerFlag},</if>
+            <if test="transferDate != null">transfer_date = #{transferDate},</if>
+            <if test="owner != null">owner = #{owner},</if>
+            <if test="ownerCertType != null">owner_cert_type = #{ownerCertType},</if>
+            <if test="ownerCertNo != null">owner_cert_no = #{ownerCertNo},</if>
+            <if test="ownerTel != null">owner_tel = #{ownerTel},</if>
+            <if test="agentId != null">agent_id = #{agentId},</if>
+            <if test="queryId != null">query_id = #{queryId},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="vCreateTime != null">v_create_time = #{vCreateTime},</if>
+            <if test="vUpdateTime != null">v_update_time = #{vUpdateTime},</if>
+            <if test="registerDate != null">register_date = #{registerDate},</if>
+            <if test="insrncBgnTmSy != null">insrnc_bgn_tm_sy = #{insrncBgnTmSy},</if>
+            <if test="insrncEndTmSy != null">insrnc_end_tm_sy = #{insrncEndTmSy},</if>
+            <if test="insrncBgnTmJq != null">insrnc_bgn_tm_jq = #{insrncBgnTmJq},</if>
+            <if test="insrncEndTmJq != null">insrnc_end_tm_jq = #{insrncEndTmJq},</if>
+            <if test="applicantName != null">applicant_name = #{applicantName},</if>
+            <if test="applicantCertType != null">applicant_cert_type = #{applicantCertType},</if>
+            <if test="applicantCertNo != null">applicant_cert_no = #{applicantCertNo},</if>
+            <if test="applicantTel != null">applicant_tel = #{applicantTel},</if>
+            <if test="applicantSex != null">applicant_sex = #{applicantSex},</if>
+            <if test="applicantAge != null">applicant_age = #{applicantAge},</if>
+            <if test="insuredName != null">insured_name = #{insuredName},</if>
+            <if test="insuredCertType != null">insured_cert_type = #{insuredCertType},</if>
+            <if test="insuredCertNo != null">insured_cert_no = #{insuredCertNo},</if>
+            <if test="insuredTel != null">insured_tel = #{insuredTel},</if>
+            <if test="insuredSex != null">insured_sex = #{insuredSex},</if>
+            <if test="insuredAge != null">insured_age = #{insuredAge},</if>
+            <if test="openid != null">openid = #{openid},</if>
+            <if test="kbId != null">kb_id = #{kbId},</if>
+            <if test="gId != null">g_id = #{gId},</if>
+            <if test="company != null">company = #{company},</if>
+            <if test="address != null">address = #{address},</if>
+            <if test="color != null">color = #{color},</if>
+            <if test="carName != null">car_name = #{carName},</if>
+            <if test="kbInsrncCpyName != null">kb_insrnc_cpy_name = #{kbInsrncCpyName},</if>
+        </trim>
+        where v_id = #{vId}
+    </update>
+    <select id="findVehicleFieById" parameterType="Long" resultMap="TbVehicleFileResult">
+        <include refid="selectTbVehicleFileVo"/>
+        where v_id = #{vId}
+    </select>
+
+    <delete id="delVehicleFileById" parameterType="Long">
+        delete from tb_vehicle_file where v_id = #{id}
+    </delete>
+
+    <delete id="deleteTbVehicleById" parameterType="Long">
+        delete from tb_vehicle where v_id = #{vId}
+    </delete>
+
+    <delete id="deleteTbVehicleByIds" parameterType="String">
+        delete from tb_vehicle where v_id in
+        <foreach item="vId" collection="array" open="(" separator="," close=")">
+            #{vId}
+        </foreach>
+    </delete>
+<!--    根据车牌车架查找车辆 自动报价 车主为空-->
+    <select id="findByVehicleNoAndRackNoAuto"  resultMap="TbVehicleResult">
+        <include refid="selectTbVehicleVo"/>
+        <where>
+            <if test="vehicleNo != null and vehicleNo != ''">
+                and vehicle_no = #{vehicleNo}
+            </if>
+            <if test="rackNo != null and rackNo != ''">
+                and rack_no = #{rackNo}
+            </if>
+            and owner is null and owner = ''
+        </where>
+    </select>
+
+    <select id="findByVehicleNoAndRackNoManual"   resultMap="TbVehicleResult">
+        <include refid="selectTbVehicleVo"/>
+        <where>
+            <if test="vehicleNo != null and vehicleNo != ''">
+                and vehicle_no = #{vehicleNo}
+            </if>
+            <if test="rackNo != null and rackNo != ''">
+                and rack_no = #{rackNo}
+            </if>
+            and owner IS NOT NULL and owner != ''
+        </where>
+    </select>
+
+    <delete id="deleteVehicleByVehicleNoAndRackNo" parameterType="String">
+        delete from tb_vehicle
+        <where>
+            <if test="vehicleNo != null and vehicleNo != ''">
+                and vehicleNo = #{vehicleNo}
+            </if>
+            <if test="rackNo != null and rackNo !='' ">
+                and rackNo = #{rackNo}
+            </if>
+            and owner not null
+        </where>
+    </delete>
+<!--    插入车辆保险项-->
+    <insert id="insertVehicleInsrnc" parameterType="VehicleInsrncEntity" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO tb_vehicle_insrnc
+          (vehicle_no,rack_no,insrnc_code,glass_type,amount,franchise_flag,deduct_premium,non_deduct_premium,before_premium,rate,premium,query_id)
+        VALUES
+         (
+         #{vehicleNo},
+         #{rackNo},
+         #{insrncCode},
+         #{glassType},
+         #{amount},
+         #{franchiseFlag},
+         #{deductPremium},
+         #{nonDeductPremium},
+         #{beforePremium},
+         #{rate},
+         #{premium},
+         #{queryId}
+         )
+    </insert>
+
+    <delete id="deleteByVehicleNoAndRackNo" parameterType="String">
+        DELETE FROM tb_vehicle_insrnc
+          WHERE vehicle_no = #{vehicleNo} AND rack_no = #{rackNo}
+    </delete>
+</mapper>
+

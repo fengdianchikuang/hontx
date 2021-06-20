@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.trans.mapper.TbTransMapper">
+
+
+
+    <resultMap type="TransVo" id="transVoResult">
+        <result property="id" column="t_id"/>
+        <result property="name" column="u_real_name"/>
+        <result property="phone" column="u_telephone"/>
+        <result property="idNo" column="u_identity"/>
+        <result property="amount" column="amount"/>
+        <result property="balance" column="user_amount"/>
+        <result property="bankNo" column="u_accno"/>
+        <result property="bankName" column="u_bank_name"/>
+        <result property="branch" column="u_bank_branch"/>
+        <result property="orgId" column="u_org_id"/>
+        <result property="region" column="u_area_code"/>
+        <result property="status" column="status"/>
+        <result property="createTime" column="t_create_time"/>
+    </resultMap>
+
+    <resultMap type="TbTrans" id="TbTransResult">
+        <result property="tId"    column="t_id"    />
+        <result property="transNo"    column="trans_no"    />
+        <result property="transType"    column="trans_type"    />
+        <result property="couponNo"    column="coupon_no"    />
+        <result property="amount"    column="amount"    />
+        <result property="tciAmount"    column="tci_amount"    />
+        <result property="vciAmount"    column="vci_amount"    />
+        <result property="userId"    column="user_id"    />
+        <result property="userAmount"    column="user_amount"    />
+        <result property="vehicleId"    column="vehicle_id"    />
+        <result property="queryId"    column="query_id"    />
+        <result property="incomeId"    column="income_id"    />
+        <result property="status"    column="status"    />
+        <result property="remark"    column="remark"    />
+        <result property="tCreateTime"    column="t_create_time"    />
+        <result property="tUpdateTime"    column="t_update_time"    />
+    </resultMap>
+
+    <sql id="selectTbTransVo">
+        select t_id, trans_no, trans_type, coupon_no, amount, tci_amount, vci_amount, user_id, user_amount, vehicle_id, query_id, income_id, status, remark, t_create_time, t_update_time from tb_trans
+    </sql>
+    <resultMap type="TransDetailVo" id="transInfoResult">
+        <result property="id"   column="t_id"/>
+        <result property="name"   column="u_real_name"/>
+        <result property="phone"   column="u_telephone"/>
+        <result property="amount"   column="amount"/>
+        <result property="transType"   column="trans_type"/>
+        <result property="userAmount"   column="user_amount"/>
+        <result property="vehicleNo"   column="vehicle_id"/>
+        <result property="remark"   column="remark"/>
+        <result property="orgId"   column="u_org_id"/>
+        <result property="region"   column="u_area_code"/>
+        <result property="createTime"   column="t_create_time"/>
+        <result property="updateTime"   column="t_update_time"/>
+    </resultMap>
+
+    <select id="selectTrans" resultMap="TbTransResult">
+        SELECT * FROM tb_trans
+        WHERE
+        user_id = #{ userId }
+        AND trans_type IN ('00','01','02')
+        AND t_create_time
+        BETWEEN #{first} AND #{now};
+    </select>
+<!--    查询用户当月收益-->
+    <select id="selectAmount" resultType="String">
+        select amount
+        from tb_trans
+        where user_id = #{userId} and t_create_time  between #{firstDay} and #{lastDay} and trans_type in ('00','01','02')
+    </select>
+<!--    根据用户Id查找提现列表记录-->
+    <select id="findByUserIdAndStatus" parameterType="Integer" resultMap="TbTransResult">
+        <include refid="selectTbTransVo"/>
+        where trans_type = '03' AND user_id = #{userId} ORDER BY t_update_time DESC;
+    </select>
+
+    <select id="findMyProfit" resultMap="transVoResult">
+        select
+        t.t_id,
+        u.u_real_name,
+        u.u_telephone,
+        u.u_identity,
+        t.amount,
+        t.user_amount,
+        u.u_accno,
+        u.u_bank_name,
+        u.u_bank_branch,
+        u.u_org_id,
+        u.u_area_code,
+        t.status,
+        t.t_create_time
+        from tb_trans t
+        left join tb_user_info u
+        on t.user_id = u.u_id
+        <where>
+            AND t.user_id = #{userId}
+            <if test="type != null and type != ''">
+                AND t.trans_type = #{type}
+            </if>
+            <if test="type == null or type == ''">
+                AND t.trans_type IN ('00','01','02')
+            </if>
+        </where>
+        order by t.status asc, t.t_create_time desc
+    </select>
+
+    <select id="selectTbTransInfoList" parameterType="TbTrans" resultMap="transInfoResult">
+        select
+        t.t_id,
+        u.u_real_name,
+        u.u_telephone,
+        t.amount,
+        t.trans_type,
+        t.user_amount,
+        t.vehicle_id,
+        t.remark,
+        u.u_org_id,
+        u.u_area_code,
+        t.t_create_time,
+        t.t_update_time
+        from tb_trans t
+        left join tb_user_info u
+        on t.user_id = u.u_id
+        <where>
+            <if test="name != null and name != ''">
+                and u.u_real_name = #{name}
+            </if>
+            <if test="phone != null and phone !=''">
+                and u.u_telephone = #{phone}
+            </if>
+            <if test="startDate != null and startDate != '' and  endDate != null and endDate != ''">
+                and t.t_update_time between #{startDate} and #{endDate}
+            </if>
+        </where>
+        order by t_update_time desc
+    </select>
+
+    <select id="selectTbTransList" parameterType="TransVo" resultMap="transVoResult">
+        select
+        t.t_id,
+        u.u_real_name,
+        u.u_telephone,
+        u.u_identity,
+        t.amount,
+        t.user_amount,
+        u.u_accno,
+        u.u_bank_name,
+        u.u_bank_branch,
+        u.u_org_id,
+        u.u_area_code,
+        t.status,
+        t.t_create_time
+        from tb_trans t
+        left join tb_user_info u
+        on t.user_id = u.u_id
+        <where>
+            t.status in ('00','01')
+            <if test="orgId != null  and orgId != ''"> and u.u_org_id = #{orgId}</if>
+            <if test="name != null  and name != ''"> and u.u_real_name = #{name}</if>
+            <if test="status != null  and status != ''"> and .status = #{status}</if>
+        </where>
+        order by t.status asc, t.t_create_time desc
+    </select>
+
+    <select id="selectTbTransById" parameterType="Long" resultMap="TbTransResult">
+        <include refid="selectTbTransVo"/>
+        where t_id = #{tId}
+    </select>
+
+    <insert id="insertTbTrans" parameterType="TbTrans" useGeneratedKeys="true" keyProperty="tId">
+        insert into tb_trans
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="transNo != null">trans_no,</if>
+            <if test="transType != null">trans_type,</if>
+            <if test="couponNo != null">coupon_no,</if>
+            <if test="amount != null">amount,</if>
+            <if test="tciAmount != null">tci_amount,</if>
+            <if test="vciAmount != null">vci_amount,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="userAmount != null">user_amount,</if>
+            <if test="vehicleId != null">vehicle_id,</if>
+            <if test="queryId != null">query_id,</if>
+            <if test="incomeId != null">income_id,</if>
+            <if test="status != null">status,</if>
+            <if test="remark != null">remark,</if>
+            <if test="tCreateTime != null">t_create_time,</if>
+            <if test="tUpdateTime != null">t_update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="transNo != null">#{transNo},</if>
+            <if test="transType != null">#{transType},</if>
+            <if test="couponNo != null">#{couponNo},</if>
+            <if test="amount != null">#{amount},</if>
+            <if test="tciAmount != null">#{tciAmount},</if>
+            <if test="vciAmount != null">#{vciAmount},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="userAmount != null">#{userAmount},</if>
+            <if test="vehicleId != null">#{vehicleId},</if>
+            <if test="queryId != null">#{queryId},</if>
+            <if test="incomeId != null">#{incomeId},</if>
+            <if test="status != null">#{status},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="tCreateTime != null">#{tCreateTime},</if>
+            <if test="tUpdateTime != null">#{tUpdateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTbTrans" parameterType="TbTrans">
+        update tb_trans
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="transNo != null">trans_no = #{transNo},</if>
+            <if test="transType != null">trans_type = #{transType},</if>
+            <if test="couponNo != null">coupon_no = #{couponNo},</if>
+            <if test="amount != null">amount = #{amount},</if>
+            <if test="tciAmount != null">tci_amount = #{tciAmount},</if>
+            <if test="vciAmount != null">vci_amount = #{vciAmount},</if>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="userAmount != null">user_amount = #{userAmount},</if>
+            <if test="vehicleId != null">vehicle_id = #{vehicleId},</if>
+            <if test="queryId != null">query_id = #{queryId},</if>
+            <if test="incomeId != null">income_id = #{incomeId},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="tCreateTime != null">t_create_time = #{tCreateTime},</if>
+            <if test="tUpdateTime != null">t_update_time = #{tUpdateTime},</if>
+        </trim>
+        where t_id = #{tId}
+    </update>
+
+    <delete id="deleteTbTransById" parameterType="Long">
+        delete from tb_trans where t_id = #{tId}
+    </delete>
+
+    <delete id="deleteTbTransByIds" parameterType="String">
+        delete from tb_trans where t_id in
+        <foreach item="tId" collection="array" open="(" separator="," close=")">
+            #{tId}
+        </foreach>
+    </delete>
+</mapper>

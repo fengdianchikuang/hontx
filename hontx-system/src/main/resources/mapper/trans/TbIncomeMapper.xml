@@ -1,0 +1,464 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.income.mapper.TbIncomeMapper">
+
+    <resultMap type="IncomeVo" id="IncomeVoResult">
+        <result property="iId"    column="i_id"    />
+        <result property="region"  column="u_area_code"/>
+        <result property="org" column="u_org_id"/>
+        <result property="appNo"    column="app_no"    />
+        <result property="aTeamId"    column="a_team_id"    />
+        <result property="aTeam"    column="a_team"    />
+        <result property="bTeamId"    column="b_team_id"    />
+        <result property="bTeam"    column="b_team"    />
+        <result property="checkDate"    column="check_date"    />
+        <result property="agentId"    column="agent_id"    />
+        <result property="agentName"    column="agent_name"    />
+        <result property="vehicleNo"    column="vehicle_no"    />
+        <result property="rackNo"    column="rack_no"    />
+        <result property="engineNo"    column="engine_no"    />
+        <result property="setNum"    column="set_num"    />
+        <result property="registerDate"    column="register_date"    />
+        <result property="belongType"    column="belong_type"    />
+        <result property="specificUseType"    column="specific_use_type"    />
+        <result property="queryId"    column="query_id"    />
+        <result property="channelId"    column="channel_id"    />
+        <result property="insrncType"    column="insrnc_type"    />
+        <result property="useType"    column="use_type"    />
+        <result property="vehicleType"    column="vehicle_type"    />
+        <result property="insuredName"    column="insured_name"    />
+        <result property="insuredCertNo"    column="insured_cert_no"    />
+        <result property="insrncBgnTm"    column="insrnc_bgn_tm"    />
+        <result property="insrncEndTm"    column="insrnc_end_tm"    />
+        <result property="queryServiceId"    column="query_service_id"    />
+        <result property="queryServiceName"    column="query_service_name"    />
+        <result property="checkServiceId"    column="check_service_id"    />
+        <result property="checkServiceName"    column="check_service_name"    />
+        <result property="premium"    column="premium"    />
+        <result property="totalRate"    column="total_rate"    />
+        <result property="totalIncome"    column="total_income"    />
+        <result property="agentRate"    column="agent_rate"    />
+        <result property="agentIncome"    column="agent_income"    />
+        <result property="aRate"    column="a_rate"    />
+        <result property="aIncome"    column="a_income"    />
+        <result property="bRate"    column="b_rate"    />
+        <result property="bIncome"    column="b_income"    />
+        <result property="pRate"    column="p_rate"    />
+        <result property="pIncome"    column="p_income"    />
+        <result property="iCreateTime"    column="i_create_time"    />
+        <result property="iUpdateTime"    column="i_update_time"    />
+    </resultMap>
+
+    <resultMap type="TbIncome" id="TbIncomeResult">
+        <result property="iId"    column="i_id"    />
+        <result property="appNo"    column="app_no"    />
+        <result property="aTeamId"    column="a_team_id"    />
+        <result property="aTeam"    column="a_team"    />
+        <result property="bTeamId"    column="b_team_id"    />
+        <result property="bTeam"    column="b_team"    />
+        <result property="checkDate"    column="check_date"    />
+        <result property="agentId"    column="agent_id"    />
+        <result property="agentName"    column="agent_name"    />
+        <result property="vehicleNo"    column="vehicle_no"    />
+        <result property="rackNo"    column="rack_no"    />
+        <result property="engineNo"    column="engine_no"    />
+        <result property="setNum"    column="set_num"    />
+        <result property="registerDate"    column="register_date"    />
+        <result property="belongType"    column="belong_type"    />
+        <result property="specificUseType"    column="specific_use_type"    />
+        <result property="queryId"    column="query_id"    />
+        <result property="channelId"    column="channel_id"    />
+        <result property="insrncType"    column="insrnc_type"    />
+        <result property="useType"    column="use_type"    />
+        <result property="vehicleType"    column="vehicle_type"    />
+        <result property="insuredName"    column="insured_name"    />
+        <result property="insuredCertNo"    column="insured_cert_no"    />
+        <result property="insrncBgnTm"    column="insrnc_bgn_tm"    />
+        <result property="insrncEndTm"    column="insrnc_end_tm"    />
+        <result property="queryServiceId"    column="query_service_id"    />
+        <result property="queryServiceName"    column="query_service_name"    />
+        <result property="checkServiceId"    column="check_service_id"    />
+        <result property="checkServiceName"    column="check_service_name"    />
+        <result property="premium"    column="premium"    />
+        <result property="totalRate"    column="total_rate"    />
+        <result property="totalIncome"    column="total_income"    />
+        <result property="agentRate"    column="agent_rate"    />
+        <result property="agentIncome"    column="agent_income"    />
+        <result property="aRate"    column="a_rate"    />
+        <result property="aIncome"    column="a_income"    />
+        <result property="bRate"    column="b_rate"    />
+        <result property="bIncome"    column="b_income"    />
+        <result property="pRate"    column="p_rate"    />
+        <result property="pIncome"    column="p_income"    />
+        <result property="iCreateTime"    column="i_create_time"    />
+        <result property="iUpdateTime"    column="i_update_time"    />
+    </resultMap>
+
+    <resultMap id="integralRateMap" type="IntegralRateEntity">
+        <result property="id" column="id"/>
+        <result property="channelId" column="channelId"/>
+        <result property="insrncName" column="insrncName"/>
+        <result property="totalRate" column="totalRate"/>
+        <result property="agentRate" column="agentRate"/>
+        <result property="aRate" column="aRate"/>
+        <result property="bRate" column="bRate"/>
+        <result property="orgId" column="orgId"/>
+        <result property="effectDate" column="effectDate"/>
+        <result property="createTime" column="createTime"/>
+        <result property="updateTime" column="updateTime"/>
+    </resultMap>
+
+    <sql id="integralRateAttributes">
+        id,
+        channelId,
+        (select insrnc_name from tb_insrnc_cpy where channel_id=channelId) as insrncName,
+        totalRate,
+        agentRate,
+        aRate,
+        bRate,
+        orgId,
+        effectDate,
+        createTime,
+        updateTime
+    </sql>
+
+    <sql id="selectTbIncomeVo">
+        select i_id, app_no, a_team_id, a_team, b_team_id, b_team, check_date, agent_id, agent_name, vehicle_no, rack_no, engine_no, set_num, register_date, belong_type, specific_use_type, query_id, channel_id, insrnc_type, use_type, vehicle_type, insured_name, insured_cert_no, insrnc_bgn_tm, insrnc_end_tm, query_service_id, query_service_name, check_service_id, check_service_name, premium, total_rate, total_income, agent_rate, agent_income, a_rate, a_income, b_rate, b_income, p_rate, p_income, i_create_time, i_update_time from tb_income
+    </sql>
+
+    <insert id="insertHontxTrans" parameterType="HontxTransEntity" useGeneratedKeys="true"
+            keyProperty="id">
+        INSERT  INTO  tb_hontx_trans  (
+        trans_no ,
+        trans_type ,
+        amount ,
+        agent_id ,
+        available_money ,
+        vehicle_no ,
+        rack_no ,
+	    query_id ,
+	    status  ,
+	    remark,
+	    fee,
+	    cart_no,
+        t_create_time ,
+       	t_update_time
+        ) values
+        (#{transNo},
+        #{transType},
+        #{amount},
+        #{agentId},
+        #{availableMoney},
+        #{vehicleNo},
+        #{rackNo},
+        #{queryId},
+        #{status},
+        #{remark},
+        null,
+        null,
+        CURRENT_TIMESTAMP,
+        CURRENT_TIMESTAMP)
+    </insert>
+
+    <select id="findIntegralRate" parameterType="map" resultMap="integralRateMap" flushCache="true" useCache="true">
+        select
+        <include refid="integralRateAttributes"/>
+        from tb_integral_rate
+        <where>
+            <if test="channelId != null and channelId != ''">
+                and channelId = #{channelId}
+            </if>
+            <if test="orgId != null and orgId != ''">
+                and orgId = #{orgId}
+            </if>
+            <if test="effectDate != null">
+                and effectDate = #{effectDate}
+            </if>
+        </where>
+    </select>
+<!--    计算今日商城收益-->
+    <select id="queryShopTotalByToday" resultType="Float">
+        select
+        sum(t.amount)
+        from tb_hontx_trans t
+        left join tb_user_info u
+        on t.agent_id = u.u_id
+        <where>
+            <if test="orgId != null and orgId !=''">
+                and u.u_org_id = #{orgId}
+            </if>
+            <if test="todayMin != null and todayMin != '' and todayMin != null and todayMin != ''">
+                and t.t_create_time between #{todayMax} and #{todayMin}
+            </if>
+            <if test="type != null and type !=''">
+                and t.trans_type = #{type}
+            </if>
+        </where>
+    </select>
+<!--    计算寿险今日收益-->
+    <select id="queryLifeTotalByToday" resultType="Float">
+        select
+        sum(l.premium)
+        from tb_life_order l
+        left join tb_user_info u on l.agentId = u.u_id
+        <where>
+            <if test="orgId != null and orgId !=''">
+                and u.u_org_id = #{orgId}
+            </if>
+            <if test="todayMin != null and todayMin != '' and todayMin != null and todayMin != ''">
+                and l.createTime between #{todayMax} and #{todayMin}
+            </if>
+        </where>
+    </select>
+
+<!--    计算今日总收益-->
+    <select id="queryTotalByToday" resultType="java.lang.Float">
+        select
+        sum(i.premium)
+        from tb_income i
+        left join tb_user_info u on i.agent_id = u.u_id
+        <where>
+            <if test="orgId != null and orgId !=''">
+                and u.u_org_id = #{orgId}
+            </if>
+            <if test="todayMax != null and todayMax != '' and todayMin != null and todayMin != ''">
+                and i.i_create_time between #{todayMax} and #{todayMin}
+            </if>
+        </where>
+    </select>
+    <select id="selectTbIncomeList" parameterType="IncomeVo" resultMap="IncomeVoResult">
+        select
+        i.i_id,
+        u.u_area_code,
+        u.u_org_id,
+        i.app_no,
+        i.a_team_id,
+        i.a_team,
+        i.b_team_id,
+        i.b_team,
+        i.check_date,
+        i.agent_id,
+        i.agent_name,
+        i.vehicle_no,
+        i.rack_no,
+        i.engine_no,
+        i.set_num,
+        i.register_date,
+        i.belong_type,
+        i.specific_use_type,
+        i.query_id,
+        i.channel_id,
+        i.insrnc_type,
+        i.use_type,
+        i.vehicle_type,
+        i.insured_name,
+        i.insured_cert_no,
+        i.insrnc_bgn_tm,
+        i.insrnc_end_tm,
+        i.query_service_id,
+        i.query_service_name,
+        i.check_service_id,
+        i.check_service_name,
+        i.premium,
+        i.total_rate,
+        i.total_income,
+        i.agent_rate,
+        i.agent_income,
+        i.a_rate,
+        i.a_income,
+        i.b_rate,
+        i.b_income,
+        i.p_rate,
+        i.p_income,
+        i.i_create_time,
+        i.i_update_time
+        from tb_income i
+        left join tb_user_info u
+        on u.u_id = i.agent_id
+        <where>
+            <if test="org != null  and org != ''"> and u.u_org_id = #{org} </if>
+            <if test="agentName != null  and agentName != ''"> and i.agent_name like concat('%', #{agentName}, '%')</if>
+            <if test="insuredName != null  and insuredName != ''"> and i.insured_name like concat('%', #{insuredName}, '%')</if>
+            <if test="vehicleNo != null  and vehicleNo != ''"> and i.vehicle_no = #{vehicleNo}</if>
+            <if test="startTime != null and startTime != '' and endTime != null and endTime != ''">
+                and i.check_date between #{startTime} and #{endTime}
+            </if>
+        </where>
+        order by i.i_create_time desc
+    </select>
+
+    <select id="selectTbIncomeById" parameterType="Long" resultMap="TbIncomeResult">
+        <include refid="selectTbIncomeVo"/>
+        where i_id = #{iId}
+    </select>
+
+    <insert id="insertTbIncome" parameterType="TbIncome" useGeneratedKeys="true" keyProperty="iId">
+        insert into tb_income
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="appNo != null">app_no,</if>
+            <if test="aTeamId != null">a_team_id,</if>
+            <if test="aTeam != null">a_team,</if>
+            <if test="bTeamId != null">b_team_id,</if>
+            <if test="bTeam != null">b_team,</if>
+            <if test="checkDate != null">check_date,</if>
+            <if test="agentId != null">agent_id,</if>
+            <if test="agentName != null">agent_name,</if>
+            <if test="vehicleNo != null">vehicle_no,</if>
+            <if test="rackNo != null">rack_no,</if>
+            <if test="engineNo != null">engine_no,</if>
+            <if test="setNum != null">set_num,</if>
+            <if test="registerDate != null">register_date,</if>
+            <if test="belongType != null">belong_type,</if>
+            <if test="specificUseType != null">specific_use_type,</if>
+            <if test="queryId != null">query_id,</if>
+            <if test="channelId != null">channel_id,</if>
+            <if test="insrncType != null">insrnc_type,</if>
+            <if test="useType != null">use_type,</if>
+            <if test="vehicleType != null">vehicle_type,</if>
+            <if test="insuredName != null">insured_name,</if>
+            <if test="insuredCertNo != null">insured_cert_no,</if>
+            <if test="insrncBgnTm != null">insrnc_bgn_tm,</if>
+            <if test="insrncEndTm != null">insrnc_end_tm,</if>
+            <if test="queryServiceId != null">query_service_id,</if>
+            <if test="queryServiceName != null">query_service_name,</if>
+            <if test="checkServiceId != null">check_service_id,</if>
+            <if test="checkServiceName != null">check_service_name,</if>
+            <if test="premium != null">premium,</if>
+            <if test="totalRate != null">total_rate,</if>
+            <if test="totalIncome != null">total_income,</if>
+            <if test="agentRate != null">agent_rate,</if>
+            <if test="agentIncome != null">agent_income,</if>
+            <if test="aRate != null">a_rate,</if>
+            <if test="aIncome != null">a_income,</if>
+            <if test="bRate != null">b_rate,</if>
+            <if test="bIncome != null">b_income,</if>
+            <if test="pRate != null">p_rate,</if>
+            <if test="pIncome != null">p_income,</if>
+            <if test="iCreateTime != null">i_create_time,</if>
+            <if test="iUpdateTime != null">i_update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="appNo != null">#{appNo},</if>
+            <if test="aTeamId != null">#{aTeamId},</if>
+            <if test="aTeam != null">#{aTeam},</if>
+            <if test="bTeamId != null">#{bTeamId},</if>
+            <if test="bTeam != null">#{bTeam},</if>
+            <if test="checkDate != null">#{checkDate},</if>
+            <if test="agentId != null">#{agentId},</if>
+            <if test="agentName != null">#{agentName},</if>
+            <if test="vehicleNo != null">#{vehicleNo},</if>
+            <if test="rackNo != null">#{rackNo},</if>
+            <if test="engineNo != null">#{engineNo},</if>
+            <if test="setNum != null">#{setNum},</if>
+            <if test="registerDate != null">#{registerDate},</if>
+            <if test="belongType != null">#{belongType},</if>
+            <if test="specificUseType != null">#{specificUseType},</if>
+            <if test="queryId != null">#{queryId},</if>
+            <if test="channelId != null">#{channelId},</if>
+            <if test="insrncType != null">#{insrncType},</if>
+            <if test="useType != null">#{useType},</if>
+            <if test="vehicleType != null">#{vehicleType},</if>
+            <if test="insuredName != null">#{insuredName},</if>
+            <if test="insuredCertNo != null">#{insuredCertNo},</if>
+            <if test="insrncBgnTm != null">#{insrncBgnTm},</if>
+            <if test="insrncEndTm != null">#{insrncEndTm},</if>
+            <if test="queryServiceId != null">#{queryServiceId},</if>
+            <if test="queryServiceName != null">#{queryServiceName},</if>
+            <if test="checkServiceId != null">#{checkServiceId},</if>
+            <if test="checkServiceName != null">#{checkServiceName},</if>
+            <if test="premium != null">#{premium},</if>
+            <if test="totalRate != null">#{totalRate},</if>
+            <if test="totalIncome != null">#{totalIncome},</if>
+            <if test="agentRate != null">#{agentRate},</if>
+            <if test="agentIncome != null">#{agentIncome},</if>
+            <if test="aRate != null">#{aRate},</if>
+            <if test="aIncome != null">#{aIncome},</if>
+            <if test="bRate != null">#{bRate},</if>
+            <if test="bIncome != null">#{bIncome},</if>
+            <if test="pRate != null">#{pRate},</if>
+            <if test="pIncome != null">#{pIncome},</if>
+            <if test="iCreateTime != null">#{iCreateTime},</if>
+            <if test="iUpdateTime != null">#{iUpdateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTbIncome" parameterType="TbIncome">
+        update tb_income
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="appNo != null">app_no = #{appNo},</if>
+            <if test="aTeamId != null">a_team_id = #{aTeamId},</if>
+            <if test="aTeam != null">a_team = #{aTeam},</if>
+            <if test="bTeamId != null">b_team_id = #{bTeamId},</if>
+            <if test="bTeam != null">b_team = #{bTeam},</if>
+            <if test="checkDate != null">check_date = #{checkDate},</if>
+            <if test="agentId != null">agent_id = #{agentId},</if>
+            <if test="agentName != null">agent_name = #{agentName},</if>
+            <if test="vehicleNo != null">vehicle_no = #{vehicleNo},</if>
+            <if test="rackNo != null">rack_no = #{rackNo},</if>
+            <if test="engineNo != null">engine_no = #{engineNo},</if>
+            <if test="setNum != null">set_num = #{setNum},</if>
+            <if test="registerDate != null">register_date = #{registerDate},</if>
+            <if test="belongType != null">belong_type = #{belongType},</if>
+            <if test="specificUseType != null">specific_use_type = #{specificUseType},</if>
+            <if test="queryId != null">query_id = #{queryId},</if>
+            <if test="channelId != null">channel_id = #{channelId},</if>
+            <if test="insrncType != null">insrnc_type = #{insrncType},</if>
+            <if test="useType != null">use_type = #{useType},</if>
+            <if test="vehicleType != null">vehicle_type = #{vehicleType},</if>
+            <if test="insuredName != null">insured_name = #{insuredName},</if>
+            <if test="insuredCertNo != null">insured_cert_no = #{insuredCertNo},</if>
+            <if test="insrncBgnTm != null">insrnc_bgn_tm = #{insrncBgnTm},</if>
+            <if test="insrncEndTm != null">insrnc_end_tm = #{insrncEndTm},</if>
+            <if test="queryServiceId != null">query_service_id = #{queryServiceId},</if>
+            <if test="queryServiceName != null">query_service_name = #{queryServiceName},</if>
+            <if test="checkServiceId != null">check_service_id = #{checkServiceId},</if>
+            <if test="checkServiceName != null">check_service_name = #{checkServiceName},</if>
+            <if test="premium != null">premium = #{premium},</if>
+            <if test="totalRate != null">total_rate = #{totalRate},</if>
+            <if test="totalIncome != null">total_income = #{totalIncome},</if>
+            <if test="agentRate != null">agent_rate = #{agentRate},</if>
+            <if test="agentIncome != null">agent_income = #{agentIncome},</if>
+            <if test="aRate != null">a_rate = #{aRate},</if>
+            <if test="aIncome != null">a_income = #{aIncome},</if>
+            <if test="bRate != null">b_rate = #{bRate},</if>
+            <if test="bIncome != null">b_income = #{bIncome},</if>
+            <if test="pRate != null">p_rate = #{pRate},</if>
+            <if test="pIncome != null">p_income = #{pIncome},</if>
+            <if test="iCreateTime != null">i_create_time = #{iCreateTime},</if>
+            <if test="iUpdateTime != null">i_update_time = #{iUpdateTime},</if>
+        </trim>
+        where i_id = #{iId}
+    </update>
+
+    <delete id="deleteTbIncomeById" parameterType="Long">
+        delete from tb_income where i_id = #{iId}
+    </delete>
+
+    <delete id="deleteTbIncomeByIds" parameterType="String">
+        delete from tb_income where i_id in
+        <foreach item="iId" collection="array" open="(" separator="," close=")">
+            #{iId}
+        </foreach>
+    </delete>
+<!--    插入通知记录-->
+    <insert id="insertInform" parameterType="InformEntity" useGeneratedKeys="true" keyProperty="id">
+         INSERT INTO tb_inform(
+             agent_id,
+             title,
+             text,
+             u_device_type,
+             i_resp_code,
+             i_resp_msg,
+             i_create_time )
+         VALUE(
+            #{aegntId},
+            #{title,jdbcType=VARCHAR},
+            #{text},
+            #{deviceType},
+            #{respCode},
+            #{respMsg},
+            CURRENT_TIMESTAMP )
+    </insert>
+</mapper>

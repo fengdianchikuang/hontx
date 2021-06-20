@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.user.mapper.TbUserMapper">
+
+    <resultMap type="UserReq" id="TbUserResult">
+        <result property="id"    column="u_id"    />
+        <result property="name"    column="u_name"    />
+        <result property="ownerId"    column="owner_id"    />
+        <result property="accountName"    column="u_account_name"    />
+        <result property="password"    column="u_password"    />
+        <result property="deleteStatus"    column="u_delete_status"    />
+        <result property="locked"    column="u_locked"    />
+        <result property="description"    column="u_description"    />
+        <result property="credentialsSalt"    column="u_credentials_salt"    />
+        <result property="creatorName"    column="u_creator_name"    />
+        <result property="createTime"    column="u_create_time"    />
+        <result property="updateTime"    column="u_update_time"    />
+    </resultMap>
+
+    <sql id="selectTbUserVo">
+        select u_id, u_name, owner_id, u_account_name, u_password, u_delete_status, u_locked, u_description, u_credentials_salt, u_creator_name, u_create_time, u_update_time from tb_user
+    </sql>
+<!--暂时没用到-->
+<!--    <select id="selectTbUserList" parameterType="TbUser" resultMap="TbUserResult">-->
+<!--        <include refid="selectTbUserVo"/>-->
+<!--        <where>-->
+<!--            <if test="name != null  and name != ''"> and u_name like concat('%', #{name}, '%')</if>-->
+<!--            <if test="ownerId != null "> and owner_id = #{ownerId}</if>-->
+<!--            <if test="accountName != null  and accountName != ''"> and u_account_name like concat('%', #{accountName}, '%')</if>-->
+<!--            <if test="password != null  and password != ''"> and u_password = #{password}</if>-->
+<!--            <if test="deleteStatus != null "> and u_delete_status = #{deleteStatus}</if>-->
+<!--            <if test="locked != null "> and u_locked = #{locked}</if>-->
+<!--            <if test="description != null  and description != ''"> and u_description = #{description}</if>-->
+<!--            <if test="credentialsSalt != null  and credentialsSalt != ''"> and u_credentials_salt = #{credentialsSalt}</if>-->
+<!--            <if test="creatorName != null  and creatorName != ''"> and u_creator_name like concat('%', #{creatorName}, '%')</if>-->
+<!--            <if test="createTime != null "> and u_create_time = #{createTime}</if>-->
+<!--            <if test="updateTime != null "> and u_update_time = #{updateTime}</if>-->
+<!--        </where>-->
+<!--    </select>-->
+
+    <select id="selectTbUserById" parameterType="Integer" resultMap="TbUserResult">
+        <include refid="selectTbUserVo"/>
+        where u_id = #{id}
+    </select>
+
+    <insert id="insertTbUser" parameterType="UserReq" useGeneratedKeys="true" keyProperty="id">
+        insert into tb_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null">u_name,</if>
+            <if test="ownerId != null">owner_id,</if>
+            <if test="accountName != null">u_account_name,</if>
+            <if test="password != null">u_password,</if>
+            <if test="deleteStatus != null">u_delete_status,</if>
+            <if test="locked != null">u_locked,</if>
+            <if test="description != null">u_description,</if>
+            <if test="credentialsSalt != null">u_credentials_salt,</if>
+            <if test="creatorName != null">u_creator_name,</if>
+            <if test="createTime != null">u_create_time,</if>
+            <if test="updateTime != null">u_update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="name != null">#{name},</if>
+            <if test="ownerId != null">#{ownerId},</if>
+            <if test="accountName != null">#{accountName},</if>
+            <if test="password != null">#{password},</if>
+            <if test="deleteStatus != null">#{deleteStatus},</if>
+            <if test="locked != null">#{locked},</if>
+            <if test="description != null">#{description},</if>
+            <if test="credentialsSalt != null">#{credentialsSalt},</if>
+            <if test="creatorName != null">#{creatorName},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTbUser" parameterType="UserReq">
+        update tb_user
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null">u_name = #{name},</if>
+            <if test="ownerId != null">owner_id = #{ownerId},</if>
+            <if test="accountName != null">u_account_name = #{accountName},</if>
+            <if test="password != null">u_password = #{password},</if>
+            <if test="deleteStatus != null">u_delete_status = #{deleteStatus},</if>
+            <if test="locked != null">u_locked = #{locked},</if>
+            <if test="description != null">u_description = #{description},</if>
+            <if test="credentialsSalt != null">u_credentials_salt = #{credentialsSalt},</if>
+            <if test="creatorName != null">u_creator_name = #{creatorName},</if>
+            <if test="createTime != null">u_create_time = #{createTime},</if>
+            <if test="updateTime != null">u_update_time = #{updateTime},</if>
+        </trim>
+        where u_id = #{id}
+    </update>
+
+    <delete id="deleteTbUserById" parameterType="Integer">
+        delete from tb_user where u_id = #{id}
+    </delete>
+
+    <delete id="deleteTbUserByIds" parameterType="String">
+        delete from tb_user where u_id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

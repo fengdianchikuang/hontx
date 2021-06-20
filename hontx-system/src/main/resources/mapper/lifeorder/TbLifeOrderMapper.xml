@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.lifeorder.mapper.TbLifeOrderMapper">
+
+    <resultMap type="TbLifeOrder" id="TbLifeOrderResult">
+        <result property="id"    column="id"    />
+        <result property="orderid"    column="orderId"    />
+        <result property="holderidno"    column="holderIdNo"    />
+        <result property="agentid"    column="agentId"    />
+        <result property="productid"    column="productId"    />
+        <result property="status"    column="status"    />
+        <result property="extparams"    column="extParams"    />
+        <result property="guaranteeterm"    column="guaranteeTerm"    />
+        <result property="guaranteetype"    column="guaranteeType"    />
+        <result property="paytime"    column="payTime"    />
+        <result property="insurederidtype"    column="insurederIdType"    />
+        <result property="insurederidno"    column="insurederIdNo"    />
+        <result property="insuredername"    column="insurederName"    />
+        <result property="payperm"    column="payPerm"    />
+        <result property="paytype"    column="payType"    />
+        <result property="payment"    column="payment"    />
+        <result property="premium"    column="premium"    />
+        <result property="productname"    column="productName"    />
+        <result property="policyno"    column="policyNo"    />
+        <result property="policystatus"    column="policyStatus"    />
+        <result property="totalinsured"    column="totalInsured"    />
+        <result property="upperproductid"    column="upperProductId"    />
+        <result property="guaranteestarttime"    column="guaranteeStartTime"    />
+        <result property="guaranteeendtime"    column="guaranteeEndTime"    />
+        <result property="createtime"    column="createTime"    />
+        <result property="updatetime"    column="updateTime"    />
+    </resultMap>
+
+
+    <resultMap type="LifeOrderVo" id="LifeOrderResultVo">
+        <result column="id"     property="id"/>
+        <result column="orderId"     property="orderId"/>
+        <result column="agentId"     property="agentId"/>
+        <result column="agent_name"     property="agentName"/>
+        <result column="agent_tel"     property="agentTel"/>
+        <result column="holder_name"     property="holderName"/>
+        <result column="holder_id_no"     property="holderIdNo"/>
+        <result column="holder_tel"     property="holderTel"/>
+        <result column="payTime"     property="payTime"/>
+        <result column="product_name"     property="productName"/>
+        <result column="insurederName"     property="insurederName"/>
+        <result column="insurederIdNo"     property="insurederIdNo"/>
+        <result column="status"     property="status"/>
+        <result column="payType"     property="payType"/>
+        <result column="payPerm"     property="payPerm"/>
+        <result column="policyStatus"     property="policyStatus"/>
+        <result column="premium"     property="premium"/>
+        <result column="guaranteeStartTime" property="guaranteeStartTime"/>
+        <result column="guaranteeEndTime" property="guaranteeEndTime"/>
+        <result column="createTime"     property="createTime"/>
+        <result column="updateTime"     property="updateTime"/>
+    </resultMap>
+
+
+
+    <sql id="selectTbLifeOrderVo">
+        select id, orderId, holderIdNo, agentId, productId, status, extParams, guaranteeTerm, guaranteeType, payTime, insurederIdType, insurederIdNo, insurederName, payPerm, payType, payment, premium, productName, policyNo, policyStatus, totalInsured, upperProductId, guaranteeStartTime, guaranteeEndTime, createTime, updateTime from tb_life_order
+    </sql>
+
+
+    <select id="selectTbLifeOrderList" parameterType="LifeOrderVo" resultMap="LifeOrderResultVo">
+        select
+         a.id,
+         a.orderId,
+         a.agentId,
+         b.u_real_name as agent_name,
+         b.u_telephone as agent_tel,
+         c.name as holder_name,
+         c.idNo as holder_id_no,
+         c.plainMobile as holder_tel,
+         a.payTime,
+         d.productName as product_name,
+         a.insurederName,
+         a.insurederIdNo,
+         a.status,
+         a.payType,
+         a.payPerm,
+         a.policyStatus,
+         a.premium,
+         a.guaranteeStartTime,
+         a.guaranteeEndTime,
+         a.createTime,
+         a.updateTime
+
+         from tb_life_order a
+         left join tb_user_info b
+         on a.agentId = b.u_id
+         left join tb_life_holder c
+         on a.holderIdNo = c.idNo
+         left join tb_life_product d
+         on a.productId = d.productNo
+        <where>
+            <if test="insurederIdNo != null  and insurederIdNo != ''"> and a.insurederIdNo = #{insurederidno}</if>
+            <if test="insurederName != null  and insurederName != ''"> and a.insurederName like concat('%', #{insuredername}, '%')</if>
+            <if test="agentName != null  and agentName != ''"> and b.u_real_name like concat('%', #{agentName}, '%')</if>
+        </where>
+        order by a.createTime desc
+    </select>
+
+    <select id="selectTbLifeOrderById" parameterType="Long" resultMap="TbLifeOrderResult">
+        <include refid="selectTbLifeOrderVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertTbLifeOrder" parameterType="TbLifeOrder" useGeneratedKeys="true" keyProperty="id">
+        insert into tb_life_order
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="orderid != null and orderid != ''">orderId,</if>
+            <if test="holderidno != null and holderidno != ''">holderIdNo,</if>
+            <if test="agentid != null and agentid != ''">agentId,</if>
+            <if test="productid != null">productId,</if>
+            <if test="status != null">status,</if>
+            <if test="extparams != null">extParams,</if>
+            <if test="guaranteeterm != null">guaranteeTerm,</if>
+            <if test="guaranteetype != null">guaranteeType,</if>
+            <if test="paytime != null">payTime,</if>
+            <if test="insurederidtype != null">insurederIdType,</if>
+            <if test="insurederidno != null">insurederIdNo,</if>
+            <if test="insuredername != null">insurederName,</if>
+            <if test="payperm != null">payPerm,</if>
+            <if test="paytype != null">payType,</if>
+            <if test="payment != null">payment,</if>
+            <if test="premium != null">premium,</if>
+            <if test="productname != null">productName,</if>
+            <if test="policyno != null">policyNo,</if>
+            <if test="policystatus != null">policyStatus,</if>
+            <if test="totalinsured != null">totalInsured,</if>
+            <if test="upperproductid != null">upperProductId,</if>
+            <if test="guaranteestarttime != null">guaranteeStartTime,</if>
+            <if test="guaranteeendtime != null">guaranteeEndTime,</if>
+            <if test="createtime != null">createTime,</if>
+            <if test="updatetime != null">updateTime,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="orderid != null and orderid != ''">#{orderid},</if>
+            <if test="holderidno != null and holderidno != ''">#{holderidno},</if>
+            <if test="agentid != null and agentid != ''">#{agentid},</if>
+            <if test="productid != null">#{productid},</if>
+            <if test="status != null">#{status},</if>
+            <if test="extparams != null">#{extparams},</if>
+            <if test="guaranteeterm != null">#{guaranteeterm},</if>
+            <if test="guaranteetype != null">#{guaranteetype},</if>
+            <if test="paytime != null">#{paytime},</if>
+            <if test="insurederidtype != null">#{insurederidtype},</if>
+            <if test="insurederidno != null">#{insurederidno},</if>
+            <if test="insuredername != null">#{insuredername},</if>
+            <if test="payperm != null">#{payperm},</if>
+            <if test="paytype != null">#{paytype},</if>
+            <if test="payment != null">#{payment},</if>
+            <if test="premium != null">#{premium},</if>
+            <if test="productname != null">#{productname},</if>
+            <if test="policyno != null">#{policyno},</if>
+            <if test="policystatus != null">#{policystatus},</if>
+            <if test="totalinsured != null">#{totalinsured},</if>
+            <if test="upperproductid != null">#{upperproductid},</if>
+            <if test="guaranteestarttime != null">#{guaranteestarttime},</if>
+            <if test="guaranteeendtime != null">#{guaranteeendtime},</if>
+            <if test="createtime != null">#{createtime},</if>
+            <if test="updatetime != null">#{updatetime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTbLifeOrder" parameterType="TbLifeOrder">
+        update tb_life_order
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="orderid != null and orderid != ''">orderId = #{orderid},</if>
+            <if test="holderidno != null and holderidno != ''">holderIdNo = #{holderidno},</if>
+            <if test="agentid != null and agentid != ''">agentId = #{agentid},</if>
+            <if test="productid != null">productId = #{productid},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="extparams != null">extParams = #{extparams},</if>
+            <if test="guaranteeterm != null">guaranteeTerm = #{guaranteeterm},</if>
+            <if test="guaranteetype != null">guaranteeType = #{guaranteetype},</if>
+            <if test="paytime != null">payTime = #{paytime},</if>
+            <if test="insurederidtype != null">insurederIdType = #{insurederidtype},</if>
+            <if test="insurederidno != null">insurederIdNo = #{insurederidno},</if>
+            <if test="insuredername != null">insurederName = #{insuredername},</if>
+            <if test="payperm != null">payPerm = #{payperm},</if>
+            <if test="paytype != null">payType = #{paytype},</if>
+            <if test="payment != null">payment = #{payment},</if>
+            <if test="premium != null">premium = #{premium},</if>
+            <if test="productname != null">productName = #{productname},</if>
+            <if test="policyno != null">policyNo = #{policyno},</if>
+            <if test="policystatus != null">policyStatus = #{policystatus},</if>
+            <if test="totalinsured != null">totalInsured = #{totalinsured},</if>
+            <if test="upperproductid != null">upperProductId = #{upperproductid},</if>
+            <if test="guaranteestarttime != null">guaranteeStartTime = #{guaranteestarttime},</if>
+            <if test="guaranteeendtime != null">guaranteeEndTime = #{guaranteeendtime},</if>
+            <if test="createtime != null">createTime = #{createtime},</if>
+            <if test="updatetime != null">updateTime = #{updatetime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTbLifeOrderById" parameterType="Long">
+        delete from tb_life_order where id = #{id}
+    </delete>
+
+    <delete id="deleteTbLifeOrderByIds" parameterType="String">
+        delete from tb_life_order where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

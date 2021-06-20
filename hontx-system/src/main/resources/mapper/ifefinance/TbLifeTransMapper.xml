@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.lifefinance.mapper.TbLifeTransMapper">
+
+    <resultMap type="TbLifeTrans" id="TbLifeTransResult">
+        <result property="id"    column="id"    />
+        <result property="transno"    column="transNo"    />
+        <result property="transtype"    column="transType"    />
+        <result property="amount"    column="amount"    />
+        <result property="userid"    column="userId"    />
+        <result property="useramount"    column="userAmount"    />
+        <result property="orderid"    column="orderId"    />
+        <result property="status"    column="status"    />
+        <result property="createtime"    column="createTime"    />
+        <result property="updatetime"    column="updateTime"    />
+    </resultMap>
+
+    <resultMap type="LifeTransVo" id="LifeTransResultVo">
+        <result property="id"    column="id"    />
+        <result property="transno"    column="transNo"    />
+        <result property="transtype"    column="transType"    />
+        <result property="amount"    column="amount"    />
+        <result property="userid"    column="userId"    />
+        <result property="useramount"    column="userAmount"    />
+        <result property="orderid"    column="orderId"    />
+        <result property="status"    column="status"    />
+        <result property="createtime"    column="createTime"    />
+        <result property="updatetime"    column="updateTime"    />
+        <result property="agent"    column="u_real_name"    />
+        <result property="agentTel"    column="u_telephone"    />
+        <result property="insurederName"    column="insurederName"    />
+        <result property="insurederIdNo"    column="insurederIdNo"    />
+        <result property="productName"    column="productName"    />
+        <result property="premium"    column="premium"    />
+    </resultMap>
+
+    <resultMap type="WithdrawalTrans" id="LifeWithdrawalResultVo">
+        <result property="id" column="id"/>
+        <result property="agent"    column="u_real_name"    />
+        <result property="agentTel"    column="u_telephone"    />
+        <result property="amount"    column="amount"    />
+        <result property="userAmount"    column="userAmount"    />
+        <result property="bankNo"    column="u_accno"    />
+        <result property="bankName"    column="u_bank_name"    />
+        <result property="branch"    column="u_bank_branch"    />
+        <result property="createTime"    column="createTime"    />
+        <result property="updateTime"    column="updateTime"    />
+        <result property="status"    column="status"    />
+    </resultMap>
+
+    <sql id="selectTbLifeTransVo">
+        select id, transNo, transType, amount, userId, userAmount, orderId, status, createTime, updateTime from tb_life_trans
+    </sql>
+
+
+<!--    查询提现列表-->
+    <select id="selectWithdrawalList" parameterType="LifeTransReq" resultMap="LifeWithdrawalResultVo">
+        select
+        a.id,
+        a.amount,
+        a.userAmount,
+        a.status,
+        a.createTime,
+        a.updateTime,
+        b.u_real_name,
+        b.u_telephone,
+        b.u_accno,
+        b.u_bank_name,
+        b.u_bank_branch
+        from tb_life_trans a
+        left join tb_user_info b
+        on a.userId = b.u_id
+        <where>
+            <if test="agent != null  and agent != ''"> and b.u_real_name = #{agent}</if>
+            <if test="agentTel != null  and agentTel != ''"> and b.u_telephone = #{agentTel}</if>
+            <if test="startTime != null and startTime != '' and endTime != null and endTime != ''">
+                and a.updateTime between #{startTime} and #{endTime}
+            </if>
+            and a.status in ('00','01')
+        </where>
+        order by a.createTime desc
+    </select>
+    <select id="selectTbLifeTransList" parameterType="LifeTransReq" resultMap="LifeTransResultVo">
+        select
+        a.id,
+        a.transNo,
+        a.transType,
+        a.amount,
+        a.userId,
+        a.userAmount,
+        a.orderId,
+        a.status,
+        a.createTime,
+        a.updateTime,
+        b.u_real_name,
+        b.u_telephone,
+        c.insurederName,
+        c.insurederIdNo,
+        c.productName,
+        c.premium
+        from tb_life_trans a
+        left join tb_user_info b
+        on a.userId = b.u_id
+        left join tb_life_order c
+        on a.orderId = c.orderId
+        <where>
+            <if test="agent != null  and agent != ''"> and b.u_real_name = #{agent}</if>
+            <if test="agentTel != null  and agentTel != ''"> and b.u_telephone = #{agentTel}</if>
+            <if test="startTime != null and startTime != '' and endTime != null and endTime != ''">
+                and a.updateTime between #{startTime} and #{endTime}
+            </if>
+        </where>
+        order by a.createTime desc
+    </select>
+
+    <select id="selectTbLifeTransById" parameterType="Long" resultMap="TbLifeTransResult">
+        <include refid="selectTbLifeTransVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertTbLifeTrans" parameterType="TbLifeTrans" useGeneratedKeys="true" keyProperty="id">
+        insert into tb_life_trans
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="transno != null">transNo,</if>
+            <if test="transtype != null">transType,</if>
+            <if test="amount != null">amount,</if>
+            <if test="userid != null">userId,</if>
+            <if test="useramount != null">userAmount,</if>
+            <if test="orderid != null">orderId,</if>
+            <if test="status != null">status,</if>
+            <if test="createtime != null">createTime,</if>
+            <if test="updatetime != null">updateTime,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="transno != null">#{transno},</if>
+            <if test="transtype != null">#{transtype},</if>
+            <if test="amount != null">#{amount},</if>
+            <if test="userid != null">#{userid},</if>
+            <if test="useramount != null">#{useramount},</if>
+            <if test="orderid != null">#{orderid},</if>
+            <if test="status != null">#{status},</if>
+            <if test="createtime != null">#{createtime},</if>
+            <if test="updatetime != null">#{updatetime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTbLifeTrans" parameterType="TbLifeTrans">
+        update tb_life_trans
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="transno != null">transNo = #{transno},</if>
+            <if test="transtype != null">transType = #{transtype},</if>
+            <if test="amount != null">amount = #{amount},</if>
+            <if test="userid != null">userId = #{userid},</if>
+            <if test="useramount != null">userAmount = #{useramount},</if>
+            <if test="orderid != null">orderId = #{orderid},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="createtime != null">createTime = #{createtime},</if>
+            <if test="updatetime != null">updateTime = #{updatetime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTbLifeTransById" parameterType="Long">
+        delete from tb_life_trans where id = #{id}
+    </delete>
+
+    <delete id="deleteTbLifeTransByIds" parameterType="String">
+        delete from tb_life_trans where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.applicant.mapper.ApplicantMapper">
+
+    <resultMap type="Applicant" id="ApplicantResult">
+        <result property="id"    column="id"    />
+        <result property="ownerId"    column="owner_id"    />
+        <result property="frameNo"    column="frame_no"    />
+        <result property="name"    column="name"    />
+        <result property="phone"    column="phone"    />
+        <result property="certificateType"    column="certificate_type"    />
+        <result property="certificateNo"    column="certificate_no"    />
+        <result property="birthday"    column="birthday"    />
+        <result property="sex"    column="sex"    />
+        <result property="address"    column="address"    />
+        <result property="insuredFlag"    column="insured_flag"    />
+        <result property="email"    column="email"    />
+    </resultMap>
+
+    <sql id="selectApplicantVo">
+        select id, owner_id, frame_no, name, phone, certificate_type, certificate_no, birthday, sex, address, insured_flag, email from tb_applicant
+    </sql>
+    <select id="findByFrameNo" resultMap="ApplicantResult">
+        <include refid="selectApplicantVo"/>
+        where frame_no = #{frameNo}
+    </select>
+    <select id="selectApplicantList" parameterType="Applicant" resultMap="ApplicantResult">
+        <include refid="selectApplicantVo"/>
+        <where>
+            <if test="ownerId != null "> and owner_id = #{ownerId}</if>
+            <if test="frameNo != null  and frameNo != ''"> and frame_no = #{frameNo}</if>
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="phone != null  and phone != ''"> and phone = #{phone}</if>
+            <if test="certificateType != null  and certificateType != ''"> and certificate_type = #{certificateType}</if>
+            <if test="certificateNo != null  and certificateNo != ''"> and certificate_no = #{certificateNo}</if>
+            <if test="birthday != null "> and birthday = #{birthday}</if>
+            <if test="sex != null "> and sex = #{sex}</if>
+            <if test="address != null  and address != ''"> and address = #{address}</if>
+            <if test="insuredFlag != null "> and insured_flag = #{insuredFlag}</if>
+            <if test="email != null  and email != ''"> and email = #{email}</if>
+        </where>
+    </select>
+
+    <select id="selectApplicantById" parameterType="Long" resultMap="ApplicantResult">
+        <include refid="selectApplicantVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertApplicant" parameterType="Applicant" useGeneratedKeys="true" keyProperty="id">
+        insert into tb_applicant
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="ownerId != null">owner_id,</if>
+            <if test="frameNo != null">frame_no,</if>
+            <if test="name != null">name,</if>
+            <if test="phone != null">phone,</if>
+            <if test="certificateType != null">certificate_type,</if>
+            <if test="certificateNo != null">certificate_no,</if>
+            <if test="birthday != null">birthday,</if>
+            <if test="sex != null">sex,</if>
+            <if test="address != null">address,</if>
+            <if test="insuredFlag != null">insured_flag,</if>
+            <if test="email != null">email,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="ownerId != null">#{ownerId},</if>
+            <if test="frameNo != null">#{frameNo},</if>
+            <if test="name != null">#{name},</if>
+            <if test="phone != null">#{phone},</if>
+            <if test="certificateType != null">#{certificateType},</if>
+            <if test="certificateNo != null">#{certificateNo},</if>
+            <if test="birthday != null">#{birthday},</if>
+            <if test="sex != null">#{sex},</if>
+            <if test="address != null">#{address},</if>
+            <if test="insuredFlag != null">#{insuredFlag},</if>
+            <if test="email != null">#{email},</if>
+         </trim>
+    </insert>
+
+    <update id="updateApplicant" parameterType="Applicant">
+        update tb_applicant
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="ownerId != null">owner_id = #{ownerId},</if>
+            <if test="frameNo != null">frame_no = #{frameNo},</if>
+            <if test="name != null">name = #{name},</if>
+            <if test="phone != null">phone = #{phone},</if>
+            <if test="certificateType != null">certificate_type = #{certificateType},</if>
+            <if test="certificateNo != null">certificate_no = #{certificateNo},</if>
+            <if test="birthday != null">birthday = #{birthday},</if>
+            <if test="sex != null">sex = #{sex},</if>
+            <if test="address != null">address = #{address},</if>
+            <if test="insuredFlag != null">insured_flag = #{insuredFlag},</if>
+            <if test="email != null">email = #{email},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteApplicantById" parameterType="Long">
+        delete from tb_applicant where id = #{id}
+    </delete>
+
+    <delete id="deleteApplicantByIds" parameterType="String">
+        delete from tb_applicant where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

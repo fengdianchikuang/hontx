@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.VehicleOwnerMapper">
+    <resultMap id="ownerVehicleResult" type="VehicleOwner">
+        <result column="id" property="id"/>
+        <result column="frame_no" property="frameNo"/>
+        <result column="license_no" property="licenseNo"/>
+        <result column="owner_id" property="ownerId"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+<!--    根据车主Id查找车辆关联-->
+    <select id="findByOwnerId" parameterType="Long" resultMap="ownerVehicleResult">
+        select
+        a.id,
+        a.frame_no,
+        a.license_no,
+        a.owner_id,
+        a.create_time,
+        a.update_time,
+        from tb_vehicle_owner a
+        <where>
+            <if test="ownerId != null">
+                and a.owner_id = #{owner_id}
+            </if>
+        </where>
+    </select>
+
+    <!-- 根据车架和车主Id查找-->
+    <select id="findByFrameNoAndOwnerId" resultMap="ownerVehicleResult">
+        select
+        a.id,
+        a.frame_no,
+        a.license_no,
+        a.owner_id,
+        a.create_time,
+        a.update_time,
+        from tb_vehicle_owner a
+        <where>
+            <if test="ownerId != null and frameNo != null and frameNo !=''">
+                and a.owner_id = #{owner_id}
+                and a.frame_no = #{frameNo}
+            </if>
+        </where>
+    </select>
+
+    <!--    根据车牌车架车主Id查找用户关联信息-->
+    <select id="findOwnerByOwnerAndFrameNoOrLicenseNo" parameterType="vehicleApplicantRequest" resultMap="ownerVehicleResult">
+        select
+           a.id,
+           a.frame_no,
+           a.license_no,
+           a.owner_id,
+           a.create_time,
+           a.update_time,
+           from tb_vehicle_owner a
+           <where>
+               <if test="ownerId != null and frameNo != null and frameNo !='' or licenseNo != null and licenseNo != ''">
+                   and a.owner_id = #{owner_id}
+                   and a.frame_no = #{frameNo}
+                   or a.license_no = #{licenseNo}
+               </if>
+           </where>
+    </select>
+
+    <!--    新增车辆(悦保字段)-->
+    <insert id="insert" parameterType="VehicleOwner" useGeneratedKeys="true" keyProperty="vId">
+        insert into tb_vehicle_owner
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="frameNo != null" >frame_no,</if>
+            <if test="licenseNo != null" >license_no,</if>
+            <if test="ownerId != null" >owner_id,</if>
+            <if test="createTime != null" >create_time,</if>
+            <if test="updateTime != null" >update_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="frameNo != null">#{frameNo},</if>
+            <if test="licenseNo != null">#{licenseNo},</if>
+            <if test="ownerId != null">#{ownerId},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+        </trim>
+    </insert>
+    <!--    修改车辆关系表根据Id(悦保字段)-->
+    <update id="updateByFrameNoOrLicenseNo" parameterType="VehicleInfoVo">
+        update tb_vehicle_owner
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="frameNo != null" >frame_no = #{frameNo},</if>
+            <if test="licenseNo != null" >vehicle_no = #{licenseNo},</if>
+            <if test="ownerId != null" >owner_id = #{ownerId},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+        </where>
+    </update>
+<!--    根据车主Id 车架 or 车牌 删除用户关联-->
+    <delete id="delRelation" parameterType="VehicleApplicantRequest">
+        delete from tb_vehicle_owner a
+        <where>
+            <if test="ownerId != null and ownerId != 0 and frameNo != null or licenseNo != null">
+                and a.owner_id = #{ownerId}
+                and a.frame_no = #{frameNo}
+                or a.license_no = #{licenseNo}
+            </if>
+        </where>
+    </delete>
+
+
+</mapper>

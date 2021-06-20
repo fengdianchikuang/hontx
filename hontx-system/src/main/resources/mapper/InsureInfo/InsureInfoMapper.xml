@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.insureInfo.mapper.InsureInfoMapper">
+
+    <resultMap type="InsureInfo" id="InsureInfoResult">
+        <result property="id"    column="id"    />
+        <result property="ownerId"    column="owner_id"    />
+        <result property="companyId"    column="company_id"    />
+        <result property="orderId"    column="order_id"    />
+        <result property="frameNo"    column="frame_no"    />
+        <result property="proposalNo"    column="proposal_no"    />
+        <result property="tciProposalNo"    column="tci_proposal_no"    />
+        <result property="vciProposalNo"    column="vci_proposal_no"    />
+        <result property="tciPolicyStatus"    column="tci_policy_status"    />
+        <result property="vciPolicyStatus"    column="vci_policy_status"    />
+        <result property="tciStatusMessage"    column="tci_status_message"    />
+        <result property="vciStatusMessage"    column="vci_status_message"    />
+        <result property="reason"    column="reason"    />
+        <result property="policyStatus"    column="policy_status"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="payStatus"    column="pay_status"    />
+        <result property="tciStartDateTime"    column="tci_start_date_time"    />
+        <result property="vciStartDateTime"    column="vci_start_date_time"    />
+    </resultMap>
+
+    <sql id="selectInsureInfoVo">
+        select id, owner_id, company_id, order_id, frame_no, proposal_no, tci_proposal_no, vci_proposal_no, tci_policy_status, vci_policy_status, tci_status_message, vci_status_message, reason, policy_status, create_time, pay_status, tci_start_date_time, vci_start_date_time from tb_insure_info
+    </sql>
+    <!--    根据车架号及保单状态删除-->
+    <delete id="deleteByFrameNoAndNotStatus">
+        delete from tb_insure_info
+        where frame_no = #{frameNo} and policy_status &lt;&gt; #{status}
+    </delete>
+<!--    根据订单Id查找核保信息-->
+    <select id="findByOrderId" resultMap="InsureInfoResult">
+        <include refid="selectInsureInfoVo"/>
+        where order_id = #{orderId}
+    </select>
+
+    <select id="selectInsureInfoList" parameterType="InsureInfo" resultMap="InsureInfoResult">
+        <include refid="selectInsureInfoVo"/>
+        <where>
+            <if test="ownerId != null "> and owner_id = #{ownerId}</if>
+            <if test="companyId != null "> and company_id = #{companyId}</if>
+            <if test="orderId != null  and orderId != ''"> and order_id = #{orderId}</if>
+            <if test="frameNo != null  and frameNo != ''"> and frame_no = #{frameNo}</if>
+            <if test="proposalNo != null  and proposalNo != ''"> and proposal_no = #{proposalNo}</if>
+            <if test="tciProposalNo != null  and tciProposalNo != ''"> and tci_proposal_no = #{tciProposalNo}</if>
+            <if test="vciProposalNo != null  and vciProposalNo != ''"> and vci_proposal_no = #{vciProposalNo}</if>
+            <if test="tciPolicyStatus != null "> and tci_policy_status = #{tciPolicyStatus}</if>
+            <if test="vciPolicyStatus != null "> and vci_policy_status = #{vciPolicyStatus}</if>
+            <if test="tciStatusMessage != null  and tciStatusMessage != ''"> and tci_status_message = #{tciStatusMessage}</if>
+            <if test="vciStatusMessage != null  and vciStatusMessage != ''"> and vci_status_message = #{vciStatusMessage}</if>
+            <if test="reason != null  and reason != ''"> and reason = #{reason}</if>
+            <if test="policyStatus != null "> and policy_status = #{policyStatus}</if>
+            <if test="payStatus != null "> and pay_status = #{payStatus}</if>
+            <if test="tciStartDateTime != null "> and tci_start_date_time = #{tciStartDateTime}</if>
+            <if test="vciStartDateTime != null "> and vci_start_date_time = #{vciStartDateTime}</if>
+        </where>
+    </select>
+
+    <select id="selectInsureInfoById" parameterType="Long" resultMap="InsureInfoResult">
+        <include refid="selectInsureInfoVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertInsureInfo" parameterType="InsureInfo" useGeneratedKeys="true" keyProperty="id">
+        insert into tb_insure_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="ownerId != null">owner_id,</if>
+            <if test="companyId != null">company_id,</if>
+            <if test="orderId != null">order_id,</if>
+            <if test="frameNo != null">frame_no,</if>
+            <if test="proposalNo != null">proposal_no,</if>
+            <if test="tciProposalNo != null">tci_proposal_no,</if>
+            <if test="vciProposalNo != null">vci_proposal_no,</if>
+            <if test="tciPolicyStatus != null">tci_policy_status,</if>
+            <if test="vciPolicyStatus != null">vci_policy_status,</if>
+            <if test="tciStatusMessage != null">tci_status_message,</if>
+            <if test="vciStatusMessage != null">vci_status_message,</if>
+            <if test="reason != null">reason,</if>
+            <if test="policyStatus != null">policy_status,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="payStatus != null">pay_status,</if>
+            <if test="tciStartDateTime != null">tci_start_date_time,</if>
+            <if test="vciStartDateTime != null">vci_start_date_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="ownerId != null">#{ownerId},</if>
+            <if test="companyId != null">#{companyId},</if>
+            <if test="orderId != null">#{orderId},</if>
+            <if test="frameNo != null">#{frameNo},</if>
+            <if test="proposalNo != null">#{proposalNo},</if>
+            <if test="tciProposalNo != null">#{tciProposalNo},</if>
+            <if test="vciProposalNo != null">#{vciProposalNo},</if>
+            <if test="tciPolicyStatus != null">#{tciPolicyStatus},</if>
+            <if test="vciPolicyStatus != null">#{vciPolicyStatus},</if>
+            <if test="tciStatusMessage != null">#{tciStatusMessage},</if>
+            <if test="vciStatusMessage != null">#{vciStatusMessage},</if>
+            <if test="reason != null">#{reason},</if>
+            <if test="policyStatus != null">#{policyStatus},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="payStatus != null">#{payStatus},</if>
+            <if test="tciStartDateTime != null">#{tciStartDateTime},</if>
+            <if test="vciStartDateTime != null">#{vciStartDateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateInsureInfo" parameterType="InsureInfo">
+        update tb_insure_info
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="ownerId != null">owner_id = #{ownerId},</if>
+            <if test="companyId != null">company_id = #{companyId},</if>
+            <if test="orderId != null">order_id = #{orderId},</if>
+            <if test="frameNo != null">frame_no = #{frameNo},</if>
+            <if test="proposalNo != null">proposal_no = #{proposalNo},</if>
+            <if test="tciProposalNo != null">tci_proposal_no = #{tciProposalNo},</if>
+            <if test="vciProposalNo != null">vci_proposal_no = #{vciProposalNo},</if>
+            <if test="tciPolicyStatus != null">tci_policy_status = #{tciPolicyStatus},</if>
+            <if test="vciPolicyStatus != null">vci_policy_status = #{vciPolicyStatus},</if>
+            <if test="tciStatusMessage != null">tci_status_message = #{tciStatusMessage},</if>
+            <if test="vciStatusMessage != null">vci_status_message = #{vciStatusMessage},</if>
+            <if test="reason != null">reason = #{reason},</if>
+            <if test="policyStatus != null">policy_status = #{policyStatus},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="payStatus != null">pay_status = #{payStatus},</if>
+            <if test="tciStartDateTime != null">tci_start_date_time = #{tciStartDateTime},</if>
+            <if test="vciStartDateTime != null">vci_start_date_time = #{vciStartDateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteInsureInfoById" parameterType="Long">
+        delete from tb_insure_info where id = #{id}
+    </delete>
+
+    <delete id="deleteInsureInfoByIds" parameterType="String">
+        delete from tb_insure_info where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

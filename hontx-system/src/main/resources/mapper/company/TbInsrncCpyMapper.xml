@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.company.mapper.TbInsrncCpyMapper">
+
+    <resultMap type="TbInsrncCpy" id="TbInsrncCpyResult">
+        <result property="iId"    column="i_id"    />
+        <result property="insrncName"    column="insrnc_name"    />
+        <result property="channelId"    column="channel_id"    />
+        <result property="openFlag"    column="open_flag"    />
+        <result property="artFlag"    column="art_flag"    />
+        <result property="remark"    column="remark"    />
+        <result property="integralStatus"    column="integral_status"    />
+        <result property="companyId"    column="company_id"    />
+    </resultMap>
+
+    <sql id="selectTbInsrncCpyVo">
+        select i_id, insrnc_name, channel_id, open_flag, art_flag, remark, integral_status, company_id from tb_insrnc_cpy
+    </sql>
+<!--    根据companyId查找-->
+    <select id="findByCompanyId" resultMap="TbInsrncCpyResult">
+        <include refid="selectTbInsrncCpyVo"/>
+        where company_id = #{companyId}
+    </select>
+
+    <select id="selectTbInsrncCpyList" parameterType="TbInsrncCpy" resultMap="TbInsrncCpyResult">
+        <include refid="selectTbInsrncCpyVo"/>
+        <where>
+            <if test="insrncName != null  and insrncName != ''"> and insrnc_name like concat('%', #{insrncName}, '%')</if>
+            <if test="channelId != null  and channelId != ''"> and channel_id = #{channelId} </if>
+        </where>
+    </select>
+
+    <select id="selectTbInsrncCpyById" parameterType="Long" resultMap="TbInsrncCpyResult">
+        <include refid="selectTbInsrncCpyVo"/>
+        where i_id = #{iId}
+    </select>
+
+    <insert id="insertTbInsrncCpy" parameterType="TbInsrncCpy" useGeneratedKeys="true" keyProperty="iId">
+        insert into tb_insrnc_cpy
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="insrncName != null and insrncName != ''">insrnc_name,</if>
+            <if test="channelId != null and channelId != ''">channel_id,</if>
+            <if test="openFlag != null">open_flag,</if>
+            <if test="artFlag != null">art_flag,</if>
+            <if test="remark != null">remark,</if>
+            <if test="integralStatus != null">integral_status,</if>
+            <if test="companyId != null">company_id,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="insrncName != null and insrncName != ''">#{insrncName},</if>
+            <if test="channelId != null and channelId != ''">#{channelId},</if>
+            <if test="openFlag != null">#{openFlag},</if>
+            <if test="artFlag != null">#{artFlag},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="integralStatus != null">#{integralStatus},</if>
+            <if test="companyId != null">#{companyId},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTbInsrncCpy" parameterType="TbInsrncCpy">
+        update tb_insrnc_cpy
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="insrncName != null and insrncName != ''">insrnc_name = #{insrncName},</if>
+            <if test="channelId != null and channelId != ''">channel_id = #{channelId},</if>
+            <if test="openFlag != null">open_flag = #{openFlag},</if>
+            <if test="artFlag != null">art_flag = #{artFlag},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="integralStatus != null">integral_status = #{integralStatus},</if>
+            <if test="companyId != null">company_id = #{companyId},</if>
+        </trim>
+        where i_id = #{iId}
+    </update>
+
+    <delete id="deleteTbInsrncCpyById" parameterType="Long">
+        delete from tb_insrnc_cpy where i_id = #{iId}
+    </delete>
+
+    <delete id="deleteTbInsrncCpyByIds" parameterType="String">
+        delete from tb_insrnc_cpy where i_id in
+        <foreach item="iId" collection="array" open="(" separator="," close=")">
+            #{iId}
+        </foreach>
+    </delete>
+</mapper>

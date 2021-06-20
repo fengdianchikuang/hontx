@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.risks.mapper.RisksMapper">
+
+    <resultMap type="Risks" id="RisksResult">
+        <result property="id"    column="id"    />
+        <result property="companyId"    column="company_id"    />
+        <result property="frameNo"    column="frame_no"    />
+        <result property="code"    column="code"    />
+        <result property="name"    column="name"    />
+        <result property="amount"    column="amount"    />
+        <result property="premium"    column="premium"    />
+        <result property="isDeductible"    column="is_deductible"    />
+        <result property="deductPremium"    column="deduct_premium"    />
+        <result property="quantity"    column="quantity"    />
+    </resultMap>
+
+    <sql id="selectRisksVo">
+        select id, company_id, frame_no, code, name, amount, premium, is_deductible, deduct_premium, quantity from tb_insrnc_risks
+    </sql>
+    <select id="findByFrameNoAndCompanyId" resultMap="RisksResult">
+        <include refid="selectRisksVo"/>
+        <where>
+            <if test="frameNo != null and frameNo != ''">
+                and frame_no = #{frameNo}
+            </if>
+            <if test="companyId != null and companyId != 0">
+                and company_id = #{companyId}
+            </if>
+        </where>
+    </select>
+<!--    根据车架号删除旧的保险项-->
+    <delete id="deleteByFrameNo" parameterType="String">
+        delete from tb_insrnc_risks
+        where frame_no = #{frameNo}
+    </delete>
+<!--    根据车架查找保险项-->
+    <select id="findByFrameNo" resultMap="RisksResult">
+        <include refid="selectRisksVo"/>
+        where frame_no = #{frameNo}
+    </select>
+    <select id="selectRisksList" parameterType="Risks" resultMap="RisksResult">
+        <include refid="selectRisksVo"/>
+        <where>
+            <if test="companyId != null "> and company_id = #{companyId}</if>
+            <if test="frameNo != null  and frameNo != ''"> and frame_no = #{frameNo}</if>
+            <if test="code != null  and code != ''"> and code = #{code}</if>
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="amount != null "> and amount = #{amount}</if>
+            <if test="premium != null "> and premium = #{premium}</if>
+            <if test="isDeductible != null "> and is_deductible = #{isDeductible}</if>
+            <if test="deductPremium != null "> and deduct_premium = #{deductPremium}</if>
+            <if test="quantity != null "> and quantity = #{quantity}</if>
+        </where>
+    </select>
+
+    <select id="selectRisksById" parameterType="Long" resultMap="RisksResult">
+        <include refid="selectRisksVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertRisks" parameterType="Risks" useGeneratedKeys="true" keyProperty="id">
+        insert into tb_insrnc_risks
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="companyId != null">company_id,</if>
+            <if test="frameNo != null">frame_no,</if>
+            <if test="code != null">code,</if>
+            <if test="name != null">name,</if>
+            <if test="amount != null">amount,</if>
+            <if test="premium != null">premium,</if>
+            <if test="isDeductible != null">is_deductible,</if>
+            <if test="deductPremium != null">deduct_premium,</if>
+            <if test="quantity != null">quantity,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="companyId != null">#{companyId},</if>
+            <if test="frameNo != null">#{frameNo},</if>
+            <if test="code != null">#{code},</if>
+            <if test="name != null">#{name},</if>
+            <if test="amount != null">#{amount},</if>
+            <if test="premium != null">#{premium},</if>
+            <if test="isDeductible != null">#{isDeductible},</if>
+            <if test="deductPremium != null">#{deductPremium},</if>
+            <if test="quantity != null">#{quantity},</if>
+         </trim>
+    </insert>
+
+    <update id="updateRisks" parameterType="Risks">
+        update tb_insrnc_risks
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="companyId != null">company_id = #{companyId},</if>
+            <if test="frameNo != null">frame_no = #{frameNo},</if>
+            <if test="code != null">code = #{code},</if>
+            <if test="name != null">code = #{name},</if>
+            <if test="amount != null">amount = #{amount},</if>
+            <if test="premium != null">premium = #{premium},</if>
+            <if test="isDeductible != null">is_deductible = #{isDeductible},</if>
+            <if test="deductPremium != null">deduct_premium = #{deductPremium},</if>
+            <if test="quantity != null">quantity = #{quantity},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteRisksById" parameterType="Long">
+        delete from tb_insrnc_risks where id = #{id}
+    </delete>
+
+    <delete id="deleteRisksByIds" parameterType="String">
+        delete from tb_insrnc_risks where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

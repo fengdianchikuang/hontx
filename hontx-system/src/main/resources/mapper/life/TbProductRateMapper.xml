@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.life.mapper.TbProductRateMapper">
+
+    <resultMap type="TbProductRate" id="TbProductRateResult">
+        <result property="id"    column="id"    />
+        <result property="productid"    column="productId"    />
+        <result property="productname"    column="productName"    />
+        <result property="paytype"    column="payType"    />
+        <result property="payment"    column="payment"    />
+        <result property="backterm"    column="backTerm"    />
+        <result property="totalrate"    column="totalRate"    />
+        <result property="agentrate"    column="agentRate"    />
+        <result property="arate"    column="aRate"    />
+        <result property="brate"    column="bRate"    />
+        <result property="createtime"    column="createTime"    />
+        <result property="updatetime"    column="updateTime"    />
+    </resultMap>
+
+    <sql id="selectTbProductRateVo">
+        select id, productId, payType, payment, backTerm, totalRate, agentRate, aRate, bRate, createTime, updateTime from tb_product_rate
+    </sql>
+
+    <select id="selectTbProductRateList" parameterType="TbProductRate" resultMap="TbProductRateResult">
+        select
+        a.id,
+        a.productId,
+        b.productName,
+        a.payType,
+        a.payment,
+        a.backTerm,
+        a.totalRate,
+        a.agentRate,
+        a.aRate,
+        a.bRate,
+        a.createTime,
+        a.updateTime
+        from tb_product_rate a
+        left join tb_life_product b on a.productId = b.productNo
+        <where>
+            <if test="productid != null "> and productId = #{productid}</if>
+            <if test="paytype != null  and paytype != ''"> and payType = #{paytype}</if>
+            <if test="payment != null  and payment != ''"> and payment = #{payment}</if>
+            <if test="backterm != null  and backterm != ''"> and backTerm = #{backterm}</if>
+        </where>
+    </select>
+
+    <select id="selectTbProductRateById" parameterType="Long" resultMap="TbProductRateResult">
+        <include refid="selectTbProductRateVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertTbProductRate" parameterType="TbProductRate" useGeneratedKeys="true" keyProperty="id">
+        insert into tb_product_rate
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="productid != null">productId,</if>
+            <if test="paytype != null and paytype != ''">payType,</if>
+            <if test="payment != null and payment != ''">payment,</if>
+            <if test="backterm != null and backterm != ''">backTerm,</if>
+            <if test="totalrate != null and totalrate != ''">totalRate,</if>
+            <if test="agentrate != null and agentrate != ''">agentRate,</if>
+            <if test="arate != null and arate != ''">aRate,</if>
+            <if test="brate != null and brate != ''">bRate,</if>
+            <if test="createtime != null">createTime,</if>
+            <if test="updatetime != null">updateTime,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="productid != null">#{productid},</if>
+            <if test="paytype != null and paytype != ''">#{paytype},</if>
+            <if test="payment != null and payment != ''">#{payment},</if>
+            <if test="backterm != null and backterm != ''">#{backterm},</if>
+            <if test="totalrate != null and totalrate != ''">#{totalrate},</if>
+            <if test="agentrate != null and agentrate != ''">#{agentrate},</if>
+            <if test="arate != null and arate != ''">#{arate},</if>
+            <if test="brate != null and brate != ''">#{brate},</if>
+            <if test="createtime != null">#{createtime},</if>
+            <if test="updatetime != null">#{updatetime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTbProductRate" parameterType="TbProductRate">
+        update tb_product_rate
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="productid != null">productId = #{productid},</if>
+            <if test="paytype != null and paytype != ''">payType = #{paytype},</if>
+            <if test="payment != null and payment != ''">payment = #{payment},</if>
+            <if test="backterm != null and backterm != ''">backTerm = #{backterm},</if>
+            <if test="totalrate != null and totalrate != ''">totalRate = #{totalrate},</if>
+            <if test="agentrate != null and agentrate != ''">agentRate = #{agentrate},</if>
+            <if test="arate != null and arate != ''">aRate = #{arate},</if>
+            <if test="brate != null and brate != ''">bRate = #{brate},</if>
+            <if test="createtime != null">createTime = #{createtime},</if>
+            <if test="updatetime != null">updateTime = #{updatetime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTbProductRateById" parameterType="Long">
+        delete from tb_product_rate where id = #{id}
+    </delete>
+
+    <delete id="deleteTbProductRateByIds" parameterType="String">
+        delete from tb_product_rate where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

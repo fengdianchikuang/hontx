@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.lifeholder.mapper.TbLifeHolderMapper">
+
+    <resultMap type="TbLifeHolder" id="TbLifeHolderResult">
+        <result property="id"    column="id"    />
+        <result property="idtype"    column="idType"    />
+        <result property="idno"    column="idNo"    />
+        <result property="name"    column="name"    />
+        <result property="ciphermobile"    column="cipherMobile"    />
+        <result property="plainmobile"    column="plainMobile"    />
+        <result property="agentid"    column="agentId"    />
+        <result property="createtime"    column="createTime"    />
+        <result property="updatetime"    column="updateTime"    />
+    </resultMap>
+
+    <resultMap type="LifeHolderVo" id="LifeHolderResultVo">
+        <result property="id"    column="id"    />
+        <result property="idtype"    column="idType"    />
+        <result property="idno"    column="idNo"    />
+        <result property="name"    column="name"    />
+        <result property="ciphermobile"    column="cipherMobile"    />
+        <result property="plainmobile"    column="plainMobile"    />
+        <result property="agentid"    column="agentId"    />
+        <result property="createtime"    column="createTime"    />
+        <result property="agent"    column="u_real_name"    />
+        <result property="agentTel"    column="u_telephone"    />
+    </resultMap>
+
+
+
+    <sql id="selectTbLifeHolderVo">
+        select id, idType, idNo, name, cipherMobile, plainMobile, agentId, createTime, updateTime from tb_life_holder
+    </sql>
+
+<!--    根据证件号查找-->
+    <select id="selectTbLifeHolderByHolderIdNoAndAgentId" parameterType="String" resultMap="TbLifeHolderResult">
+        <include refid="selectTbLifeHolderVo"/>
+        where idNo = #{holderidno} and agentId = #{agentid}
+    </select>
+
+    <select id="selectTbLifeHolderList" parameterType="LifeHolderVo" resultMap="LifeHolderResultVo">
+        select
+        a.id,
+        a.idType,
+        a.idNo,
+        a.name,
+        a.cipherMobile,
+        a.plainMobile,
+        a.agentId,
+        a.createTime,
+        a.updateTime,
+        b.u_real_name,
+        b.u_telephone
+        from tb_life_holder a
+        left join tb_user_info b
+        on a.agentId = b.u_id
+        <where>
+            <if test="idno != null  and idno != ''"> and a.idNo = #{idno}</if>
+            <if test="name != null  and name != ''"> and a.name like concat('%', #{name}, '%')</if>
+            <if test="agent != null  and agentid != ''"> and b.u_real_name = #{agent}</if>
+        </where>
+        order by a.createTime desc
+    </select>
+
+    <select id="selectTbLifeHolderById" parameterType="Long" resultMap="TbLifeHolderResult">
+        <include refid="selectTbLifeHolderVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertTbLifeHolder" parameterType="TbLifeHolder" useGeneratedKeys="true" keyProperty="id">
+        insert into tb_life_holder
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="idtype != null and idtype != ''">idType,</if>
+            <if test="idno != null and idno != ''">idNo,</if>
+            <if test="name != null">name,</if>
+            <if test="ciphermobile != null">cipherMobile,</if>
+            <if test="plainmobile != null">plainMobile,</if>
+            <if test="agentid != null">agentId,</if>
+            <if test="createtime != null">createTime,</if>
+            <if test="updatetime != null">updateTime,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="idtype != null and idtype != ''">#{idtype},</if>
+            <if test="idno != null and idno != ''">#{idno},</if>
+            <if test="name != null">#{name},</if>
+            <if test="ciphermobile != null">#{ciphermobile},</if>
+            <if test="plainmobile != null">#{plainmobile},</if>
+            <if test="agentid != null">#{agentid},</if>
+            <if test="createtime != null">#{createtime},</if>
+            <if test="updatetime != null">#{updatetime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTbLifeHolder" parameterType="TbLifeHolder">
+        update tb_life_holder
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="idtype != null and idtype != ''">idType = #{idtype},</if>
+            <if test="idno != null and idno != ''">idNo = #{idno},</if>
+            <if test="name != null">name = #{name},</if>
+            <if test="ciphermobile != null">cipherMobile = #{ciphermobile},</if>
+            <if test="plainmobile != null">plainMobile = #{plainmobile},</if>
+            <if test="agentid != null">agentId = #{agentid},</if>
+            <if test="createtime != null">createTime = #{createtime},</if>
+            <if test="updatetime != null">updateTime = #{updatetime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTbLifeHolderById" parameterType="Long">
+        delete from tb_life_holder where id = #{id}
+    </delete>
+
+    <delete id="deleteTbLifeHolderByIds" parameterType="String">
+        delete from tb_life_holder where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

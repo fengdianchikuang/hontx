@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.rate.mapper.TbInsrncCpyRateMapper">
+
+    <resultMap type="TbInsrncCpyRate" id="TbInsrncCpyRateResult">
+        <result property="iId"    column="i_id"    />
+        <result property="channelId"    column="channel_id"    />
+        <result property="insrncType"    column="insrnc_type"    />
+        <result property="belongType"    column="belong_type"    />
+        <result property="useType"    column="use_type"    />
+        <result property="vehicleType"    column="vehicle_type"    />
+        <result property="totalRate"    column="total_rate"    />
+        <result property="agentRate"    column="agent_rate"    />
+        <result property="aRate"    column="a_rate"    />
+        <result property="bRate"    column="b_rate"    />
+        <result property="effectDate"    column="effect_date"    />
+        <result property="iCreateTime"    column="i_create_time"    />
+        <result property="iUpdateTime"    column="i_update_time"    />
+        <result property="areaCode"    column="area_code"    />
+        <result property="orgId"    column="org_id"    />
+    </resultMap>
+
+    <sql id="selectTbInsrncCpyRateVo">
+        select i_id, channel_id, insrnc_type, belong_type, use_type, vehicle_type, total_rate, agent_rate, a_rate, b_rate, effect_date, i_create_time, i_update_time, area_code, org_id from tb_insrnc_cpy_rate
+    </sql>
+<!--    查询费率 map参数-->
+    <select id="selectTbInsrncCpyRateListByMap" parameterType="map" resultMap="TbInsrncCpyRateResult">
+        <include refid="selectTbInsrncCpyRateVo"/>
+        <where>
+            <if test="channelId != null  and channelId != ''"> and channel_id = #{channelId}</if>
+            <if test="orgId != null  and orgId != ''"> and org_id = #{orgId}</if>
+            <if test="belongType != null  and belongType != ''"> and belong_type = #{belongType}</if>
+            <if test="vehicleType != null  and vehicleType != ''"> and vehicle_type = #{vehicleType}</if>
+            <if test="insrncType != null  and insrncType != ''"> and insrnc_type = #{insrncType}</if>
+            <if test="useType != null  and useType != ''"> and use_type = #{useType}</if>
+            <if test="effectDate != null "> and effect_date = #{effectDate}</if>
+            <if test="iCreateTime != null "> and i_create_time = #{iCreateTime}</if>
+            <if test="areaCode != null  and areaCode != ''"> and area_code = #{areaCode}</if>
+        </where>
+        order by i_id
+    </select>
+    <select id="selectTbInsrncCpyRateList" parameterType="TbInsrncCpyRate" resultMap="TbInsrncCpyRateResult">
+        <include refid="selectTbInsrncCpyRateVo"/>
+        <where>
+            <if test="channelId != null  and channelId != ''"> and channel_id = #{channelId}</if>
+            <if test="orgId != null  and orgId != ''"> and org_id = #{orgId}</if>
+            <if test="belongType != null  and belongType != ''"> and belong_type = #{belongType}</if>
+            <if test="vehicleType != null  and vehicleType != ''"> and vehicle_type = #{vehicleType}</if>
+            <if test="insrncType != null  and insrncType != ''"> and insrnc_type = #{insrncType}</if>
+            <if test="useType != null  and useType != ''"> and use_type = #{useType}</if>
+            <if test="effectDate != null "> and effect_date = #{effectDate}</if>
+            <if test="iCreateTime != null "> and i_create_time = #{iCreateTime}</if>
+            <if test="areaCode != null  and areaCode != ''"> and area_code = #{areaCode}</if>
+        </where>
+        order by i_id
+    </select>
+
+    <delete id="deleteByEffectDateAndChannel" parameterType="TbInsrncCpyRate">
+        delete from tb_insrnc_cpy_rate
+        <where>
+            <if test="channelId != null and channelId != ''">
+                and channel_id = #{channelId}
+            </if>
+            <if test="orgId != null and orgId != ''">
+                and org_id = #{orgId}
+            </if>
+            <if test="effectDateString != null and effectDateString != ''">
+                and effect_date = #{effectDateString}
+            </if>
+            <if test="belongType != null and belongType != ''">
+                and belong_type = #{belongType}
+            </if>
+        </where>
+    </delete>
+
+    <select id="selectTbInsrncCpyRateById" parameterType="Long" resultMap="TbInsrncCpyRateResult">
+        <include refid="selectTbInsrncCpyRateVo"/>
+        where i_id = #{iId}
+    </select>
+
+    <insert id="insertTbInsrncCpyRate" parameterType="TbInsrncCpyRate" useGeneratedKeys="true" keyProperty="iId">
+        insert into tb_insrnc_cpy_rate
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="channelId != null and channelId != ''">channel_id,</if>
+            <if test="insrncType != null">insrnc_type,</if>
+            <if test="belongType != null">belong_type,</if>
+            <if test="useType != null">use_type,</if>
+            <if test="vehicleType != null">vehicle_type,</if>
+            <if test="totalRate != null">total_rate,</if>
+            <if test="agentRate != null">agent_rate,</if>
+            <if test="aRate != null">a_rate,</if>
+            <if test="bRate != null">b_rate,</if>
+            <if test="effectDate != null">effect_date,</if>
+            <if test="iCreateTime != null">i_create_time,</if>
+            <if test="iUpdateTime != null">i_update_time,</if>
+            <if test="areaCode != null and areaCode != ''">area_code,</if>
+            <if test="orgId != null">org_id,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="channelId != null and channelId != ''">#{channelId},</if>
+            <if test="insrncType != null">#{insrncType},</if>
+            <if test="belongType != null">#{belongType},</if>
+            <if test="useType != null">#{useType},</if>
+            <if test="vehicleType != null">#{vehicleType},</if>
+            <if test="totalRate != null">#{totalRate},</if>
+            <if test="agentRate != null">#{agentRate},</if>
+            <if test="aRate != null">#{aRate},</if>
+            <if test="bRate != null">#{bRate},</if>
+            <if test="effectDate != null">#{effectDate},</if>
+            <if test="iCreateTime != null">#{iCreateTime},</if>
+            <if test="iUpdateTime != null">#{iUpdateTime},</if>
+            <if test="areaCode != null and areaCode != ''">#{areaCode},</if>
+            <if test="orgId != null">#{orgId},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTbInsrncCpyRate" parameterType="TbInsrncCpyRate">
+        update tb_insrnc_cpy_rate
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="channelId != null and channelId != ''">channel_id = #{channelId},</if>
+            <if test="insrncType != null">insrnc_type = #{insrncType},</if>
+            <if test="belongType != null">belong_type = #{belongType},</if>
+            <if test="useType != null">use_type = #{useType},</if>
+            <if test="vehicleType != null">vehicle_type = #{vehicleType},</if>
+            <if test="totalRate != null">total_rate = #{totalRate},</if>
+            <if test="agentRate != null">agent_rate = #{agentRate},</if>
+            <if test="aRate != null">a_rate = #{aRate},</if>
+            <if test="bRate != null">b_rate = #{bRate},</if>
+            <if test="effectDate != null">effect_date = #{effectDate},</if>
+            <if test="iCreateTime != null">i_create_time = #{iCreateTime},</if>
+            <if test="iUpdateTime != null">i_update_time = #{iUpdateTime},</if>
+            <if test="areaCode != null and areaCode != ''">area_code = #{areaCode},</if>
+            <if test="orgId != null">org_id = #{orgId},</if>
+        </trim>
+        where i_id = #{iId}
+    </update>
+
+    <delete id="deleteTbInsrncCpyRateById" parameterType="Long">
+        delete from tb_insrnc_cpy_rate where i_id = #{iId}
+    </delete>
+
+    <delete id="deleteTbInsrncCpyRateByIds" parameterType="String">
+        delete from tb_insrnc_cpy_rate where i_id in
+        <foreach item="iId" collection="array" open="(" separator="," close=")">
+            #{iId}
+        </foreach>
+    </delete>
+</mapper>

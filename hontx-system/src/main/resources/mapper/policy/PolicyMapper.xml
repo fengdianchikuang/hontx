@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.policy.mapper.PolicyMapper">
+
+    <resultMap type="Policy" id="PolicyResult">
+        <result property="id"    column="id"    />
+        <result property="ownerId"    column="owner_id"    />
+        <result property="frameNo"    column="frame_no"    />
+        <result property="companyId"    column="company_id"    />
+        <result property="companyName"    column="company_name"    />
+        <result property="tciPremium"    column="tci_premium"    />
+        <result property="vciPremium"    column="vci_premium"    />
+        <result property="vehicleTax"    column="vehicle_tax"    />
+        <result property="tciDiscount"    column="tci_discount"    />
+        <result property="vciDiscount"    column="vci_discount"    />
+        <result property="tciPolicyNo"    column="tci_policy_no"    />
+        <result property="vciPolicyNo"    column="vci_policy_no"    />
+        <result property="tciPolicyEndDate"    column="tci_policy_end_date"    />
+        <result property="vciPolicyEndDate"    column="vci_policy_end_date"    />
+        <result property="tciPolicyEndDateTime"    column="tci_policy_end_date_time"    />
+        <result property="vciPolicyEndDateTime"    column="vci_policy_end_date_time"    />
+    </resultMap>
+
+    <sql id="selectPolicyVo">
+        select id, owner_id, frame_no, company_id, company_name, tci_premium, vci_premium, vehicle_tax, tci_discount, vci_discount, tci_policy_no, vci_policy_no, tci_policy_end_date, vci_policy_end_date, tci_policy_end_date_time, vci_policy_end_date_time from tb_policy
+    </sql>
+
+    <select id="findByFrameNo" resultMap="PolicyResult">
+        <include refid="selectPolicyVo"/>
+        where frame_no = #{frameNo}
+    </select>
+
+    <select id="selectPolicyList" parameterType="Policy" resultMap="PolicyResult">
+        <include refid="selectPolicyVo"/>
+        <where>
+            <if test="ownerId != null "> and owner_id = #{ownerId}</if>
+            <if test="frameNo != null  and frameNo != ''"> and frame_no = #{frameNo}</if>
+            <if test="companyId != null "> and company_id = #{companyId}</if>
+            <if test="companyName != null  and companyName != ''"> and company_name like concat('%', #{companyName}, '%')</if>
+            <if test="tciPremium != null "> and tci_premium = #{tciPremium}</if>
+            <if test="vciPremium != null "> and vci_premium = #{vciPremium}</if>
+            <if test="vehicleTax != null "> and vehicle_tax = #{vehicleTax}</if>
+            <if test="tciDiscount != null "> and tci_discount = #{tciDiscount}</if>
+            <if test="vciDiscount != null "> and vci_discount = #{vciDiscount}</if>
+            <if test="tciPolicyNo != null  and tciPolicyNo != ''"> and tci_policy_no = #{tciPolicyNo}</if>
+            <if test="vciPolicyNo != null  and vciPolicyNo != ''"> and vci_policy_no = #{vciPolicyNo}</if>
+            <if test="tciPolicyEndDate != null "> and tci_policy_end_date = #{tciPolicyEndDate}</if>
+            <if test="vciPolicyEndDate != null "> and vci_policy_end_date = #{vciPolicyEndDate}</if>
+            <if test="tciPolicyEndDateTime != null "> and tci_policy_end_date_time = #{tciPolicyEndDateTime}</if>
+            <if test="vciPolicyEndDateTime != null "> and vci_policy_end_date_time = #{vciPolicyEndDateTime}</if>
+        </where>
+    </select>
+
+    <select id="selectPolicyById" parameterType="Long" resultMap="PolicyResult">
+        <include refid="selectPolicyVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertPolicy" parameterType="Policy" useGeneratedKeys="true" keyProperty="id">
+        insert into tb_policy
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="ownerId != null">owner_id,</if>
+            <if test="frameNo != null and frameNo != ''">frame_no,</if>
+            <if test="companyId != null">company_id,</if>
+            <if test="companyName != null">company_name,</if>
+            <if test="tciPremium != null">tci_premium,</if>
+            <if test="vciPremium != null">vci_premium,</if>
+            <if test="vehicleTax != null">vehicle_tax,</if>
+            <if test="tciDiscount != null">tci_discount,</if>
+            <if test="vciDiscount != null">vci_discount,</if>
+            <if test="tciPolicyNo != null">tci_policy_no,</if>
+            <if test="vciPolicyNo != null">vci_policy_no,</if>
+            <if test="tciPolicyEndDate != null">tci_policy_end_date,</if>
+            <if test="vciPolicyEndDate != null">vci_policy_end_date,</if>
+            <if test="tciPolicyEndDateTime != null">tci_policy_end_date_time,</if>
+            <if test="vciPolicyEndDateTime != null">vci_policy_end_date_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="ownerId != null">#{ownerId},</if>
+            <if test="frameNo != null and frameNo != ''">#{frameNo},</if>
+            <if test="companyId != null">#{companyId},</if>
+            <if test="companyName != null">#{companyName},</if>
+            <if test="tciPremium != null">#{tciPremium},</if>
+            <if test="vciPremium != null">#{vciPremium},</if>
+            <if test="vehicleTax != null">#{vehicleTax},</if>
+            <if test="tciDiscount != null">#{tciDiscount},</if>
+            <if test="vciDiscount != null">#{vciDiscount},</if>
+            <if test="tciPolicyNo != null">#{tciPolicyNo},</if>
+            <if test="vciPolicyNo != null">#{vciPolicyNo},</if>
+            <if test="tciPolicyEndDate != null">#{tciPolicyEndDate},</if>
+            <if test="vciPolicyEndDate != null">#{vciPolicyEndDate},</if>
+            <if test="tciPolicyEndDateTime != null">#{tciPolicyEndDateTime},</if>
+            <if test="vciPolicyEndDateTime != null">#{vciPolicyEndDateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updatePolicy" parameterType="Policy">
+        update tb_policy
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="ownerId != null">owner_id = #{ownerId},</if>
+            <if test="frameNo != null and frameNo != ''">frame_no = #{frameNo},</if>
+            <if test="companyId != null">company_id = #{companyId},</if>
+            <if test="companyName != null">company_name = #{companyName},</if>
+            <if test="tciPremium != null">tci_premium = #{tciPremium},</if>
+            <if test="vciPremium != null">vci_premium = #{vciPremium},</if>
+            <if test="vehicleTax != null">vehicle_tax = #{vehicleTax},</if>
+            <if test="tciDiscount != null">tci_discount = #{tciDiscount},</if>
+            <if test="vciDiscount != null">vci_discount = #{vciDiscount},</if>
+            <if test="tciPolicyNo != null">tci_policy_no = #{tciPolicyNo},</if>
+            <if test="vciPolicyNo != null">vci_policy_no = #{vciPolicyNo},</if>
+            <if test="tciPolicyEndDate != null">tci_policy_end_date = #{tciPolicyEndDate},</if>
+            <if test="vciPolicyEndDate != null">vci_policy_end_date = #{vciPolicyEndDate},</if>
+            <if test="tciPolicyEndDateTime != null">tci_policy_end_date_time = #{tciPolicyEndDateTime},</if>
+            <if test="vciPolicyEndDateTime != null">vci_policy_end_date_time = #{vciPolicyEndDateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deletePolicyById" parameterType="Long">
+        delete from tb_policy where id = #{id}
+    </delete>
+
+    <delete id="deletePolicyByIds" parameterType="String">
+        delete from tb_policy where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

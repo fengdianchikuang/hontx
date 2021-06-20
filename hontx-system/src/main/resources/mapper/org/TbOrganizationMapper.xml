@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.org.mapper.TbOrganizationMapper">
+
+    <resultMap type="OrganizationVo" id="TbOrganizationResult">
+        <result property="oId"    column="o_id"    />
+        <result property="orgName"    column="org_name"    />
+        <result property="parentOrg" column="parent_name"/>
+        <result property="parentType" column="parent_type"/>
+        <result property="type"    column="type"    />
+        <result property="areaCode"    column="area_code"    />
+        <result property="legalPerson"    column="legal_person"    />
+        <result property="lincenseNo"    column="lincense_no"    />
+        <result property="contactName"    column="contact_name"    />
+        <result property="contactPhone"    column="contact_phone"    />
+        <result property="contactEmail"    column="contact_email"    />
+        <result property="address"    column="address"    />
+        <result property="status"    column="status"    />
+        <result property="oCreateTime"    column="o_create_time"    />
+        <result property="oUpdateTime"    column="o_update_time"    />
+        <result property="parentOrgid"    column="parent_orgid"    />
+        <result property="companyId"    column="company_id"    />
+    </resultMap>
+
+    <sql id="selectTbOrganizationVo">
+        select o_id, org_name, type, area_code, legal_person, lincense_no, contact_name, contact_phone, contact_email, address, status, o_create_time, o_update_time, parent_orgid, company_id from tb_organization
+    </sql>
+<!--    根据公司Id查找-->
+    <select id="findByCompanyId" resultMap="TbOrganizationResult">
+        <include refid="selectTbOrganizationVo"/>
+        where company_id = #{orgId}
+    </select>
+    <select id="getParent"  resultMap="TbOrganizationResult">
+        <include refid="selectTbOrganizationVo"/>
+        where type in ('00','01')
+    </select>
+    <select id="selectTbOrganizationList" parameterType="OrganizationVo" resultMap="TbOrganizationResult">
+        select
+        a.o_id,
+        a.org_name,
+        b.org_name as parent_name,
+        b.type as parent_type,
+        a.type,
+        a.area_code,
+        a.legal_person,
+        a.lincense_no,
+        a.contact_name,
+        a.contact_phone,
+        a.contact_email,
+        a.address,
+        a.status,
+        a.o_create_time,
+        a.o_update_time,
+        a.parent_orgid,
+        a.company_id
+        from tb_organization a
+        left join tb_organization b
+        on a.parent_orgid = b.o_id
+        <where>
+            <if test="orgName != null  and orgName != ''"> and org_name like concat('%', #{orgName}, '%')</if>
+        </where>
+    </select>
+
+    <select id="selectTbOrganizationById" parameterType="Long" resultMap="TbOrganizationResult">
+        <include refid="selectTbOrganizationVo"/>
+        where o_id = #{oId}
+    </select>
+
+    <insert id="insertTbOrganization" parameterType="TbOrganization" useGeneratedKeys="true" keyProperty="oId">
+        insert into tb_organization
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="orgName != null and orgName != ''">org_name,</if>
+            <if test="type != null">type,</if>
+            <if test="areaCode != null">area_code,</if>
+            <if test="legalPerson != null">legal_person,</if>
+            <if test="lincenseNo != null">lincense_no,</if>
+            <if test="contactName != null">contact_name,</if>
+            <if test="contactPhone != null">contact_phone,</if>
+            <if test="contactEmail != null">contact_email,</if>
+            <if test="address != null">address,</if>
+            <if test="status != null">status,</if>
+            <if test="oCreateTime != null">o_create_time,</if>
+            <if test="oUpdateTime != null">o_update_time,</if>
+            <if test="parentOrgid != null">parent_orgid,</if>
+            <if test="companyId != null">company_id,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="orgName != null and orgName != ''">#{orgName},</if>
+            <if test="type != null">#{type},</if>
+            <if test="areaCode != null">#{areaCode},</if>
+            <if test="legalPerson != null">#{legalPerson},</if>
+            <if test="lincenseNo != null">#{lincenseNo},</if>
+            <if test="contactName != null">#{contactName},</if>
+            <if test="contactPhone != null">#{contactPhone},</if>
+            <if test="contactEmail != null">#{contactEmail},</if>
+            <if test="address != null">#{address},</if>
+            <if test="status != null">#{status},</if>
+            <if test="oCreateTime != null">#{oCreateTime},</if>
+            <if test="oUpdateTime != null">#{oUpdateTime},</if>
+            <if test="parentOrgid != null">#{parentOrgid},</if>
+            <if test="companyId != null">#{companyId},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTbOrganization" parameterType="TbOrganization">
+        update tb_organization
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="orgName != null and orgName != ''">org_name = #{orgName},</if>
+            <if test="type != null">type = #{type},</if>
+            <if test="areaCode != null">area_code = #{areaCode},</if>
+            <if test="legalPerson != null">legal_person = #{legalPerson},</if>
+            <if test="lincenseNo != null">lincense_no = #{lincenseNo},</if>
+            <if test="contactName != null">contact_name = #{contactName},</if>
+            <if test="contactPhone != null">contact_phone = #{contactPhone},</if>
+            <if test="contactEmail != null">contact_email = #{contactEmail},</if>
+            <if test="address != null">address = #{address},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="oCreateTime != null">o_create_time = #{oCreateTime},</if>
+            <if test="oUpdateTime != null">o_update_time = #{oUpdateTime},</if>
+            <if test="parentOrgid != null">parent_orgid = #{parentOrgid},</if>
+            <if test="companyId != null">company_id = #{companyId},</if>
+        </trim>
+        where o_id = #{oId}
+    </update>
+
+    <delete id="deleteTbOrganizationById" parameterType="Long">
+        delete from tb_organization where o_id = #{oId}
+    </delete>
+
+    <delete id="deleteTbOrganizationByIds" parameterType="String">
+        delete from tb_organization where o_id in
+        <foreach item="oId" collection="array" open="(" separator="," close=")">
+            #{oId}
+        </foreach>
+    </delete>
+</mapper>

@@ -1,0 +1,512 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.user.mapper.TbUserInfoMapper">
+
+
+    <resultMap type="TbUserInfo" id="TbUserInfoResult">
+        <result property="uId"    column="u_id"    />
+        <result property="uSex"    column="u_sex"    />
+        <result property="uBirthday"    column="u_birthday"    />
+        <result property="uTelephone"    column="u_telephone"    />
+        <result property="uEmail"    column="u_email"    />
+        <result property="uAddress"    column="u_address"    />
+        <result property="uCreateTime"    column="u_create_time"    />
+        <result property="uParentId"    column="u_parent_id"    />
+        <result property="uRealName"    column="u_real_name"    />
+        <result property="uIdentity"    column="u_identity"    />
+        <result property="uBankName"    column="u_bank_name"    />
+        <result property="uBankBranch"    column="u_bank_branch"    />
+        <result property="uAccno"    column="u_accno"    />
+        <result property="uAvailBal"    column="u_avail_bal"    />
+        <result property="uTotalIncome"    column="u_total_income"    />
+        <result property="uIncomeA"    column="u_income_a"    />
+        <result property="uIncomeB"    column="u_income_b"    />
+        <result property="uRealNameStatus"    column="u_real_name_status"    />
+        <result property="uAteamNum"    column="u_ateam_num"    />
+        <result property="uBteamNum"    column="u_bteam_num"    />
+        <result property="uEffectDate"    column="u_effect_date"    />
+        <result property="uDeviceType"    column="u_device_type"    />
+        <result property="uDeviceId"    column="u_device_id"    />
+        <result property="uAreaCode"    column="u_area_code"    />
+        <result property="uOrgId"    column="u_org_id"    />
+        <result property="uPayPassword"    column="u_pay_password"    />
+        <result property="uAvailableMoney"    column="u_available_money"    />
+        <result property="openid"    column="openid"    />
+        <result property="type"    column="type"    />
+        <result property="userType"    column="user_type"    />
+        <result property="tId"    column="t_id"    />
+        <result property="depthToTeam"    column="depth_to_team"    />
+        <result property="lifeAvailBal"    column="life_avail_bal"    />
+        <result property="lifeTotalBal"    column="life_total_bal"    />
+    </resultMap>
+    <resultMap id="TbUserFileResult" type="TbUserFile">
+        <result column="u_id" property="uId"/>
+        <result column="user_id" property="userId"/>
+        <result column="type" property="type"/>
+        <result column="file_name" property="fileName"/>
+        <result column="path" property="path"/>
+        <result column="u_create_time" property="uCreateTime"/>
+        <result column="u_update_time" property="uUpdateTime"/>
+    </resultMap>
+    <resultMap id="TbUserDetailResult" type="TbUserInfoVo">
+        <result property="uId"    column="u_id"    />
+        <result property="uSex"    column="u_sex"    />
+        <result property="uBirthday"    column="u_birthday"    />
+        <result property="uTelephone"    column="u_telephone"    />
+        <result property="uEmail"    column="u_email"    />
+        <result property="uAddress"    column="u_address"    />
+        <result property="uCreateTime"    column="u_create_time"    />
+        <result property="uParentId"    column="u_parent_id"    />
+        <result property="uRealName"    column="u_real_name"    />
+        <result property="uIdentity"    column="u_identity"    />
+        <result property="uBankName"    column="u_bank_name"    />
+        <result property="uBankBranch"    column="u_bank_branch"    />
+        <result property="uAccno"    column="u_accno"    />
+        <result property="uAvailBal"    column="u_avail_bal"    />
+        <result property="uTotalIncome"    column="u_total_income"    />
+        <result property="uIncomeA"    column="u_income_a"    />
+        <result property="uIncomeB"    column="u_income_b"    />
+        <result property="uRealNameStatus"    column="u_real_name_status"    />
+        <result property="uAteamNum"    column="u_ateam_num"    />
+        <result property="uBteamNum"    column="u_bteam_num"    />
+        <result property="uEffectDate"    column="u_effect_date"    />
+        <result property="uDeviceType"    column="u_device_type"    />
+        <result property="uDeviceId"    column="u_device_id"    />
+        <result property="uAreaCode"    column="u_area_code"    />
+        <result property="uOrgId"    column="u_org_id"    />
+        <result property="uPayPassword"    column="u_pay_password"    />
+        <result property="uAvailableMoney"    column="u_available_money"    />
+        <result property="openid"    column="openid"    />
+        <result property="type"    column="type"    />
+        <result property="userType"    column="user_type"    />
+        <result property="tId"    column="t_id"    />
+        <result property="depthToTeam"    column="depth_to_team"    />
+        <result property="lifeAvailBal"    column="life_avail_bal"    />
+        <result property="lifeTotalBal"    column="life_total_bal"    />
+        <result property="parentName" column="parentName"/>
+        <collection property="files" javaType="list" ofType="TbUserFile">
+            <result property="uId"    column="f_id"    />
+            <result property="userId"    column="user_id"    />
+            <result property="type"    column="f_type"    />
+            <result property="fileName"    column="file_name"    />
+            <result property="path"    column="path"    />
+            <result property="uCreateTime"    column="f_create_time"    />
+            <result property="uUpdateTime"    column="f_update_time"    />
+        </collection>
+    </resultMap>
+
+    <resultMap id="insuranceTeam" type="UserTeamVo">
+        <result column="a_num" property="aTeamNum"/>
+        <result column="b_num" property="bTeamNum"/>
+        <collection property="aTeams" ofType="UserSimple">
+            <id column="a_id" property="userId"/>
+            <result column="a_name" property="realName"/>
+            <result column="a_phone" property="phone"/>
+            <result column="a_total" property="totalIncome"/>
+        </collection>
+        <collection property="bTeams" ofType="UserSimple">
+            <id column="b_id" property="userId"/>
+            <result column="b_name" property="realName"/>
+            <result column="b_phone" property="phone"/>
+            <result column="b_total" property="totalIncome"/>
+        </collection>
+    </resultMap>
+
+    <sql id="selectTbUserInfoVo">
+        select u_id, u_sex, u_birthday, u_telephone, u_email, u_address, u_create_time, u_parent_id, u_real_name, u_identity, u_bank_name, u_bank_branch, u_accno, u_avail_bal, u_total_income, u_income_a, u_income_b, u_real_name_status, u_ateam_num, u_bteam_num, u_effect_date, u_device_type, u_device_id, u_area_code, u_org_id, u_pay_password, u_available_money, openid, type, user_type, t_id, depth_to_team, life_avail_bal, life_total_bal from tb_user_info
+    </sql>
+<!--    根据车主Id查找用户信息及图片-->
+    <select id="findUserDetailByOwnerId" parameterType="String" resultMap="TbUserDetailResult">
+         select
+         b.u_id,
+         b.u_sex,
+         b.u_birthday,
+         b.u_telephone,
+         b.u_email,
+         b.u_address,
+         b.u_create_time,
+         b.u_parent_id,
+         b.u_real_name,
+         b.u_identity,
+         b.u_bank_name,
+         b.u_bank_branch,
+         b.u_accno,
+         b.u_avail_bal,
+         b.u_total_income,
+         b.u_income_a,
+         b.u_income_b,
+         b.u_real_name_status,
+         b.u_ateam_num,
+         b.u_bteam_num,
+         b.u_effect_date,
+         b.u_device_type,
+         b.u_device_id,
+         b.u_area_code,
+         b.u_org_id,
+         b.u_pay_password,
+         b.u_available_money,
+         b.openid,
+         b.type,
+         b.user_type,
+         b.t_id,
+         b.depth_to_team,
+         b.life_avail_bal,
+         b.life_total_bal,
+         c.u_id as f_id,
+         c.user_id,
+         c.type as f_type,
+         c.file_name,
+         c.path,
+         c.u_create_time as f_create_time,
+         c.u_update_time as f_update_time
+         from tb_user a
+         left join tb_user_info b
+         on a.u_id = b.u_id
+         left join tb_user_file c
+         on c.user_id = a.u_id
+         where a.owner_id = #{ownerId}
+    </select>
+    <select id="queryTeamInfoByUserId" parameterType="Long" resultMap="insuranceTeam">
+        SELECT
+        (SELECT COUNT(*) FROM tb_user_info WHERE u_parent_id = a.u_id) AS a_num,
+
+        b.u_id AS a_id,
+        b.u_real_name AS a_name,
+        b.u_telephone AS a_phone,
+        b.u_total_income AS a_total,
+        c.u_id AS b_id,
+        c.u_real_name AS b_name,
+        c.u_telephone AS b_phone,
+        c.u_total_income AS b_total
+        FROM tb_user a
+        LEFT JOIN tb_user_info b
+        ON  a.u_id = b.u_parent_id and b.u_real_name_status = '03'
+        LEFT JOIN tb_user_info c
+        ON b.u_id = c.u_parent_id and c.u_real_name_status = '03'
+        WHERE a.owner_id = #{owner_id};
+    </select>
+<!--    根据手机号码查询用户-->
+    <select id="findByPhone" parameterType="String" resultMap="TbUserInfoResult">
+        <include refid="selectTbUserInfoVo"/>
+        where u_telephone = #{uTelephone}
+    </select>
+<!--    根据车主id查找用户详情-->
+    <select id="findByOwnerId" parameterType="Long" resultMap="TbUserInfoResult">
+        select
+        b.u_id,
+        b.u_sex,
+        b.u_birthday,
+        b.u_telephone,
+        b.u_email,
+        b.u_address,
+        b.u_create_time,
+        b.u_parent_id,
+        b.u_real_name,
+        b.u_identity,
+        b.u_bank_name,
+        b.u_bank_branch,
+        b.u_accno,
+        b.u_avail_bal,
+        b.u_total_income,
+        b.u_income_a,
+        b.u_income_b,
+        b.u_real_name_status,
+        b.u_ateam_num,
+        b.u_bteam_num,
+        b.u_effect_date,
+        b.u_device_type,
+        b.u_device_id,
+        b.u_area_code,
+        b.u_org_id,
+        b.u_pay_password,
+        b.u_available_money,
+        b.openid,
+        b.type,
+        b.user_type,
+        b.t_id,
+        b.depth_to_team,
+        b.life_avail_bal,
+        b.life_total_bal
+        from tb_user_info b
+        left join tb_user  a
+        on a.u_id = b.u_id
+        where a.owner_id = #{ownerId}
+    </select>
+    <select id="selectUserByPhone" parameterType="String" resultMap="TbUserInfoResult">
+        <include refid="selectTbUserInfoVo"/>
+        where u_telephone = #{parentPhone}
+    </select>
+<!--    根据id查找用户-->
+    <select id="selectUserInfoById" resultMap="TbUserInfoResult" parameterType="Integer">
+        <include refid="selectTbUserInfoVo"/>
+        where u_id = #{uId}
+    </select>
+    <select id="queryListByTodayNum" resultType="java.lang.Integer">
+        select count(u.u_id)
+        from tb_user_info u
+        left join tb_user t on u.u_id = t.u_id
+        left join tb_role_user r on u.u_id = r.u_id
+        <where>
+
+            <if test="orgId != null and orgId !=''">
+                and u.u_org_id = #{orgId}
+            </if>
+
+            <if test="today != null and today != '' and yesterday != null and yesterday != ''">
+                and t.u_create_time between #{today} and #{yesterday}
+            </if>
+            and r.r_id = 5
+        </where>
+    </select>
+    <select id="selectTbUserInfoList" parameterType="TbUserInfo" resultMap="TbUserInfoResult">
+        <include refid="selectTbUserInfoVo"/>
+        <where>
+            <if test="uOrgId != null  and uOrgId != ''"> and u_org_id = #{uOrgId}</if>
+            <if test="uTelephone != null  and uTelephone != ''"> and u_telephone = #{uTelephone}</if>
+            <if test="uRealName != null  and uRealName != ''"> and u_real_name like concat('%', #{uRealName}, '%')</if>
+            <if test="uRealNameStatus != null  and uRealNameStatus != ''"> and u_real_name_status = #{uRealNameStatus}</if>
+        </where>
+         order by u_create_time desc
+    </select>
+
+    <select id="selectTbUserInfoById" parameterType="Integer" resultMap="TbUserDetailResult">
+        select
+         a.u_id,
+         a.u_sex,
+         a.u_birthday,
+         a.u_telephone,
+         a.u_email,
+         a.u_address,
+         a.u_create_time,
+         a.u_parent_id,
+         b.u_real_name as parentName,
+         a.u_real_name,
+         a.u_identity,
+         a.u_bank_name,
+         a.u_bank_branch,
+         a.u_accno,
+         a.u_avail_bal,
+         a.u_total_income,
+         a.u_income_a,
+         a.u_income_b,
+         a.u_real_name_status,
+         a.u_ateam_num,
+         a.u_bteam_num,
+         a.u_effect_date,
+         a.u_device_type,
+         a.u_device_id,
+         a.u_area_code,
+         a.u_org_id,
+         a.u_pay_password,
+         a.u_available_money,
+         a.openid,
+         a.type,
+         a.user_type,
+         a.t_id,
+         a.depth_to_team,
+         a.life_avail_bal,
+         a.life_total_bal,
+         c.u_id as f_id,
+         c.user_id,
+         c.type as f_type,
+         c.file_name,
+         c.path,
+         c.u_create_time as f_create_time,
+         c.u_update_time as f_update_time
+        from tb_user_info a
+        left join tb_user_info b on a.u_parent_id = b.u_id
+        left join tb_user_file c on c.user_id = a.u_id
+        where a.u_id = #{uId}
+    </select>
+    <select id="findUserFileByUserId" parameterType="String" resultMap="TbUserFileResult">
+        select * from tb_user_file
+        where user_id = #{ownerId}
+    </select>
+    <delete id="delUserFileById" parameterType="java.lang.Long">
+        delete from tb_user_file
+        where  u_id = #{id}
+    </delete>
+
+    <update id="updateUserFile" parameterType="TbUserFile">
+        update tb_user_file
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="type != null">type = #{type},</if>
+            <if test="fileName != null">file_name = #{fileName},</if>
+            <if test="path != null">path = #{path},</if>
+        </trim>
+        where u_id = #{uId}
+    </update>
+
+
+
+    <select id="findByUid" parameterType="java.lang.Long" resultMap="TbUserFileResult">
+        select
+         a.u_id,
+         a.user_id,
+         a.type,
+         a.file_name,
+         a.path,
+         a.u_create_time,
+         a.u_update_time
+         from tb_user_file a
+        <where>
+            <if test="uId != null">
+                and a.u_id = #{uId}
+            </if>
+        </where>
+    </select>
+
+    <select id="findByFileName" parameterType="java.lang.String" resultType="TbUserFile">
+        select * from tb_user_file
+        <where>
+            <if test="fileName != null and fileName != ''">
+                and file_name = #{fileName}
+            </if>
+        </where>
+    </select>
+
+    <insert id="insertUserFile" parameterType="TbUserFile">
+        insert into tb_user_file
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">user_id,</if>
+            <if test="type != null">type,</if>
+            <if test="fileName != null">file_name,</if>
+            <if test="path != null">path,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">#{userId},</if>
+            <if test="type != null">#{type},</if>
+            <if test="fileName != null">#{fileName},</if>
+            <if test="path != null">#{path},</if>
+        </trim>
+    </insert>
+    <insert id="insertTbUserInfo" parameterType="TbUserInfo">
+        insert into tb_user_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="uId != null">u_id,</if>
+            <if test="uSex != null">u_sex,</if>
+            <if test="uBirthday != null">u_birthday,</if>
+            <if test="uTelephone != null">u_telephone,</if>
+            <if test="uEmail != null">u_email,</if>
+            <if test="uAddress != null">u_address,</if>
+            <if test="uCreateTime != null">u_create_time,</if>
+            <if test="uParentId != null">u_parent_id,</if>
+            <if test="uRealName != null">u_real_name,</if>
+            <if test="uIdentity != null">u_identity,</if>
+            <if test="uBankName != null">u_bank_name,</if>
+            <if test="uBankBranch != null">u_bank_branch,</if>
+            <if test="uAccno != null">u_accno,</if>
+            <if test="uAvailBal != null">u_avail_bal,</if>
+            <if test="uTotalIncome != null">u_total_income,</if>
+            <if test="uIncomeA != null">u_income_a,</if>
+            <if test="uIncomeB != null">u_income_b,</if>
+            <if test="uRealNameStatus != null">u_real_name_status,</if>
+            <if test="uAteamNum != null">u_ateam_num,</if>
+            <if test="uBteamNum != null">u_bteam_num,</if>
+            <if test="uEffectDate != null">u_effect_date,</if>
+            <if test="uDeviceType != null">u_device_type,</if>
+            <if test="uDeviceId != null">u_device_id,</if>
+            <if test="uAreaCode != null">u_area_code,</if>
+            <if test="uOrgId != null">u_org_id,</if>
+            <if test="uPayPassword != null">u_pay_password,</if>
+            <if test="uAvailableMoney != null">u_available_money,</if>
+            <if test="openid != null">openid,</if>
+            <if test="type != null">type,</if>
+            <if test="userType != null">user_type,</if>
+            <if test="tId != null">t_id,</if>
+            <if test="depthToTeam != null">depth_to_team,</if>
+            <if test="lifeAvailBal != null">life_avail_bal,</if>
+            <if test="lifeTotalBal != null">life_total_bal,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="uId != null">#{uId},</if>
+            <if test="uSex != null">#{uSex},</if>
+            <if test="uBirthday != null">#{uBirthday},</if>
+            <if test="uTelephone != null">#{uTelephone},</if>
+            <if test="uEmail != null">#{uEmail},</if>
+            <if test="uAddress != null">#{uAddress},</if>
+            <if test="uCreateTime != null">#{uCreateTime},</if>
+            <if test="uParentId != null">#{uParentId},</if>
+            <if test="uRealName != null">#{uRealName},</if>
+            <if test="uIdentity != null">#{uIdentity},</if>
+            <if test="uBankName != null">#{uBankName},</if>
+            <if test="uBankBranch != null">#{uBankBranch},</if>
+            <if test="uAccno != null">#{uAccno},</if>
+            <if test="uAvailBal != null">#{uAvailBal},</if>
+            <if test="uTotalIncome != null">#{uTotalIncome},</if>
+            <if test="uIncomeA != null">#{uIncomeA},</if>
+            <if test="uIncomeB != null">#{uIncomeB},</if>
+            <if test="uRealNameStatus != null">#{uRealNameStatus},</if>
+            <if test="uAteamNum != null">#{uAteamNum},</if>
+            <if test="uBteamNum != null">#{uBteamNum},</if>
+            <if test="uEffectDate != null">#{uEffectDate},</if>
+            <if test="uDeviceType != null">#{uDeviceType},</if>
+            <if test="uDeviceId != null">#{uDeviceId},</if>
+            <if test="uAreaCode != null">#{uAreaCode},</if>
+            <if test="uOrgId != null">#{uOrgId},</if>
+            <if test="uPayPassword != null">#{uPayPassword},</if>
+            <if test="uAvailableMoney != null">#{uAvailableMoney},</if>
+            <if test="openid != null">#{openid},</if>
+            <if test="type != null">#{type},</if>
+            <if test="userType != null">#{userType},</if>
+            <if test="tId != null">#{tId},</if>
+            <if test="depthToTeam != null">#{depthToTeam},</if>
+            <if test="lifeAvailBal != null">#{lifeAvailBal},</if>
+            <if test="lifeTotalBal != null">#{lifeTotalBal},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTbUserInfo" parameterType="TbUserInfo">
+        update tb_user_info
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="uSex != null">u_sex = #{uSex},</if>
+            <if test="uBirthday != null">u_birthday = #{uBirthday},</if>
+            <if test="uTelephone != null">u_telephone = #{uTelephone},</if>
+            <if test="uEmail != null">u_email = #{uEmail},</if>
+            <if test="uAddress != null">u_address = #{uAddress},</if>
+            <if test="uCreateTime != null">u_create_time = #{uCreateTime},</if>
+            <if test="uParentId != null">u_parent_id = #{uParentId},</if>
+            <if test="uRealName != null">u_real_name = #{uRealName},</if>
+            <if test="uIdentity != null">u_identity = #{uIdentity},</if>
+            <if test="uBankName != null">u_bank_name = #{uBankName},</if>
+            <if test="uBankBranch != null">u_bank_branch = #{uBankBranch},</if>
+            <if test="uAccno != null">u_accno = #{uAccno},</if>
+            <if test="uAvailBal != null">u_avail_bal = #{uAvailBal},</if>
+            <if test="uTotalIncome != null">u_total_income = #{uTotalIncome},</if>
+            <if test="uIncomeA != null">u_income_a = #{uIncomeA},</if>
+            <if test="uIncomeB != null">u_income_b = #{uIncomeB},</if>
+            <if test="uRealNameStatus != null">u_real_name_status = #{uRealNameStatus},</if>
+            <if test="uAteamNum != null">u_ateam_num = #{uAteamNum},</if>
+            <if test="uBteamNum != null">u_bteam_num = #{uBteamNum},</if>
+            <if test="uEffectDate != null">u_effect_date = #{uEffectDate},</if>
+            <if test="uDeviceType != null">u_device_type = #{uDeviceType},</if>
+            <if test="uDeviceId != null">u_device_id = #{uDeviceId},</if>
+            <if test="uAreaCode != null">u_area_code = #{uAreaCode},</if>
+            <if test="uOrgId != null">u_org_id = #{uOrgId},</if>
+            <if test="uPayPassword != null">u_pay_password = #{uPayPassword},</if>
+            <if test="uAvailableMoney != null">u_available_money = #{uAvailableMoney},</if>
+            <if test="openid != null">openid = #{openid},</if>
+            <if test="type != null">type = #{type},</if>
+            <if test="userType != null">user_type = #{userType},</if>
+            <if test="tId != null">t_id = #{tId},</if>
+            <if test="depthToTeam != null">depth_to_team = #{depthToTeam},</if>
+            <if test="lifeAvailBal != null">life_avail_bal = #{lifeAvailBal},</if>
+            <if test="lifeTotalBal != null">life_total_bal = #{lifeTotalBal},</if>
+        </trim>
+        where u_id = #{uId}
+    </update>
+
+    <delete id="deleteTbUserInfoById" parameterType="Integer">
+        delete from tb_user_info where u_id = #{uId}
+    </delete>
+
+    <delete id="deleteTbUserInfoByIds" parameterType="String">
+        delete from tb_user_info where u_id in
+        <foreach item="uId" collection="array" open="(" separator="," close=")">
+            #{uId}
+        </foreach>
+    </delete>
+</mapper>

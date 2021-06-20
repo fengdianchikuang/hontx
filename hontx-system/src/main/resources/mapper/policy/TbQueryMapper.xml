@@ -1,0 +1,731 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.TbQueryMapper">
+
+    <resultMap id="queryRegion" type="com.ruoyi.system.domain.vo.AreaCodeVo">
+        <result property="code" column="code"/>
+        <result property="name" column="name"/>
+    </resultMap>
+
+    <resultMap id="FreeQueryResult" type="QueryFreeVo">
+        <result property="qId" column="q_id"/>
+        <result property="queryId" column="query_id"/>
+        <result property="flag" column="flag"/>
+        <result property="owner" column="owner"/>
+        <result property="applicant" column="applicant_name"/>
+        <result property="vehicleNo" column="vehicle_no"/>
+        <result property="channelId" column="channel_id"/>
+        <result property="instituteCode" column="institute_code"/>
+        <result property="premium" column="premium"/>
+        <result property="premiumSy" column="premium_sy"/>
+        <result property="premiumJq" column="premium_jq"/>
+        <result property="tax" column="tax"/>
+        <result property="status" column="status"/>
+        <result property="agent" column="u_real_name"/>
+        <result property="agentTel" column="u_telephone"/> <!--待修改-->
+        <!--此处待插入-->
+        <result property="orgId" column="org_id"/>
+        <result property="areaCode" column="area_code"/>
+        <result property="createTime" column="q_create_time"/>
+        <result property="updateTime" column="q_update_time"/>
+    </resultMap>
+
+    <resultMap type="TbQuery" id="TbQueryResult">
+        <result property="qId"    column="q_id"    />
+        <result property="queryId"    column="query_id"    />
+        <result property="channelId"    column="channel_id"    />
+        <result property="deptNo"    column="dept_no"    />
+        <result property="vehicleNo"    column="vehicle_no"    />
+        <result property="engineNo"    column="engine_no"    />
+        <result property="rackNo"    column="rack_no"    />
+        <result property="etBrand"    column="et_brand"    />
+        <result property="brandCode"    column="brand_code"    />
+        <result property="vehicleValue"    column="vehicle_value"    />
+        <result property="belongType"    column="belong_type"    />
+        <result property="useType"    column="use_type"    />
+        <result property="extMsr"    column="ext_msr"    />
+        <result property="setNum"    column="set_num"    />
+        <result property="tonnage"    column="tonnage"    />
+        <result property="changeOwnerFlag"    column="change_owner_flag"    />
+        <result property="transferDate"    column="transfer_date"    />
+        <result property="owner"    column="owner"    />
+        <result property="ownerCertType"    column="owner_cert_type"    />
+        <result property="ownerCertNo"    column="owner_cert_no"    />
+        <result property="ownerTel"    column="owner_tel"    />
+        <result property="insrncBgnTm"    column="insrnc_bgn_tm"    />
+        <result property="insrncEndTm"    column="insrnc_end_tm"    />
+        <result property="insrncBgnTmJq"    column="insrnc_bgn_tm_jq"    />
+        <result property="insrncEndTmJq"    column="insrnc_end_tm_jq"    />
+        <result property="registerDate"    column="register_date"    />
+        <result property="applicantName"    column="applicant_name"    />
+        <result property="applicantCertType"    column="applicant_cert_type"    />
+        <result property="applicantCertNo"    column="applicant_cert_no"    />
+        <result property="applicantTel"    column="applicant_tel"    />
+        <result property="applicantSex"    column="applicant_sex"    />
+        <result property="applicantAge"    column="applicant_age"    />
+        <result property="insuredName"    column="insured_name"    />
+        <result property="insuredCertType"    column="insured_cert_type"    />
+        <result property="insuredCertNo"    column="insured_cert_no"    />
+        <result property="insuredTel"    column="insured_tel"    />
+        <result property="insuredSex"    column="insured_sex"    />
+        <result property="insuredAge"    column="insured_age"    />
+        <result property="instituteCode"    column="institute_code"    />
+        <result property="agentId"    column="agent_id"    />
+        <result property="agentName"    column="agent_name"    />
+        <result property="serviceId"    column="service_id"    />
+        <result property="serviceName"    column="service_name"    />
+        <result property="content"    column="content"    />
+        <result property="calAppNo"    column="cal_app_no"    />
+        <result property="jqIsImmefc"    column="jq_is_immefc"    />
+        <result property="syIsImmefc"    column="sy_is_immefc"    />
+        <result property="jqPlyAppNo"    column="jq_ply_app_no"    />
+        <result property="syPlyAppNo"    column="sy_ply_app_no"    />
+        <result property="jqAppNo"    column="jq_app_no"    />
+        <result property="syAppNo"    column="sy_app_no"    />
+        <result property="flag"    column="flag"    />
+        <result property="status"    column="status"    />
+        <result property="respCode"    column="resp_code"    />
+        <result property="respMsg"    column="resp_msg"    />
+        <result property="premium"    column="premium"    />
+        <result property="premiumSy"    column="premium_sy"    />
+        <result property="premiumJq"    column="premium_jq"    />
+        <result property="tax"    column="tax"    />
+        <result property="qCreateTime"    column="q_create_time"    />
+        <result property="qUpdateTime"    column="q_update_time"    />
+        <result property="payAppNo"    column="pay_app_no"    />
+        <result property="expressType"    column="express_type"    />
+        <result property="areaCode"    column="area_code"    />
+        <result property="orgId"    column="org_id"    />
+        <result property="remark"    column="remark"    />
+        <result property="templateFlag"    column="template_flag"    />
+        <result property="templateJq"    column="template_jq"    />
+    </resultMap>
+
+    <resultMap type="QueryVo" id="QueryVoResult">
+        <result property="qId"    column="q_id"    />
+        <result property="queryId"    column="query_id"    />
+        <result property="channelId"    column="channel_id"    />
+        <result property="deptNo"    column="dept_no"    />
+        <result property="vehicleNo"    column="vehicle_no"    />
+        <result property="engineNo"    column="engine_no"    />
+        <result property="rackNo"    column="rack_no"    />
+        <result property="etBrand"    column="et_brand"    />
+        <result property="brandCode"    column="brand_code"    />
+        <result property="vehicleValue"    column="vehicle_value"    />
+        <result property="belongType"    column="belong_type"    />
+        <result property="useType"    column="use_type"    />
+        <result property="extMsr"    column="ext_msr"    />
+        <result property="setNum"    column="set_num"    />
+        <result property="tonnage"    column="tonnage"    />
+        <result property="changeOwnerFlag"    column="change_owner_flag"    />
+        <result property="transferDate"    column="transfer_date"    />
+        <result property="owner"    column="owner"    />
+        <result property="ownerCertType"    column="owner_cert_type"    />
+        <result property="ownerCertNo"    column="owner_cert_no"    />
+        <result property="ownerTel"    column="owner_tel"    />
+        <result property="insrncBgnTm"    column="insrnc_bgn_tm"    />
+        <result property="insrncEndTm"    column="insrnc_end_tm"    />
+        <result property="insrncBgnTmJq"    column="insrnc_bgn_tm_jq"    />
+        <result property="insrncEndTmJq"    column="insrnc_end_tm_jq"    />
+        <result property="registerDate"    column="register_date"    />
+        <result property="applicantName"    column="applicant_name"    />
+        <result property="applicantCertType"    column="applicant_cert_type"    />
+        <result property="applicantCertNo"    column="applicant_cert_no"    />
+        <result property="applicantTel"    column="applicant_tel"    />
+        <result property="applicantSex"    column="applicant_sex"    />
+        <result property="applicantAge"    column="applicant_age"    />
+        <result property="insuredName"    column="insured_name"    />
+        <result property="insuredCertType"    column="insured_cert_type"    />
+        <result property="insuredCertNo"    column="insured_cert_no"    />
+        <result property="insuredTel"    column="insured_tel"    />
+        <result property="insuredSex"    column="insured_sex"    />
+        <result property="insuredAge"    column="insured_age"    />
+        <result property="instituteCode"    column="institute_code"    />
+        <result property="agentId"    column="agent_id"    />
+        <result property="agentName"    column="agent_name"    />
+        <result property="agentTel" column="u_telephone" />
+        <result property="serviceId"    column="service_id"    />
+        <result property="serviceName"    column="service_name"    />
+        <result property="content"    column="content"    />
+        <result property="calAppNo"    column="cal_app_no"    />
+        <result property="jqIsImmefc"    column="jq_is_immefc"    />
+        <result property="syIsImmefc"    column="sy_is_immefc"    />
+        <result property="jqPlyAppNo"    column="jq_ply_app_no"    />
+        <result property="syPlyAppNo"    column="sy_ply_app_no"    />
+        <result property="jqAppNo"    column="jq_app_no"    />
+        <result property="syAppNo"    column="sy_app_no"    />
+        <result property="flag"    column="flag"    />
+        <result property="status"    column="status"    />
+        <result property="respCode"    column="resp_code"    />
+        <result property="respMsg"    column="resp_msg"    />
+        <result property="premium"    column="premium"    />
+        <result property="premiumSy"    column="premium_sy"    />
+        <result property="premiumJq"    column="premium_jq"    />
+        <result property="tax"    column="tax"    />
+        <result property="qCreateTime"    column="q_create_time"    />
+        <result property="qUpdateTime"    column="q_update_time"    />
+        <result property="payAppNo"    column="pay_app_no"    />
+        <result property="expressType"    column="express_type"    />
+        <result property="areaCode"    column="area_code"    />
+        <result property="orgId"    column="org_id"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+<!--    询价详情信息-->
+    <resultMap id="queryAndInsrncAndVehicleFile" type="com.ruoyi.system.domain.vo.QueryDetailsVo">
+        <result column="q_id" property="qId" />
+        <result column="query_id" property="queryId" />
+        <result column="flag" property="flag" />
+        <result column="owner" property="owner" />
+        <result column="applicant_name" property="applicantName" />
+        <result column="applicant_cert_no" property="applicantCertNo" />
+        <result column="applicant_tel" property="applicantTel" />
+        <result column="vehicle_no" property="vehicleNo" />
+        <result column="rack_no" property="rackNo" />
+        <result column="channel_id" property="channelId" />
+        <result column="institute_code" property="instituteCo" />
+        <result column="premium" property="premium" />
+        <result column="premium_sy" property="premiumSy" />
+        <result column="premium_jq" property="premiumJq" />
+        <result column="tax" property="tax" />
+        <result column="status" property="status" />
+        <result column="use_type" property="useType" />
+        <result column="belong_type" property="belongType" />
+        <result column="u_telephone" property="agentTel" />
+        <result column="agent_id" property="agentId" />
+        <result column="u_real_name" property="agentName" />
+        <result column="area_code" property="areaCode" />
+        <result column="org_id" property="orgId" />
+        <result column="transfer_date" property="transferDate" />
+        <result column="q_create_time" property="qCreateTime"/>
+        <result column="q_update_time" property="qUpdateTime"/>
+        <result column="content" property="content"/>
+        <result column="remark" property="remark"/>
+        <collection property="vehicleFile" javaType="list" ofType="com.ruoyi.system.domain.VehicleFile">
+            <result column="vehicle_no" property="vehicleNo" />
+            <result column="rack_no" property="rackNo" />
+            <result column="type" property="type" />
+            <result column="file_name" property="fileName" />
+            <result column="path" property="path" />
+        </collection>
+        <collection property="queryInsrnc" javaType="list" ofType="com.ruoyi.system.domain.QueryInsrnc">
+            <result column="qId" property="qId" />
+            <result column="query_id" property="queryId" />
+            <result column="insrnc_code" property="insrncCode" />
+            <result column="glass_type" property="glassType" />
+            <result column="amount" property="amount" />
+            <result column="franchise_flag" property="franchiseFlag" />
+            <result column="before_premium" property="beforePremium" />
+            <result column="rate" property="rate" />
+            <result column="sub_premium" property="premium" />
+            <result column="non_deduct_premium" property="nonDeductPremium" />
+            <result column="deduct_premium" property="deductPremium" />
+        </collection>
+    </resultMap>
+    <sql id="selectTbQueryVo">
+        select q_id, query_id, channel_id, dept_no, vehicle_no, engine_no, rack_no, et_brand, brand_code, vehicle_value, belong_type, use_type, ext_msr, set_num, tonnage, change_owner_flag, transfer_date, owner, owner_cert_type, owner_cert_no, owner_tel, insrnc_bgn_tm, insrnc_end_tm, insrnc_bgn_tm_jq, insrnc_end_tm_jq, register_date, applicant_name, applicant_cert_type, applicant_cert_no, applicant_tel, applicant_sex, applicant_age, insured_name, insured_cert_type, insured_cert_no, insured_tel, insured_sex, insured_age, institute_code, agent_id, agent_name, service_id, service_name, content, cal_app_no, jq_is_immefc, sy_is_immefc, jq_ply_app_no, sy_ply_app_no, jq_app_no, sy_app_no, flag, status, resp_code, resp_msg, premium, premium_sy, premium_jq, tax, q_create_time, q_update_time, pay_app_no, express_type, area_code, org_id, remark, template_flag, template_jq from tb_query
+    </sql>
+<!--    根据订单Id查找-->
+    <select id="findByQueryId" parameterType="String" resultMap="TbQueryResult">
+        <include refid="selectTbQueryVo"/>
+         where query_id = #{orderId}
+    </select>
+    <!--    查询自由询价列表-->
+    <select id="listFreeQuery" parameterType="QueryReq" resultMap="FreeQueryResult">
+        select
+        a.q_id,
+        a.query_id,
+        a.flag,
+        a.owner,
+        a.applicant_name,
+        a.vehicle_no,
+        a.channel_id,
+        a.institute_code,
+        a.premium,
+        a.premium_sy,
+        a.premium_jq,
+        a.tax,
+        a.status,
+        b.u_real_name,
+        b.u_telephone,
+        a.agent_id,
+        a.org_id,
+        a.area_code,
+        a.q_create_time,
+        a.q_update_time
+        from tb_query a
+        left join tb_user_info b
+        on a.agent_id = b.u_id
+        <where>
+          <if test="vehicleNo != null and vehicleNo != ''">
+              and a.vehicleNo = #{vehicleNo}
+          </if>
+          <if test="owner != null and owner !=''">
+              and a.owner = #{owner}
+          </if>
+          <if test="agent != null and agent !=''">
+              and a.agent = #{agent}
+          </if>
+          <if test="orgId != null and orgId !=''">
+              and a.org_id = #{orgId}
+          </if>
+          and a.flag = '1'
+          and a.status in ('00','01')
+        </where>
+
+
+    </select>
+<!--    新增保险子项-->
+    <insert id="insertInsrnc" parameterType="com.ruoyi.system.domain.QueryInsrnc" useGeneratedKeys="true" keyProperty="qId">
+        insert into tb_query_insrnc
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="queryId != null">query_id,</if>
+            <if test="insrncCode != null">insrnc_code,</if>
+            <if test="glassType != null">glass_type,</if>
+            <if test="amount != null">amount,</if>
+            <if test="franchiseFlag != null">franchise_flag,</if>
+            <if test="beforePremium != null">before_premium,</if>
+            <if test="rate != null">rate,</if>
+            <if test="premium != null">premium,</if>
+            <if test="nonDeductPremium != null">non_deduct_premium,</if>
+            <if test="quantity != null">quantity,</if>
+            <if test="unitAmount != null">unit_amount,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="queryId != null">queryId,</if>
+            <if test="insrncCode != null">insrncCode,</if>
+            <if test="glassType != null">glassType,</if>
+            <if test="amount != null">amount,</if>
+            <if test="franchiseFlag != null">franchiseFlag,</if>
+            <if test="beforePremium != null">beforePremium,</if>
+            <if test="rate != null">rate,</if>
+            <if test="premium != null">premium,</if>
+            <if test="nonDeductPremium != null">nonDeductPremium,</if>
+            <if test="quantity != null">quantity,</if>
+            <if test="unitAmount != null">unitAmount,</if>
+        </trim>
+    </insert>
+
+    <update id="updateInsrnc" parameterType="com.ruoyi.system.domain.QueryInsrnc">
+        update tb_query_insrnc
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="queryId != null">query_id = #{queryId},</if>
+            <if test="insrncCode != null">insrnc_code = #{insrncCode},</if>
+            <if test="glassType != null">glass_type = #{glassType},</if>
+            <if test="amount != null">amount = #{amount},</if>
+            <if test="franchiseFlag != null">franchise_flag = #{franchiseFlag},</if>
+            <if test="beforePremium != null">before_premium = #{beforePremium},</if>
+            <if test="rate != null">rate = #{rate},</if>
+            <if test="premium != null">premium = #{premium},</if>
+            <if test="nonDeductPremium != null">non_deduct_premium = #{nonDeductPremium},</if>
+            <if test="quantity != null">quantity = #{quantity},</if>
+            <if test="unitAmount != null">unit_amount = #{unitAmount},</if>
+        </trim>
+        where q_id = #{qId}
+    </update>
+
+<!--    批量修改query status 状态-->
+    <select id="updateList" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            update tb_query
+            <set>
+                <if test="item.status != '' and item.status != null">
+                    status = #{item.status}
+                </if>
+            </set>
+            where q_id = #{item.q_id}
+        </foreach>
+    </select>
+<!--    查询所属地区-->
+    <select id="queryRegion" parameterType="java.lang.Integer" resultMap="queryRegion">
+        select
+         a.code,
+         a.name
+         from tb_region a
+         <where>
+             <if test="type != null and type != 0">
+                 and a.type = #{type}
+             </if>
+             <if test="code != null and code != 0">
+                 and a.code = #{code}
+             </if>
+         </where>
+    </select>
+<!--    queryByQueryId-->
+    <!--    查询保单详情-->
+    <select id="queryByQueryId" parameterType="java.lang.String" resultMap="queryAndInsrncAndVehicleFile">
+        SELECT
+        a.q_id,
+        a.query_id,
+        a.flag,
+        a.owner,
+        a.applicant_name,
+        a.applicant_cert_no,
+        a.applicant_tel,
+        a.vehicle_no,
+        a.rack_no,
+        a.channel_id,
+        a.institute_code,
+        a.premium,
+        a.premium_sy,
+        a.premium_jq,
+        a.remark,
+        a.content,
+        a.tax,
+        a.status,
+        a.use_type,
+        a.belong_type,
+        a.agent_id,
+        a.area_code,
+        a.org_id,
+        a.transfer_date,
+        a.q_create_time,
+        a.q_update_time,
+        b.`q_id` as qId,
+        b.`query_id`,
+        b.`insrnc_code`,
+        b.`glass_type`,
+        b.`amount`,
+        b.`franchise_flag`,
+        b.`before_premium`,
+        b.`rate`,
+        b.`premium` as sub_premium,
+        b.`non_deduct_premium`,
+        b.`deduct_premium`,
+        c.`vehicle_no`,
+        c.`rack_no`,
+        c.`type`,
+        c.`file_name`,
+        c.`path`,
+        u.u_telephone,
+        u.u_real_name
+        FROM tb_query a
+        LEFT JOIN tb_user_info u ON a.`agent_id` = u.`u_id`
+        LEFT JOIN tb_query_insrnc b ON a.`query_id` = b.`query_id`
+        LEFT JOIN tb_vehicle_file c ON a.`rack_no` = c.`rack_no`
+        <where>
+            <if test="queryId != null and queryId != ''">
+                a.query_id = #{queryId}
+            </if>
+        </where>
+    </select>
+
+
+    <select id="selectTbQueryList" parameterType="TbQuery" resultMap="QueryVoResult">
+        select a.q_id,
+               a.query_id,
+               a.channel_id,
+               a.dept_no,
+               a.vehicle_no,
+               a.engine_no,
+               a.rack_no,
+               a.et_brand,
+               a.brand_code,
+               a.vehicle_value,
+               a.belong_type,
+               a.use_type,
+               a.ext_msr,
+               a.set_num,
+               a.tonnage,
+               a.change_owner_flag,
+               a.transfer_date,
+               a.owner,
+               a.owner_cert_type,
+               a.owner_cert_no,
+               a.owner_tel,
+               a.insrnc_bgn_tm,
+               a.insrnc_end_tm,
+               a.insrnc_bgn_tm_jq,
+               a.insrnc_end_tm_jq,
+               a.register_date,
+               a.applicant_name,
+               a.applicant_cert_type,
+               a.applicant_cert_no,
+               a.applicant_tel,
+               a.applicant_sex,
+               a.applicant_age,
+               a.insured_name,
+               a.insured_cert_type,
+               a.insured_cert_no,
+               a.insured_tel,
+               a.insured_sex,
+               a.insured_age,
+               a.institute_code,
+               a.agent_id,
+               b.u_real_name as agent_name,
+               b.u_telephone,
+               a.service_id,
+               a.service_name,
+               a.content,
+               a.cal_app_no,
+               a.jq_is_immefc,
+               a.sy_is_immefc,
+               a.jq_ply_app_no,
+               a.sy_ply_app_no,
+               a.jq_app_no,
+               a.sy_app_no,
+               a.flag,
+               a.status,
+               a.resp_code,
+               a.resp_msg,
+               a.premium,
+               a.premium_sy,
+               a.premium_jq,
+               a.tax,
+               a.q_create_time,
+               a.q_update_time,
+               a.pay_app_no,
+               a.express_type,
+               a.area_code,
+               a.org_id,
+               a.remark,
+               a.template_flag,
+               a.template_jq
+               from tb_query a
+               left join tb_user_info b on a.agent_id = b.u_id
+        <where>
+            <if test="orgId != null and orgId != ''"> and a.org_id = #{orgId}</if>
+            <if test="status != null and status != ''"> and a.status = #{status}</if>
+            <if test="flag != null and flag != ''"> and a.flag = #{flag}</if>
+            <if test="vehicleNo != null  and vehicleNo != ''"> and a.vehicle_no = #{vehicleNo}</if>
+            <if test="serviceId != null  and serviceId != ''"> and a.service_id = #{serviceId}</if>
+            <if test="owner != null  and owner != ''"> and a.owner like concat('%', #{owner}, '%')</if>
+            <if test="agentName != null  and agentName != ''"> and b.u_real_name like concat('%', #{agentName}, '%')</if>
+        </where>
+        order by a.q_update_time desc
+    </select>
+
+    <select id="selectTbQueryById" parameterType="Long" resultMap="TbQueryResult">
+        <include refid="selectTbQueryVo"/>
+        where q_id = #{qId}
+    </select>
+
+    <insert id="insertTbQuery" parameterType="TbQuery" useGeneratedKeys="true" keyProperty="qId">
+        insert into tb_query
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="queryId != null">query_id,</if>
+            <if test="channelId != null and channelId != ''">channel_id,</if>
+            <if test="deptNo != null">dept_no,</if>
+            <if test="vehicleNo != null and vehicleNo != ''">vehicle_no,</if>
+            <if test="engineNo != null">engine_no,</if>
+            <if test="rackNo != null">rack_no,</if>
+            <if test="etBrand != null">et_brand,</if>
+            <if test="brandCode != null">brand_code,</if>
+            <if test="vehicleValue != null">vehicle_value,</if>
+            <if test="belongType != null and belongType != ''">belong_type,</if>
+            <if test="useType != null and useType != ''">use_type,</if>
+            <if test="extMsr != null">ext_msr,</if>
+            <if test="setNum != null and setNum != ''">set_num,</if>
+            <if test="tonnage != null">tonnage,</if>
+            <if test="changeOwnerFlag != null">change_owner_flag,</if>
+            <if test="transferDate != null">transfer_date,</if>
+            <if test="owner != null and owner != ''">owner,</if>
+            <if test="ownerCertType != null and ownerCertType != ''">owner_cert_type,</if>
+            <if test="ownerCertNo != null and ownerCertNo != ''">owner_cert_no,</if>
+            <if test="ownerTel != null and ownerTel != ''">owner_tel,</if>
+            <if test="insrncBgnTm != null">insrnc_bgn_tm,</if>
+            <if test="insrncEndTm != null">insrnc_end_tm,</if>
+            <if test="insrncBgnTmJq != null">insrnc_bgn_tm_jq,</if>
+            <if test="insrncEndTmJq != null">insrnc_end_tm_jq,</if>
+            <if test="registerDate != null">register_date,</if>
+            <if test="applicantName != null">applicant_name,</if>
+            <if test="applicantCertType != null">applicant_cert_type,</if>
+            <if test="applicantCertNo != null">applicant_cert_no,</if>
+            <if test="applicantTel != null">applicant_tel,</if>
+            <if test="applicantSex != null">applicant_sex,</if>
+            <if test="applicantAge != null">applicant_age,</if>
+            <if test="insuredName != null">insured_name,</if>
+            <if test="insuredCertType != null">insured_cert_type,</if>
+            <if test="insuredCertNo != null">insured_cert_no,</if>
+            <if test="insuredTel != null">insured_tel,</if>
+            <if test="insuredSex != null">insured_sex,</if>
+            <if test="insuredAge != null">insured_age,</if>
+            <if test="instituteCode != null">institute_code,</if>
+            <if test="agentId != null">agent_id,</if>
+            <if test="agentName != null">agent_name,</if>
+            <if test="serviceId != null">service_id,</if>
+            <if test="serviceName != null">service_name,</if>
+            <if test="content != null">content,</if>
+            <if test="calAppNo != null">cal_app_no,</if>
+            <if test="jqIsImmefc != null">jq_is_immefc,</if>
+            <if test="syIsImmefc != null">sy_is_immefc,</if>
+            <if test="jqPlyAppNo != null">jq_ply_app_no,</if>
+            <if test="syPlyAppNo != null">sy_ply_app_no,</if>
+            <if test="jqAppNo != null">jq_app_no,</if>
+            <if test="syAppNo != null">sy_app_no,</if>
+            <if test="flag != null">flag,</if>
+            <if test="status != null">status,</if>
+            <if test="respCode != null">resp_code,</if>
+            <if test="respMsg != null">resp_msg,</if>
+            <if test="premium != null">premium,</if>
+            <if test="premiumSy != null">premium_sy,</if>
+            <if test="premiumJq != null">premium_jq,</if>
+            <if test="tax != null">tax,</if>
+            <if test="qCreateTime != null">q_create_time,</if>
+            <if test="qUpdateTime != null">q_update_time,</if>
+            <if test="payAppNo != null">pay_app_no,</if>
+            <if test="expressType != null">express_type,</if>
+            <if test="areaCode != null">area_code,</if>
+            <if test="orgId != null">org_id,</if>
+            <if test="remark != null">remark,</if>
+            <if test="templateFlag != null">template_flag,</if>
+            <if test="templateJq != null">template_jq,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="queryId != null">#{queryId},</if>
+            <if test="channelId != null and channelId != ''">#{channelId},</if>
+            <if test="deptNo != null">#{deptNo},</if>
+            <if test="vehicleNo != null and vehicleNo != ''">#{vehicleNo},</if>
+            <if test="engineNo != null">#{engineNo},</if>
+            <if test="rackNo != null">#{rackNo},</if>
+            <if test="etBrand != null">#{etBrand},</if>
+            <if test="brandCode != null">#{brandCode},</if>
+            <if test="vehicleValue != null">#{vehicleValue},</if>
+            <if test="belongType != null and belongType != ''">#{belongType},</if>
+            <if test="useType != null and useType != ''">#{useType},</if>
+            <if test="extMsr != null">#{extMsr},</if>
+            <if test="setNum != null and setNum != ''">#{setNum},</if>
+            <if test="tonnage != null">#{tonnage},</if>
+            <if test="changeOwnerFlag != null">#{changeOwnerFlag},</if>
+            <if test="transferDate != null">#{transferDate},</if>
+            <if test="owner != null and owner != ''">#{owner},</if>
+            <if test="ownerCertType != null and ownerCertType != ''">#{ownerCertType},</if>
+            <if test="ownerCertNo != null and ownerCertNo != ''">#{ownerCertNo},</if>
+            <if test="ownerTel != null and ownerTel != ''">#{ownerTel},</if>
+            <if test="insrncBgnTm != null">#{insrncBgnTm},</if>
+            <if test="insrncEndTm != null">#{insrncEndTm},</if>
+            <if test="insrncBgnTmJq != null">#{insrncBgnTmJq},</if>
+            <if test="insrncEndTmJq != null">#{insrncEndTmJq},</if>
+            <if test="registerDate != null">#{registerDate},</if>
+            <if test="applicantName != null">#{applicantName},</if>
+            <if test="applicantCertType != null">#{applicantCertType},</if>
+            <if test="applicantCertNo != null">#{applicantCertNo},</if>
+            <if test="applicantTel != null">#{applicantTel},</if>
+            <if test="applicantSex != null">#{applicantSex},</if>
+            <if test="applicantAge != null">#{applicantAge},</if>
+            <if test="insuredName != null">#{insuredName},</if>
+            <if test="insuredCertType != null">#{insuredCertType},</if>
+            <if test="insuredCertNo != null">#{insuredCertNo},</if>
+            <if test="insuredTel != null">#{insuredTel},</if>
+            <if test="insuredSex != null">#{insuredSex},</if>
+            <if test="insuredAge != null">#{insuredAge},</if>
+            <if test="instituteCode != null">#{instituteCode},</if>
+            <if test="agentId != null">#{agentId},</if>
+            <if test="agentName != null">#{agentName},</if>
+            <if test="serviceId != null">#{serviceId},</if>
+            <if test="serviceName != null">#{serviceName},</if>
+            <if test="content != null">#{content},</if>
+            <if test="calAppNo != null">#{calAppNo},</if>
+            <if test="jqIsImmefc != null">#{jqIsImmefc},</if>
+            <if test="syIsImmefc != null">#{syIsImmefc},</if>
+            <if test="jqPlyAppNo != null">#{jqPlyAppNo},</if>
+            <if test="syPlyAppNo != null">#{syPlyAppNo},</if>
+            <if test="jqAppNo != null">#{jqAppNo},</if>
+            <if test="syAppNo != null">#{syAppNo},</if>
+            <if test="flag != null">#{flag},</if>
+            <if test="status != null">#{status},</if>
+            <if test="respCode != null">#{respCode},</if>
+            <if test="respMsg != null">#{respMsg},</if>
+            <if test="premium != null">#{premium},</if>
+            <if test="premiumSy != null">#{premiumSy},</if>
+            <if test="premiumJq != null">#{premiumJq},</if>
+            <if test="tax != null">#{tax},</if>
+            <if test="qCreateTime != null">#{qCreateTime},</if>
+            <if test="qUpdateTime != null">#{qUpdateTime},</if>
+            <if test="payAppNo != null">#{payAppNo},</if>
+            <if test="expressType != null">#{expressType},</if>
+            <if test="areaCode != null">#{areaCode},</if>
+            <if test="orgId != null">#{orgId},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="templateFlag != null">#{templateFlag},</if>
+            <if test="templateJq != null">#{templateJq},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTbQuery" parameterType="TbQuery">
+        update tb_query
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="queryId != null">query_id = #{queryId},</if>
+            <if test="channelId != null and channelId != ''">channel_id = #{channelId},</if>
+            <if test="deptNo != null">dept_no = #{deptNo},</if>
+            <if test="vehicleNo != null and vehicleNo != ''">vehicle_no = #{vehicleNo},</if>
+            <if test="engineNo != null">engine_no = #{engineNo},</if>
+            <if test="rackNo != null">rack_no = #{rackNo},</if>
+            <if test="etBrand != null">et_brand = #{etBrand},</if>
+            <if test="brandCode != null">brand_code = #{brandCode},</if>
+            <if test="vehicleValue != null">vehicle_value = #{vehicleValue},</if>
+            <if test="belongType != null and belongType != ''">belong_type = #{belongType},</if>
+            <if test="useType != null and useType != ''">use_type = #{useType},</if>
+            <if test="extMsr != null">ext_msr = #{extMsr},</if>
+            <if test="setNum != null and setNum != ''">set_num = #{setNum},</if>
+            <if test="tonnage != null">tonnage = #{tonnage},</if>
+            <if test="changeOwnerFlag != null">change_owner_flag = #{changeOwnerFlag},</if>
+            <if test="transferDate != null">transfer_date = #{transferDate},</if>
+            <if test="owner != null and owner != ''">owner = #{owner},</if>
+            <if test="ownerCertType != null and ownerCertType != ''">owner_cert_type = #{ownerCertType},</if>
+            <if test="ownerCertNo != null and ownerCertNo != ''">owner_cert_no = #{ownerCertNo},</if>
+            <if test="ownerTel != null and ownerTel != ''">owner_tel = #{ownerTel},</if>
+            <if test="insrncBgnTm != null">insrnc_bgn_tm = #{insrncBgnTm},</if>
+            <if test="insrncEndTm != null">insrnc_end_tm = #{insrncEndTm},</if>
+            <if test="insrncBgnTmJq != null">insrnc_bgn_tm_jq = #{insrncBgnTmJq},</if>
+            <if test="insrncEndTmJq != null">insrnc_end_tm_jq = #{insrncEndTmJq},</if>
+            <if test="registerDate != null">register_date = #{registerDate},</if>
+            <if test="applicantName != null">applicant_name = #{applicantName},</if>
+            <if test="applicantCertType != null">applicant_cert_type = #{applicantCertType},</if>
+            <if test="applicantCertNo != null">applicant_cert_no = #{applicantCertNo},</if>
+            <if test="applicantTel != null">applicant_tel = #{applicantTel},</if>
+            <if test="applicantSex != null">applicant_sex = #{applicantSex},</if>
+            <if test="applicantAge != null">applicant_age = #{applicantAge},</if>
+            <if test="insuredName != null">insured_name = #{insuredName},</if>
+            <if test="insuredCertType != null">insured_cert_type = #{insuredCertType},</if>
+            <if test="insuredCertNo != null">insured_cert_no = #{insuredCertNo},</if>
+            <if test="insuredTel != null">insured_tel = #{insuredTel},</if>
+            <if test="insuredSex != null">insured_sex = #{insuredSex},</if>
+            <if test="insuredAge != null">insured_age = #{insuredAge},</if>
+            <if test="instituteCode != null">institute_code = #{instituteCode},</if>
+            <if test="agentId != null">agent_id = #{agentId},</if>
+            <if test="agentName != null">agent_name = #{agentName},</if>
+            <if test="serviceId != null">service_id = #{serviceId},</if>
+            <if test="serviceName != null">service_name = #{serviceName},</if>
+            <if test="content != null">content = #{content},</if>
+            <if test="calAppNo != null">cal_app_no = #{calAppNo},</if>
+            <if test="jqIsImmefc != null">jq_is_immefc = #{jqIsImmefc},</if>
+            <if test="syIsImmefc != null">sy_is_immefc = #{syIsImmefc},</if>
+            <if test="jqPlyAppNo != null">jq_ply_app_no = #{jqPlyAppNo},</if>
+            <if test="syPlyAppNo != null">sy_ply_app_no = #{syPlyAppNo},</if>
+            <if test="jqAppNo != null">jq_app_no = #{jqAppNo},</if>
+            <if test="syAppNo != null">sy_app_no = #{syAppNo},</if>
+            <if test="flag != null">flag = #{flag},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="respCode != null">resp_code = #{respCode},</if>
+            <if test="respMsg != null">resp_msg = #{respMsg},</if>
+            <if test="premium != null">premium = #{premium},</if>
+            <if test="premiumSy != null">premium_sy = #{premiumSy},</if>
+            <if test="premiumJq != null">premium_jq = #{premiumJq},</if>
+            <if test="tax != null">tax = #{tax},</if>
+            <if test="qCreateTime != null">q_create_time = #{qCreateTime},</if>
+            <if test="qUpdateTime != null">q_update_time = #{qUpdateTime},</if>
+            <if test="payAppNo != null">pay_app_no = #{payAppNo},</if>
+            <if test="expressType != null">express_type = #{expressType},</if>
+            <if test="areaCode != null">area_code = #{areaCode},</if>
+            <if test="orgId != null">org_id = #{orgId},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="templateFlag != null">template_flag = #{templateFlag},</if>
+            <if test="templateJq != null">template_jq = #{templateJq},</if>
+        </trim>
+        where q_id = #{qId}
+    </update>
+
+    <delete id="deleteTbQueryById" parameterType="Long">
+        delete from tb_query where q_id = #{qId}
+    </delete>
+
+    <delete id="deleteTbQueryByIds" parameterType="String">
+        delete from tb_query where q_id in
+        <foreach item="qId" collection="array" open="(" separator="," close=")">
+            #{qId}
+        </foreach>
+    </delete>
+</mapper>
